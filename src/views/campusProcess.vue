@@ -11,6 +11,9 @@
         <img src="../../public/img/swipe.jpg"/>
       </mt-swipe-item>
     </mt-swipe>
+    <section class="main">
+
+    </section>
   </div>
 </template>
 
@@ -30,6 +33,14 @@ export default {
       .mint-swipe-indicators{
         left: 88%;
       }
+      .mint-swipe-items-wrap{
+        img{
+          height: 4.61rem;
+        }
+      }
+    }
+    .main{
+
     }
   }
 </style>
