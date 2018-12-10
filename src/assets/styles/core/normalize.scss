@@ -1,0 +1,130 @@
+body {
+  background: #FFFFFF;
+}
+// button
+button{
+  outline: none!important;
+}
+//radio
+label.bui-radios-label input {
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
+}
+
+label.bui-radios-label .bui-radios {
+  display: inline-block;
+  position: relative;
+  width: 0.35rem;
+  height: 0.35rem;
+  background: #FFFFFF;
+  border: 0.03rem solid #E6E6E6;
+  border-radius: 50%;
+  vertical-align: -0.05rem;
+}
+
+label.bui-radios-label input:checked + .bui-radios:after {
+  position: absolute;
+  content: "";
+  width: 0.19rem;
+  height: 0.19rem;
+  background-color: #fff;
+  border-radius: 50%;
+  top: 0.08rem;
+  left: 0.08rem;
+}
+
+label.bui-radios-label input:checked + .bui-radios {
+  background: #2660F7;
+  border: 0.03rem solid #2660F7;
+}
+
+label.bui-radios-label input:disabled + .bui-radios {
+  background-color: #e8e8e8;
+  border: solid 0.03rem #979797;
+}
+
+label.bui-radios-label input:disabled:checked + .bui-radios:after {
+  background-color: #c1c1c1;
+}
+
+label.bui-radios-label.bui-radios-anim .bui-radios {
+  -webkit-transition: background-color ease-out .3s;
+  transition: background-color ease-out .3s;
+}
+//check-box
+.mui-checkbox {
+  -webkit-appearance: none;
+  position: relative;
+  width: 0.412rem;
+  height: 0.412rem;
+  background: #FFFFFF;
+  border: 0.03rem solid #E6E6E6;
+  border-radius: 50%;
+  margin-right: 0.27rem;
+  background-clip: padding-box;
+  display: inline-block;
+}
+
+.mui-checkbox:focus {
+  outline: 0 none;
+  outline-offset: -0.05rem;
+}
+
+.mui-checkbox:checked {
+  background-color: #2660F7;
+  border: solid 0.03rem #FFFFFF;
+}
+
+.mui-checkbox:checked:before {
+  display: inline-block;
+  margin-top: -0.06rem;
+  margin-left: -0.01rem;
+  font-family: iconfont;
+  content: "\e619;";
+  color: #FFFFFF;
+  font-size: 0.36rem;
+}
+
+.mui-checkbox:disabled {
+  background-color: #d9d9d9;
+  border: solid 0.03rem #d9d9d9;
+}
+
+.mui-checkbox:disabled:before {
+  display: inline-block;
+  margin-top: 0.03rem;
+  margin-left: 0.05rem;
+  font-family: iconfont;
+  content: "\e619;";
+  color: #FFFFFF;
+  font-size: 0.35rem;
+}
+
+.mui-checkbox.checkbox-green:checked {
+  background-color: #5cb85c;
+}
+
+.mui-checkbox.checkbox-orange:checked {
+  background-color: #f0ad4e;
+}
+
+.mui-checkbox.checkbox-s {
+  width: 0.51rem;
+  height: 0.51rem;
+}
+
+.mui-checkbox.checkbox-s:before {
+  display: inline-block;
+  margin-top: 0.03rem;
+  margin-left: 0.05rem;
+  font-family: iconfont;
+  content: "\e667";
+  color: #FFFFFF;
+  font-size: 0.35rem;
+}
+
+.mui-checkbox-anim {
+  -webkit-transition: background-color ease 0.2s;
+  transition: background-color ease 0.2s;
+}
