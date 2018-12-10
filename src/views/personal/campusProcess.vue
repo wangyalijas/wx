@@ -13,7 +13,9 @@
     </mt-swipe>
     <section class="main">
       <div class="main-list"
-           v-for="(item, index) in pageData" :key="index" @click="handleRouterDetails()">
+           v-for="(item, index) in pageData"
+           :key="index"
+           @click="handleRouter('campusProcessDetails', {processId: 1})">
         <div class="main-list-inner clearfix">
           <span class="main-list-inner__sign" :class="statusData[item.status]">
             {{item.status | formatStatus}}
@@ -91,14 +93,6 @@ export default {
     },
   },
   methods: {
-    handleRouterDetails() {
-      this.$router.push({
-        name: 'campusProcessDetails',
-        params: {
-          processId: 1,
-        },
-      });
-    },
   },
 };
 </script>

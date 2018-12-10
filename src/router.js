@@ -14,7 +14,7 @@ export default new Router({
     {
       path: '/',
       name: 'Job',
-      component: loadView('Job'),
+      component: loadView('job/Job'),
       meta: {
         title: '职位列表',
       },
@@ -22,7 +22,7 @@ export default new Router({
     {
       path: '/jobDetail',
       name: 'JobDetail',
-      component: loadView('JobDetail'),
+      component: loadView('job/JobDetail'),
       meta: {
         title: '职位详情',
       },
@@ -36,7 +36,7 @@ export default new Router({
       component: loadView('personal/campusProcess'),
     },
     {
-      path: '/campus-process-details/:processId',
+      path: '/campus-process-details',
       name: 'campusProcessDetails',
       meta: {
         title: '校园行程',

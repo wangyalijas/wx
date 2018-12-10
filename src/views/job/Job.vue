@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import wxSelect from '../components/select/index.vue';
+import wxSelect from '../../components/select/index.vue';
 
 export default {
   name: 'Job',
