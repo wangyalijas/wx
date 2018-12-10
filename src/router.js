@@ -13,10 +13,18 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: loadView('home/index'),
+      name: 'Job',
+      component: loadView('Job'),
       meta: {
         title: '职位列表',
+      },
+    },
+    {
+      path: '/jobDetail',
+      name: 'JobDetail',
+      component: loadView('JobDetail'),
+      meta: {
+        title: '职位详情',
       },
     },
     {
