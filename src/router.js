@@ -25,7 +25,31 @@ export default new Router({
       meta: {
         title: '校园行程',
       },
-      component: loadView('campusProcess'),
+      component: loadView('personal/campusProcess'),
+    },
+    {
+      path: '/campus-process-details/:processId',
+      name: 'campusProcessDetails',
+      meta: {
+        title: '校园行程',
+      },
+      component: loadView('personal/campusProcessDetails'),
+    },
+    {
+      path: '/deliver-resume',
+      name: 'deliverResume',
+      meta: {
+        title: '投递简历',
+      },
+      component: loadView('personal/deliverResume'),
+    },
+    {
+      path: '/personal-center',
+      name: 'personalCenter',
+      meta: {
+        title: '个人中心',
+      },
+      component: loadView('personal/personalCenter'),
     },
   ],
 });

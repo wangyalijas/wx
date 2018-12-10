@@ -5,9 +5,11 @@ import { Select } from 'element-ui';
 import App from './App.vue';
 import router from './router';
 import store from './store';
+import RouterMixin from './mixins/router';
 
 Vue.use(Mint);
 Vue.use(Select);
+Vue.mixin(RouterMixin);
 Vue.config.productionTip = false;
 
 router.beforeEach((to, from, next) => {
