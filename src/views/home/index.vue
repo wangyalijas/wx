@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+  dasda
   </div>
 </template>
 

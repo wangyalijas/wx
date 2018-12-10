@@ -14,7 +14,10 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: loadView('Home'),
+      component: loadView('home/index'),
+      meta: {
+        title: '职位列表',
+      },
     },
     {
       path: '/campus-process',
