@@ -1,6 +1,8 @@
 <template>
   <div class="home">
-  dasda
+    <div class="home__select">12312
+      <div class="home__select--m">dasda</div>
+    </div>
   </div>
 </template>
 
@@ -13,8 +15,14 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
   .home {
-    font-size: 0.53rem;
+    background: pink;
+    @include e(select) {
+     font-size: 0.80rem;
+     @include m(m) {
+      font-size: 1.07rem;
+     }
+    }
   }
 </style>
