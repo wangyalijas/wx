@@ -12,3 +12,9 @@ export default {
   },
 };
 </script>
+
+<style>
+  .home {
+    font-size: 0.53rem;
+  }
+</style>
