@@ -16,5 +16,13 @@ export default new Router({
       name: 'home',
       component: loadView('Home'),
     },
+    {
+      path: '/campus-process',
+      name: 'campusProcess',
+      meta: {
+        title: '校园行程',
+      },
+      component: loadView('campusProcess'),
+    },
   ],
 });
