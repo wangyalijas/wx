@@ -55,6 +55,18 @@ export default {
         statusId: 0,
         viewId: 1,
         sign: ['呼和浩特', '技术类'],
+      }, {
+        name: 'JS-01软件开发工程师',
+        time: '2018-11-03',
+        statusId: 1,
+        viewId: 1,
+        sign: ['呼和浩特', '技术类'],
+      }, {
+        name: 'JS-01软件开发工程师',
+        time: '2018-11-03',
+        statusId: 0,
+        viewId: 1,
+        sign: ['呼和浩特', '技术类'],
       }],
     };
   },

@@ -1,6 +1,6 @@
 <template>
   <div class="post-records">
-    <job-list :rightSwiper="rightSwiper"></job-list>
+    <job-list :rightSwiper="rightSwiper" class="main-page"></job-list>
     <div class="footer">
       <span class="footer-value">寻找适合我的职位</span>
     </div>
@@ -34,6 +34,9 @@ export default {
 <style lang="scss">
   .post-records{
     position: relative;
+    .main-page{
+      margin-bottom: 1.33rem;
+    }
     .footer{
       position: fixed;
       bottom: 0;

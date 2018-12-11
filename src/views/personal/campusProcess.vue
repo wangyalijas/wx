@@ -60,6 +60,26 @@ export default {
         time: '2018-10-19',
         site: '南区科技馆2层',
         status: 3,
+      }, {
+        title: '徐州大学宣讲会',
+        time: '2018-10-19',
+        site: '南区科技馆2层',
+        status: 2,
+      }, {
+        title: '徐州大学宣讲会',
+        time: '2018-10-19',
+        site: '南区科技馆2层',
+        status: 3,
+      }, {
+        title: '徐州大学宣讲会',
+        time: '2018-10-19',
+        site: '南区科技馆2层',
+        status: 2,
+      }, {
+        title: '徐州大学宣讲会',
+        time: '2018-10-19',
+        site: '南区科技馆2层',
+        status: 3,
       }],
       tabData: [{
         name: '校园行程',
@@ -111,6 +131,7 @@ export default {
       }
     }
     .main{
+      margin-bottom: 1.33rem;
       .main-list{
         margin: 0.27rem 0 0 0;
         height: 2.75rem;
