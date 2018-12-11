@@ -252,7 +252,8 @@ export default {
       });
     },
     handleTop() {
-      this.$refs.deliverResume.scrollTop = 0;
+      console.log(this.$refs.deliverResume.scrollTop);
+      // this.$refs.deliverResume.scrollTop = 0;
     },
     loadTop(id) {
       console.log(id);
@@ -278,8 +279,13 @@ export default {
         height: 1.33rem;
         background: #ffffff;
         .header-select{
-          display: inline-block;
+          display: inline-flex;
           width: 2.67rem;
+          .select{
+            .select__header{
+              min-width: 2.67rem;
+            }
+          }
         }
         .header-top{
           position: absolute;
