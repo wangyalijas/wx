@@ -102,7 +102,7 @@ export default {
         display: block;
         padding: 0.53rem 0 0.53rem 0.53rem;
         .mint-cell-title{
-          border: none;
+          border-top: 1px solid transparent;
           margin-bottom: 0.40rem;
           .mint-cell-text{
             font-size: 0.43rem;
