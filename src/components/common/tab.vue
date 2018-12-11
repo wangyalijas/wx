@@ -42,12 +42,16 @@ export default {
       font-size: 16px;
       @include e(name){
         padding: 0 0.80rem;
+        text-align: center;
         color: #666666;
         line-height: 1.33rem;
         border-right: 1px solid #ECECEC;
         &.active{
           color: #4982E2;
         }
+      }
+      &:last-child .tab-bar__name{
+        border-width: 0;
       }
     }
   }

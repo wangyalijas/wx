@@ -33,11 +33,13 @@
         </div>
       </template>
     </div>
+    <tab :tabData="tabData"></tab>
   </div>
 </template>
 
 <script>
 import wxSelect from '../../components/select/index.vue';
+import Tab from '@/components/common/tab';
 
 export default {
   name: 'Job',
@@ -174,6 +176,15 @@ export default {
           time: '2018-11-03',
         },
       ],
+      tabData: [
+        {
+          name: '招聘职位',
+          route: 'Job',
+        }, {
+          name: '我的',
+          route: 'deliverResume',
+        },
+      ],
     };
   },
   computed: {
@@ -195,6 +206,7 @@ export default {
   },
   components: {
     wxSelect,
+    Tab,
   },
 };
 </script>
@@ -213,6 +225,11 @@ export default {
   }
   .mintui-search {
     font-size: 0.37rem;
+  }
+}
+.home {
+  /deep/ .tab .tab-bar__name {
+    padding: 0 1.85rem;
   }
 }
 </style>
