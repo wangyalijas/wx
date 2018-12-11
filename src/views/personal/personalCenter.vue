@@ -4,7 +4,7 @@
       <img src="../../../public/img/swipe.jpg"/>
     </div>
     <div class="main-deliver">
-      <mt-cell title="职位收藏" is-link>
+      <mt-cell title="职位收藏" is-link href="/job-collection">
         <i class="iconfont icon-collect" slot="icon"></i>
       </mt-cell>
       <mt-cell title="投递记录" is-link>
