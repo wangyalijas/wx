@@ -40,8 +40,8 @@
       </div>
     </div>
     <div class="job-detail__tab">
-      <div class="job-detail__tab--item"><i class="iconfont"></i>收藏</div>
-      <div class="job-detail__tab--item">投递岗位</div>
+      <div class="job-detail__tab--item"><i class="iconfont icon-collect"></i>收藏</div>
+      <div class="job-detail__tab--item" @click="handleRouter('JobResume')">投递岗位</div>
     </div>
   </div>
 </template>
@@ -53,6 +53,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .iconfont{
+    display: inline-block;
+    margin-right: 0.27rem;
+    &.icon-collect{
+      color: #5E90E5;
+    }
+  }
   .job-detail {
     background: #FFFFFF;
     @include e(title) {
@@ -154,11 +161,16 @@ export default {
         &:nth-child(1) {
           width: 3.60rem;
           height: 1.33rem;
+          line-height: 1.33rem;
           background: #FFFFFF;
+          text-align: center;
         }
         &:nth-child(2) {
           background: #6EA4FF;
+          height: 1.33rem;
           width: 6.40rem;
+          text-align: center;
+          line-height: 1.33rem;
         }
       }
     }
