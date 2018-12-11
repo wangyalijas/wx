@@ -125,7 +125,7 @@ export default {
       }
     }
     @include e(main) {
-    padding: 0.67rem 0.80rem;
+      padding: 0.67rem 0.80rem;
       @include m(item) {
         margin-bottom: 0.80rem;
         @include e(title) {
@@ -146,17 +146,20 @@ export default {
       bottom: 0;
       right: 0;
       left: 0;
-      height: 1.33rem;
       box-shadow: 0 -2px 4px 0 rgba(212,212,212,0.30);
+      text-align: center;
       @include m(item) {
         display: inline-block;
         font-size: 0.43rem;
+        line-height: 1.33rem;
         &:nth-child(1) {
           width: 3.60rem;
           height: 1.33rem;
           background: #FFFFFF;
         }
         &:nth-child(2) {
+          color: #ffffff;
+          height: 1.33rem;
           background: #6EA4FF;
           width: 6.40rem;
         }

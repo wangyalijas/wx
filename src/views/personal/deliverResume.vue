@@ -1,64 +1,56 @@
 <template>
   <div class="deliver-resume">
-    <mt-swipe :auto="4000">
-      <mt-swipe-item>
-        <img src="../../../public/img/swipe.jpg"/>
-      </mt-swipe-item>
-      <mt-swipe-item>
-        <img src="../../../public/img/swipe.jpg"/>
-      </mt-swipe-item>
-      <mt-swipe-item>
-        <img src="../../../public/img/swipe.jpg"/>
-      </mt-swipe-item>
-    </mt-swipe>
-    <section class="main">
-      <div class="main-list"
-           v-for="(item, index) in pageData" :key="index">
-        <div class="main-list-inner clearfix">
-          <span class="main-list-inner__sign" :class="statusData[item.status]">
-            {{item.status | formatStatus}}
-          </span>
-          <span class="main-list-inner__left"></span>
-          <div class="main-list-inner__right">
-            <span class="main-list-inner__right--title">{{item.title}}</span>
-            <span class="main-list-inner__right--time">时间：{{item.time}}</span>
-            <span class="main-list-inner__right--site">地点：{{item.site}}</span>
-          </div>
-        </div>
+    <header class="header">
+      <span class="header-top">回顶部</span>
+      <div class="header-select">
+        <wx-select title="全部城市" :options="options"></wx-select>
       </div>
-    </section>
+      <div class="header-select">
+        <wx-select title="全部类别" :options="options"></wx-select>
+      </div>
+      <div class="header-select">
+        <wx-select title="全部学历" :options="options"></wx-select>
+      </div>
+    </header>
+    <div class="main">
+      <div class="search">
+        <mt-search
+          v-model="searchValue"
+          cancel-text="取消"
+          placeholder="搜索职位">
+        </mt-search>
+      </div>
+      <div class="list">
+        <template v-for="(item, index1) in data">
+          <div :key="index1" class="list--item" @click="handleRouter('JobDetail')">
+            <div class="list--item--inner">
+              <div class="list--item--inner__title">{{item.title}}</div>
+              <div class="list--item--inner__time">{{item.time}}</div>
+              <ul class="list--item--inner__label clearfix">
+                <li
+                  v-for="(label, index2) in item.labels"
+                  :key="index2"
+                  class="list--item--inner__label--item">{{label.name}}</li>
+              </ul>
+            </div>
+          </div>
+        </template>
+      </div>
+    </div>
     <tab :tabData="tabData"></tab>
   </div>
 </template>
 
 <script>
 import Tab from '@/components/common/tab';
+import WxSelect from '@/components/select/index';
 
 export default {
   name: 'deliverResume',
   data() {
     return {
-      statusData: {
-        1: 'notStart',
-        2: 'progress',
-        3: 'ending',
-      },
-      pageData: [{
-        title: '徐州大学宣讲会',
-        time: '2018-10-19',
-        site: '南区科技馆2层',
-        status: 1,
-      }, {
-        title: '徐州大学宣讲会',
-        time: '2018-10-19',
-        site: '南区科技馆2层',
-        status: 2,
-      }, {
-        title: '徐州大学宣讲会',
-        time: '2018-10-19',
-        site: '南区科技馆2层',
-        status: 3,
-      }],
+      searchValue: '',
+      options: ['全部', '技术类', '全部', '技术类'],
       tabData: [{
         name: '校园行程',
         route: 'campusProcess',
@@ -69,103 +61,224 @@ export default {
         name: '个人中心',
         route: 'personalCenter',
       }],
+      data: [
+        {
+          title: 'JS-01软件开发工程师',
+          labels: [
+            {
+              name: '呼和浩特',
+              status: 0,
+            },
+            {
+              name: '5-10年',
+              status: 1,
+            },
+            {
+              name: '博士及以上',
+              status: 2,
+            },
+          ],
+          time: '2018-11-03',
+        },
+        {
+          title: 'JS-01软件开发工程师',
+          labels: [
+            {
+              name: '呼和浩特',
+              status: 0,
+            },
+            {
+              name: '5-10年',
+              status: 1,
+            },
+            {
+              name: '博士及以上',
+              status: 2,
+            },
+          ],
+          time: '2018-11-03',
+        },
+        {
+          title: 'JS-01软件开发工程师',
+          labels: [
+            {
+              name: '呼和浩特',
+              status: 0,
+            },
+            {
+              name: '5-10年',
+              status: 1,
+            },
+            {
+              name: '博士及以上',
+              status: 2,
+            },
+          ],
+          time: '2018-11-03',
+        },
+        {
+          title: 'JS-01软件开发工程师',
+          labels: [
+            {
+              name: '呼和浩特',
+              status: 0,
+            },
+            {
+              name: '5-10年',
+              status: 1,
+            },
+            {
+              name: '博士及以上',
+              status: 2,
+            },
+          ],
+          time: '2018-11-03',
+        },
+        {
+          title: 'JS-01软件开发工程师',
+          labels: [
+            {
+              name: '呼和浩特',
+              status: 0,
+            },
+            {
+              name: '5-10年',
+              status: 1,
+            },
+            {
+              name: '博士及以上',
+              status: 2,
+            },
+          ],
+          time: '2018-11-03',
+        },
+        {
+          title: 'JS-01软件开发工程师',
+          labels: [
+            {
+              name: '呼和浩特',
+              status: 0,
+            },
+            {
+              name: '5-10年',
+              status: 1,
+            },
+            {
+              name: '博士及以上',
+              status: 2,
+            },
+          ],
+          time: '2018-11-03',
+        },
+        {
+          title: 'JS-01软件开发工程师',
+          labels: [
+            {
+              name: '呼和浩特',
+              status: 0,
+            },
+            {
+              name: '5-10年',
+              status: 1,
+            },
+            {
+              name: '博士及以上',
+              status: 2,
+            },
+          ],
+          time: '2018-11-03',
+        },
+      ],
     };
   },
   computed: {
   },
   components: {
+    WxSelect,
     Tab,
   },
   filters: {
-    formatStatus: (value) => {
-      if (value === 1) {
-        return '未开始';
-      }
-      if (value === 2) {
-        return '进行中';
-      }
-      if (value === 3) {
-        return '已结束';
-      }
-      return true;
-    },
+  },
+  methods: {
   },
 };
 </script>
 <style lang="scss">
   .deliver-resume{
     position: relative;
-    .mint-swipe{
-      height: 4.61rem;
-      .mint-swipe-indicators{
-        left: 88%;
+    .header{
+      position: fixed;
+      top: 0;
+      box-shadow: 0 0.05rem 0.11rem 0 rgba(231,225,225,0.30);
+      z-index: 100;
+      width: 10.00rem;
+      height: 1.33rem;
+      background: #ffffff;
+      .header-select{
+        display: inline-block;
+        width: 2.67rem;
       }
-      .mint-swipe-items-wrap{
-        img{
-          height: 4.61rem;
-        }
+      .header-top{
+        position: absolute;
+        right: 0.53rem;
+        top: 0.35rem;
+        font-size: 0.35rem;
+        color: #4982E2;
       }
     }
     .main{
-      .main-list{
-        margin: 0.27rem 0 0 0;
-        height: 2.75rem;
-        background: #FFFFFF;
-        box-shadow: 0 0.05rem 0.16rem 0 rgba(223,237,241,0.30);
-        .main-list-inner{
-          padding: 0.40rem 0 0.40rem 0.80rem;
-          position: relative;
-          @include e(sign){
-            position: absolute;
-            right: 1rem;
-            font-size: 0.32rem;
-            border-radius: 0.05rem;
-            padding: 0.05rem 0.24rem;
-            &.notStart{
-              color: #F29B2C;
-              background: #F9F5ED;
-              border: 0.03rem solid #EFDAC1;
-            }
-            &.progress{
-              background: #EDF9F9;
-              border: 0.03rem solid #C1EFE8;
-              color: #1DB7AE;
-            }
-            &.ending{
-              background: #F0F0F0;
-              border: 0.03rem solid #D0D0D0;
-              color: #B2B2B2;
-            }
+      padding-top: 1.33rem;
+      .search{
+        height: 1.39rem;
+        .mint-search {
+          height: auto!important;
+        }
+        .mint-searchbar {
+          background: #F7F7F7;
+        }
+        .mint-searchbar-inner {
+          border-radius: 0.11rem;
+          .mintui-search {
+            margin-right: 0.27rem;
           }
-          @include e(left){
-            float: left;
-            width: 1.95rem;
-            height: 1.95rem;
-            background: #f8f8f8;
+          .mintui-search {
+            font-size: 0.37rem;
           }
-          @include e(right){
-            float: left;
-            margin-left: 0.40rem;
-            text-align: left;
-            font-size: 0.35rem;
-            color: #999999;
-            @include m(title){
-              display: block;
+        }
+      }
+      .list{
+        background: #F7F7F7;
+        @include m(item) {
+          height: 2.40rem;
+          background: #ffffff;
+          margin-bottom: 0.27rem;
+          @include modifier(inner){
+            position: relative;
+            padding: 0.40rem 0.53rem;
+            @include e(title) {
               font-weight: 700;
               font-size: 0.43rem;
               color: #333333;
-              margin-bottom: 0.27rem;
-              width: 4.00rem;
-              overflow:hidden;
-              text-overflow:ellipsis;
-              white-space:nowrap
+              margin-bottom: 0.40rem;
             }
-            @include m(time){
-              display: block;
-              margin-bottom: 0.13rem;
+            @include e(time) {
+              position: absolute;
+              top: 0.40rem;
+              right: 0.53rem;
+              font-size: 0.35rem;
+              color: #999999;
             }
-            @include m(site){
-              display: block;
+            @include e(label) {
+              @include m(item) {
+                float: left;
+                padding: 0.03rem 0.24rem;
+                border-radius: 2px;
+                margin-right: 0.27rem;
+                background: #E8F5FF;
+                border: 1px solid #BFE6FF;
+                font-size: 13px;
+                color: #6CC3FB;
+              }
             }
           }
         }

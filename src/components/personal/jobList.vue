@@ -12,7 +12,9 @@
       </div>
       <div class="value-info">
         <span class="value-info__time">{{item.time}}</span>
-        <span class="value-info__status">{{item.status}}</span>
+        <span class="value-info__status"
+              :class="{active: item.viewId === 1}">
+          {{item.viewId === 1 ? '已被查阅' : '未被查阅'}}</span>
       </div>
       <div class="value-label">
           <span class="value-label__name"
@@ -33,25 +35,25 @@ export default {
         name: 'JS-01软件开发工程师',
         time: '2018-11-03',
         statusId: 1,
-        status: '已被查阅',
+        viewId: 1,
         sign: ['呼和浩特', '技术类'],
       }, {
         name: 'JS-01软件开发工程师',
         time: '2018-11-03',
         statusId: 0,
-        status: '已被查阅',
+        viewId: 0,
         sign: ['呼和浩特', '技术类'],
       }, {
         name: 'JS-01软件开发工程师',
         time: '2018-11-03',
         statusId: 1,
-        status: '已被查阅',
+        viewId: 1,
         sign: ['呼和浩特', '技术类'],
       }, {
         name: 'JS-01软件开发工程师',
         time: '2018-11-03',
         statusId: 0,
-        status: '已被查阅',
+        viewId: 1,
         sign: ['呼和浩特', '技术类'],
       }],
     };
@@ -131,7 +133,10 @@ export default {
             }
             @include e(status){
               font-size: 0.37rem;
-              color: #6EA4FF;
+              color: #E55F5F;
+              &.active{
+                color: #6EA4FF;
+              }
             }
           }
           .value-label{
