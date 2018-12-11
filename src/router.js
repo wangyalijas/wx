@@ -91,5 +91,13 @@ export default new Router({
       },
       component: loadView('personal/postRecords'),
     },
+    {
+      path: '/group-activity',
+      name: 'groupActivity',
+      meta: {
+        title: '卫宁健康',
+      },
+      component: loadView('groupActivity/home'),
+    },
   ],
 });
