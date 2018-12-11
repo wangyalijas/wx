@@ -95,14 +95,15 @@ export default {
 </script>
 <style lang="scss">
   .main-cell-swiper{
+    text-decoration: none;
     padding-top: 0.40rem;
     .mint-cell-swipe{
       margin-bottom: 0.27rem;
       .mint-cell-wrapper{
         display: block;
-        padding: 0.53rem 0 0.53rem 0.53rem;
+        padding: 0 0 0.53rem 0.53rem;
         .mint-cell-title{
-          border-top: 1px solid transparent;
+          padding-top: 0.53rem;
           margin-bottom: 0.40rem;
           .mint-cell-text{
             font-size: 0.43rem;
