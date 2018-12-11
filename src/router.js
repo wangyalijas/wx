@@ -67,5 +67,13 @@ export default new Router({
       },
       component: loadView('personal/personalCenter'),
     },
+    {
+      path: '/job-collection',
+      name: 'jobCollection',
+      meta: {
+        title: '职位收藏',
+      },
+      component: loadView('personal/jobCollection'),
+    },
   ],
 });
