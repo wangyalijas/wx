@@ -20,11 +20,19 @@ export default new Router({
       },
     },
     {
-      path: '/jobDetail',
+      path: '/job-detail',
       name: 'JobDetail',
       component: loadView('job/JobDetail'),
       meta: {
         title: '职位详情',
+      },
+    },
+    {
+      path: '/job-resume',
+      name: 'JobResume',
+      component: loadView('job/JobResume'),
+      meta: {
+        title: '个人简历',
       },
     },
     {
