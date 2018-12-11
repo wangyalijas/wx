@@ -229,7 +229,7 @@ export default {
 }
 .home {
   /deep/ .tab .tab-bar__name {
-    padding: 0 1.85rem;
+    padding: 0 1.847rem;
   }
 }
 </style>

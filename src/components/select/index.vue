@@ -6,7 +6,7 @@
     </div>
     <ul class="select__content" :class="{'open': isOpen}">
       <template v-for="(item, index) in options">
-        <li :key="index" class="select__content--option">{{item}}</li>
+        <li :key="index" class="select__content--option" @click="handleEmit(item)">{{item}}</li>
       </template>
     </ul>
   </div>
@@ -28,6 +28,9 @@ export default {
     toggle() {
       this.isOpen = !this.isOpen;
     },
+    handleEmit(item) {
+      this.emit('click', item);
+    },
   },
 };
 </script>
@@ -42,6 +45,7 @@ export default {
       font-size: 0.37rem;
       color: #666666;
       background: #ffffff;
+      text-indent: 0.53rem;
       @include m(title) {
       }
       @include m(arrow) {
@@ -68,6 +72,7 @@ export default {
       }
       @include m(option) {
         line-height: 0.6rem;
+        text-indent: 0.53rem;
       }
     }
   }
