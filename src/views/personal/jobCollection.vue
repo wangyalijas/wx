@@ -87,9 +87,9 @@ export default {
         margin-bottom: 0.27rem;
         .mint-cell-wrapper{
           display: block;
-          border: none;
           padding: 0.53rem 0 0.53rem 0.53rem;
           .mint-cell-title{
+            border: none;
             margin-bottom: 0.40rem;
             .mint-cell-text{
               font-size: 0.43rem;
