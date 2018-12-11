@@ -7,7 +7,7 @@
       <mt-cell title="职位收藏" is-link href="/job-collection">
         <i class="iconfont icon-collect" slot="icon"></i>
       </mt-cell>
-      <mt-cell title="投递记录" is-link>
+      <mt-cell title="投递记录" is-link href="/post-records">
         <i class="iconfont icon-deliver" slot="icon"></i>
       </mt-cell>
     </div>
@@ -49,6 +49,9 @@ export default {
 };
 </script>
 <style lang="scss">
+  a:link{
+    background: #ffffff;
+  }
   .personal-center{
     position: relative;
     .header{

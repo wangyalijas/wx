@@ -75,5 +75,13 @@ export default new Router({
       },
       component: loadView('personal/jobCollection'),
     },
+    {
+      path: '/post-records',
+      name: 'postRecords',
+      meta: {
+        title: '投递记录',
+      },
+      component: loadView('personal/postRecords'),
+    },
   ],
 });
