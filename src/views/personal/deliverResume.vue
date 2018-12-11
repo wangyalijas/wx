@@ -21,7 +21,7 @@
         </mt-search>
       </div>
     </div>
-    <div class="list" ref="deliverResume"
+    <div class="list"
          v-infinite-scroll="loadMore"
          infinite-scroll-disabled="loading"
          infinite-scroll-distance="10">
@@ -252,15 +252,7 @@ export default {
       });
     },
     handleTop() {
-      console.log(this.$refs.deliverResume.scrollTop);
-      // this.$refs.deliverResume.scrollTop = 0;
-    },
-    loadTop(id) {
-      console.log(id);
-    },
-    loadBottom(id) {
-      this.allLoaded = true;// 若数据已全部获取完毕
-      console.log(id);
+      window.scroll(0, 0);
     },
   },
 };
