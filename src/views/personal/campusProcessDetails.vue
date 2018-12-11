@@ -157,6 +157,7 @@ export default {
       height: 1.33rem;
       background: #6EA4FF;
       box-shadow: 0 -2px 6px 0 rgba(212,212,212,0.30);
+      text-align: center;
       .footer-value{
         font-size: 0.43rem;
         color: #FFFFFF;
