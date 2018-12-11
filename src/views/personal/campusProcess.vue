@@ -15,7 +15,7 @@
       <div class="main-list"
            v-for="(item, index) in pageData"
            :key="index"
-           @click="handleRouter('campusProcessDetails', {processId: 1})">
+           @click="handleRouter('campusProcessDetails', {processId: item.status})">
         <div class="main-list-inner clearfix">
           <span class="main-list-inner__sign" :class="statusData[item.status]">
             {{item.status | formatStatus}}

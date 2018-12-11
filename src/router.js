@@ -44,6 +44,14 @@ export default new Router({
       component: loadView('personal/campusProcessDetails'),
     },
     {
+      path: '/campus-register',
+      name: 'campusRegister',
+      meta: {
+        title: '报名信息',
+      },
+      component: loadView('personal/campusRegister'),
+    },
+    {
       path: '/deliver-resume',
       name: 'deliverResume',
       meta: {

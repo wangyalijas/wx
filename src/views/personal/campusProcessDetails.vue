@@ -1,6 +1,7 @@
 <template>
   <div class="campus-process-details">
     <main class="main">
+      <span class="main-sign" :class="statusData[$route.query.processId]">{{statusName}}</span>
       <div class="main-title">徐州大学宣讲会</div>
       <div class="main-info">
         <span class="main-info__item"
@@ -23,6 +24,10 @@
         </div>
       </div>
     </main>
+    <div class="footer" v-if="$route.query.processId === 1"
+         @click="handleRouter('campusRegister', {campusId: 1})">
+      <span class="footer-value">我要报名</span>
+    </div>
   </div>
 </template>
 
@@ -31,6 +36,11 @@ export default {
   name: 'campusProcessDetails',
   data() {
     return {
+      statusData: {
+        1: 'notStart',
+        2: 'progress',
+        3: 'ending',
+      },
       infoItemData: [{
         value: '精彩的在线宣讲会将继续与大家见面。',
       }, {
@@ -45,10 +55,29 @@ export default {
     };
   },
   computed: {
+    statusName() {
+      const processId = Number(this.$route.query.processId);
+      if (processId === 1) {
+        return '未开始';
+      }
+      if (processId === 2) {
+        return '进行中';
+      }
+      if (processId === 3) {
+        return '已结束';
+      }
+      return true;
+    },
   },
   components: {
   },
   filters: {
+  },
+  created() {
+    this.$nextTick(() => {
+    });
+  },
+  methods: {
   },
 };
 </script>
@@ -57,8 +86,31 @@ export default {
     position: relative;
     background: #ffffff;
     .main{
-      padding: 0.53rem 0.53rem 0 0.53rem;
+      position: relative;
+      padding: 0.53rem 0.53rem 3.79rem 0.53rem;
       text-align: left;
+      .main-sign{
+        position: absolute;
+        right: 2.53rem;
+        font-size: 12px;
+        border-radius: 2px;
+        padding: 0.05rem 0.24rem;
+        &.notStart{
+          color: #F29B2C;
+          background: #F9F5ED;
+          border: 1px solid #EFDAC1;
+        }
+        &.progress{
+          background: #EDF9F9;
+          border: 1px solid #C1EFE8;
+          color: #1DB7AE;
+        }
+        &.ending{
+          background: #F0F0F0;
+          border: 1px solid #D0D0D0;
+          color: #B2B2B2;
+        }
+      }
       .main-title{
         margin: 0 0 0.53rem 0;
         font-size: 16px;
@@ -96,6 +148,19 @@ export default {
             margin-left: 2.27rem;
           }
         }
+      }
+    }
+    .footer{
+      position: fixed;
+      bottom: 0;
+      width: 10.00rem;
+      height: 1.33rem;
+      background: #6EA4FF;
+      box-shadow: 0 -2px 6px 0 rgba(212,212,212,0.30);
+      .footer-value{
+        font-size: 16px;
+        color: #FFFFFF;
+        line-height: 1.33rem;
       }
     }
   }
