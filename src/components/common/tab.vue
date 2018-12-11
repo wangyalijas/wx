@@ -36,22 +36,22 @@ export default {
     bottom: 0;
     height: 1.33rem;
     background: #FFFFFF;
-    box-shadow: 0 -2px 4px 0 rgba(231,225,225,0.30);
+    box-shadow: 0 -0.05rem 0.11rem 0 rgba(231,225,225,0.30);
     .tab-bar{
       display: inline-block;
-      font-size: 16px;
+      font-size: 0.43rem;
       @include e(name){
-        padding: 0 0.80rem;
+        padding: 0 0.79rem;
         text-align: center;
         color: #666666;
         line-height: 1.33rem;
-        border-right: 1px solid #ECECEC;
+        border-right: 0.03rem solid #ECECEC;
         &.active{
           color: #4982E2;
         }
       }
       &:last-child .tab-bar__name{
-        border-width: 0;
+        border-right-width: 0;
       }
     }
   }

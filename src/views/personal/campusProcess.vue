@@ -115,29 +115,29 @@ export default {
         margin: 0.27rem 0 0 0;
         height: 2.75rem;
         background: #FFFFFF;
-        box-shadow: 0 2px 6px 0 rgba(223,237,241,0.30);
+        box-shadow: 0 0.05rem 0.16rem 0 rgba(223,237,241,0.30);
         .main-list-inner{
           padding: 0.40rem 0 0.40rem 0.80rem;
           position: relative;
           @include e(sign){
             position: absolute;
             right: 1rem;
-            font-size: 12px;
-            border-radius: 2px;
+            font-size: 0.32rem;
+            border-radius: 0.05rem;
             padding: 0.05rem 0.24rem;
             &.notStart{
               color: #F29B2C;
               background: #F9F5ED;
-              border: 1px solid #EFDAC1;
+              border: 0.03rem solid #EFDAC1;
             }
             &.progress{
               background: #EDF9F9;
-              border: 1px solid #C1EFE8;
+              border: 0.03rem solid #C1EFE8;
               color: #1DB7AE;
             }
             &.ending{
               background: #F0F0F0;
-              border: 1px solid #D0D0D0;
+              border: 0.03rem solid #D0D0D0;
               color: #B2B2B2;
             }
           }
@@ -151,12 +151,12 @@ export default {
             float: left;
             margin-left: 0.40rem;
             text-align: left;
-            font-size: 13px;
+            font-size: 0.35rem;
             color: #999999;
             @include m(title){
               display: block;
               font-weight: 700;
-              font-size: 16px;
+              font-size: 0.43rem;
               color: #333333;
               margin-bottom: 0.27rem;
               width: 150px;

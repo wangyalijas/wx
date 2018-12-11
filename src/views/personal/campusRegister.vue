@@ -37,7 +37,7 @@ export default {
       padding: 0.53rem 0.53rem 7.20rem 0.53rem;
       .mint-cell{
         .mint-cell-wrapper{
-          border-bottom: 1px solid #F5F5F5;
+          border-bottom: 0.03rem solid #F5F5F5;
           .mint-cell-title{
             text-align: left;
           }
@@ -54,9 +54,9 @@ export default {
       width: 10.00rem;
       height: 1.33rem;
       background: #6EA4FF;
-      box-shadow: 0 -2px 6px 0 rgba(212,212,212,0.30);
+      box-shadow: 0 -0.05rem 0.16rem 0 rgba(212,212,212,0.30);
       .footer-value{
-        font-size: 16px;
+        font-size: 0.43rem;
         color: #FFFFFF;
         line-height: 1.33rem;
       }

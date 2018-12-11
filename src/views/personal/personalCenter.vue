@@ -12,8 +12,8 @@
       </mt-cell>
     </div>
     <div class="main-resume">
-      <mt-cell title="职位收藏" is-link>
-        <i class="iconfont icon-collect" slot="icon"></i>
+      <mt-cell title="我的简历" is-link>
+        <i class="iconfont icon-resume" slot="icon"></i>
       </mt-cell>
     </div>
     <tab :tabData="tabData"></tab>
@@ -61,7 +61,7 @@ export default {
         min-height: 1.12rem;
         .mint-cell-wrapper{
           padding: 0 0.40rem 0 0.48rem;
-          border-bottom: 1px solid #F6F6F6;
+          border-bottom: 0.03rem solid #F6F6F6;
           .mint-cell-title{
             .iconfont{
               display: inline-block;
@@ -74,13 +74,34 @@ export default {
               }
             }
             .mint-cell-text{
-              font-size: 16px;
+              font-size: 0.43rem;
               color: #666666;
             }
           }
         }
       }
     }
-    .main-resume{}
+    .main-resume{
+      margin-top: 0.40rem;
+      .mint-cell{
+        min-height: 1.12rem;
+        .mint-cell-wrapper{
+          padding: 0 0.40rem 0 0.48rem;
+          .mint-cell-title{
+            .iconfont{
+              display: inline-block;
+              margin-right: 0.27rem;
+              &.icon-resume{
+                color: #6fa2f7;
+              }
+            }
+            .mint-cell-text{
+              font-size: 0.43rem;
+              color: #666666;
+            }
+          }
+        }
+      }
+    }
   }
 </style>

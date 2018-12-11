@@ -92,7 +92,7 @@ export default {
       .main-sign{
         position: absolute;
         right: 2.53rem;
-        font-size: 12px;
+        font-size: 0.32rem;
         border-radius: 2px;
         padding: 0.05rem 0.24rem;
         &.notStart{
@@ -113,26 +113,26 @@ export default {
       }
       .main-title{
         margin: 0 0 0.53rem 0;
-        font-size: 16px;
+        font-size: 0.43rem;
         color: #333333;
         font-weight: 700;
       }
       .main-info{
-        font-size: 13px;
+        font-size: 0.35rem;
         color: #666666;
-        line-height: 28px;
+        line-height: 0.75rem;
         @include e(item){
           display: block;
         }
       }
       .main-plan{
         margin: 0.80rem 0 0.27rem 0;
-        font-size: 14px;
+        font-size: 0.37rem;
         color: #333333;
         font-weight: 700;
       }
       .main-time{
-        font-size: 13px;
+        font-size: 0.35rem;
         color: #666666;
         .main-time-inner{
           position: relative;
@@ -158,7 +158,7 @@ export default {
       background: #6EA4FF;
       box-shadow: 0 -2px 6px 0 rgba(212,212,212,0.30);
       .footer-value{
-        font-size: 16px;
+        font-size: 0.43rem;
         color: #FFFFFF;
         line-height: 1.33rem;
       }
