@@ -1,6 +1,6 @@
 <template>
   <div class="job-collection">
-    <job-list :rightSwiper="rightSwiper"></job-list>
+    <job-list :rightSwiper="rightSwiper" @handle-click="handleClose"></job-list>
   </div>
 </template>
 
@@ -25,6 +25,23 @@ export default {
   filters: {
   },
   methods: {
+    handleClose(msg) {
+      this.$messagebox.confirm(`确定取消关注${msg}？`, {
+        title: '提示',
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+      }).then((action) => {
+        if (action === 'confirm') {
+          // 确认的回调
+          this.$toast('取消关注成功');
+        }
+      }).catch((err) => {
+        if (err === 'cancel') {
+          // 取消的回调
+          console.log(2);
+        }
+      });
+    },
   },
 };
 </script>

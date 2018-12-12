@@ -88,7 +88,7 @@ export default {
       }];
     },
     handleCancle(index) {
-      console.log(index);
+      this.$emit('handle-click', index);
     },
   },
 };

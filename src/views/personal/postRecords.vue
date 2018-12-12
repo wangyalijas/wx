@@ -1,6 +1,6 @@
 <template>
   <div class="post-records">
-    <job-list :rightSwiper="rightSwiper" class="main-page"></job-list>
+    <job-list :rightSwiper="rightSwiper" class="main-page" @handle-click="handleClose"></job-list>
     <div class="footer">
       <span class="footer-value">寻找适合我的职位</span>
     </div>
@@ -28,6 +28,23 @@ export default {
   filters: {
   },
   methods: {
+    handleClose(msg) {
+      this.$messagebox.confirm(`确定删除${msg}？`, {
+        title: '提示',
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+      }).then((action) => {
+        if (action === 'confirm') {
+          // 确认的回调
+          this.$toast('删除成功');
+        }
+      }).catch((err) => {
+        if (err === 'cancel') {
+          // 取消的回调
+          console.log(2);
+        }
+      });
+    },
   },
 };
 </script>
