@@ -6,30 +6,58 @@
       <mt-field label="电话" placeholder="请填写电话号码" class="empty"></mt-field>
       <mt-field label="邮箱" placeholder="请填写邮箱" type="email"></mt-field>
     </main>
-    <div class="footer">
-      <span class="footer-value" @click="submit">提交</span>
+    <div class="footer" @click="submit">
+      <span class="footer-value">提交</span>
     </div>
+    <tips-dialog :statusObj="statusObj" @handle-dialog="handleDialog"></tips-dialog>
   </div>
 </template>
 
 <script>
+import TipsDialog from '@/components/common/tipsDialog';
+
 export default {
   name: 'campusRegister',
   data() {
-    return {};
+    return {
+      statusObj: {
+        name: '提交成功',
+        status: 'success',
+        icon: 'icon-success',
+        flag: false,
+      },
+    };
   },
   computed: {
   },
   components: {
+    TipsDialog,
   },
   filters: {
   },
   methods: {
-    submit() {},
+    submit() {
+      this.$set(this.statusObj, 'flag', true);
+    },
+    handleDialog() {
+      this.$set(this.statusObj, 'flag', false);
+    },
   },
 };
 </script>
 <style lang="scss">
+  .mint-indicator{
+    .mint-indicator-wrapper{
+      opacity: 0.9;
+      background: #464646;
+      border-radius: 8px;
+      padding: 16px 42px !important;
+      .mint-indicator-text{
+        font-size: 14px;
+        color: #FFFFFF;
+      }
+    }
+  }
   .campus-register{
     position: relative;
     background: #ffffff;
@@ -39,8 +67,6 @@ export default {
       .mint-cell{
         &.empty{
           .mint-cell-wrapper{
-            border-bottom: 1px solid #f72659;
-            box-shadow: 0 1px 4px 0 #f72659;
           }
         }
         .mint-cell-wrapper{
