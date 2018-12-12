@@ -23,8 +23,8 @@
     </div>
     <div class="list"
          v-infinite-scroll="loadMore"
-         infinite-scroll-disabled="loading"
-         infinite-scroll-distance="10">
+         infinite-scroll-disabled="isLoading"
+         infinite-scroll-distance="50">
       <template v-for="(item, index1) in data">
         <div :key="index1" class="list--item" @click="handleRouter('JobDetail')">
           <div class="list--item--inner">
@@ -40,6 +40,9 @@
         </div>
       </template>
     </div>
+    <div class="loading-more" v-if="isLoadingMore">
+      <span class="loading-more--text">正在加载中...</span>
+    </div>
     <tab :tabData="tabData"></tab>
   </div>
 </template>
@@ -52,8 +55,8 @@ export default {
   name: 'deliverResume',
   data() {
     return {
-      loading: false,
-      allLoaded: false,
+      isLoading: false,
+      isLoadingMore: false,
       searchValue: '',
       options: ['全部', '技术类', '全部', '技术类'],
       tabData: [{
@@ -228,8 +231,9 @@ export default {
   },
   methods: {
     loadMore() {
-      this.loading = true;
-      this.$nextTick(() => {
+      this.isLoading = true;
+      this.isLoadingMore = true;
+      setTimeout(() => {
         this.data.push({
           title: 'JS-01软件开发工程师',
           labels: [
@@ -248,8 +252,9 @@ export default {
           ],
           time: '2018-11-03',
         });
-        this.loading = false;
-      });
+        this.isLoadingMore = false;
+        this.isLoading = false;
+      }, 2000);
     },
     handleTop() {
       window.scroll(0, 0);
@@ -308,7 +313,7 @@ export default {
     }
     .list{
       position: relative;
-      margin: 2.72rem 0 1.33rem 0;
+      margin: 2.72rem 0 0 0;
       background: #F7F7F7;
       @include m(item) {
         height: 2.40rem;
@@ -343,6 +348,19 @@ export default {
             }
           }
         }
+        &:last-child{
+          margin-bottom: 0;
+          border-bottom: 1px solid #eee;
+        }
+      }
+    }
+    .loading-more{
+      margin-bottom: 1.33rem;
+      background: #ffffff;
+      height: 1.07rem;
+      text-align: center;
+      @include m(text){
+        line-height: 1.07rem;
       }
     }
   }

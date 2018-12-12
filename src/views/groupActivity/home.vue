@@ -118,7 +118,7 @@ export default {
       }
     }
     .main{
-      margin-top: 5.92rem;
+      margin-top: 6.19rem;
       .main-list{
         margin: 0 0 0.27rem 0;
         height: 2.75rem;
