@@ -4,13 +4,13 @@
       <header class="header">
         <span class="header-top" @click="handleTop">回顶部</span>
         <div class="header-select">
-          <wx-select title="全部城市" :options="options"></wx-select>
+          <wx-select title="全部城市" :options="options" @click="handleSelectCity"></wx-select>
         </div>
         <div class="header-select">
-          <wx-select title="全部类别" :options="options"></wx-select>
+          <wx-select title="全部类别" :options="options" @click="handleSelectType"></wx-select>
         </div>
         <div class="header-select">
-          <wx-select title="全部学历" :options="options"></wx-select>
+          <wx-select title="全部学历" :options="options" @click="handleSelectLevel"></wx-select>
         </div>
       </header>
       <div class="search">
@@ -58,7 +58,7 @@ export default {
       isLoading: false,
       isLoadingMore: false,
       searchValue: '',
-      options: ['全部', '技术类', '全部', '技术类'],
+      options: ['全部', '技术类', '全部', '技术类', '全部', '技术类', '全部', '技术类'],
       tabData: [{
         name: '校园行程',
         route: 'campusProcess',
@@ -258,6 +258,15 @@ export default {
     },
     handleTop() {
       window.scroll(0, 0);
+    },
+    handleSelectCity(msg) {
+      console.log(msg);
+    },
+    handleSelectType(msg) {
+      console.log(msg);
+    },
+    handleSelectLevel(msg) {
+      console.log(msg);
     },
   },
 };

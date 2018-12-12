@@ -3,7 +3,9 @@
     <div class="job-detail__title">
       <div class="job-detail__title--area">上海</div>
       <div class="job-detail__title--job">MIGO4-实施工程师</div>
-      <div class="job-detail__title--time">2018-03-15</div>
+      <div class="job-detail__title--time">
+        <i class="iconfont icon-calendar" slot="icon"></i>
+        2018-03-15</div>
     </div>
     <ul class="job-detail__category">
       <li class="job-detail__category--item">
@@ -92,6 +94,7 @@ export default {
         font-weight: bold;
       }
       @include m(time) {
+        margin-top: 0.13rem;
         height: 0.48rem;
         line-height: 0.48rem;
         font-size: 0.35rem;
@@ -99,6 +102,9 @@ export default {
         position: absolute;
         left: 1.57rem;
         bottom: 0.9rem;
+        .icon-calendar{
+          font-size: 12px;
+        }
       }
     }
     @include e(category) {
@@ -140,11 +146,13 @@ export default {
           color: #333333;
           font-weight: bold;
           text-align: left;
+          margin-bottom: 0.27rem;
         }
         @include e(content) {
           font-size: 0.35rem;
           color: #666666;
           text-align: left;
+          line-height: 22px;
         }
       }
     }
@@ -170,7 +178,6 @@ export default {
           color: #ffffff;
           height: 1.33rem;
           background: #6EA4FF;
-          height: 1.33rem;
           width: 6.40rem;
           text-align: center;
           line-height: 1.33rem;

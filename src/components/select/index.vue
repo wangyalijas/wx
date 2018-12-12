@@ -29,7 +29,8 @@ export default {
       this.isOpen = !this.isOpen;
     },
     handleEmit(item) {
-      this.emit('click', item);
+      this.$emit('click', item);
+      this.toggle();
     },
   },
 };
@@ -69,6 +70,9 @@ export default {
       border-radius: 4px;
       background-color: #fff;
       box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+      padding: 10px 0;
+      max-height: 5.33rem;
+      overflow-y: auto;
       &.open {
         display: block;
       }
