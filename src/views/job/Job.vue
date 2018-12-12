@@ -184,10 +184,6 @@ export default {
           name: '我的',
           route: 'campusProcess',
         },
-        {
-          name: '集团动态',
-          route: 'groupActivity',
-        },
       ],
     };
   },

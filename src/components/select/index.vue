@@ -66,7 +66,9 @@ export default {
       transition: .2s;
       display: none;
       z-index: 10000;
-      background: #ffffff;
+      border-radius: 4px;
+      background-color: #fff;
+      box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
       &.open {
         display: block;
       }
