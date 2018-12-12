@@ -68,19 +68,6 @@ export default {
     @include e(info){
       position: relative;
       padding: 0 0.53rem;
-      .mint-cell{
-        .mint-cell-wrapper{
-          border-bottom: 0.03rem solid #F5F5F5;
-          .mint-cell-title{
-            text-align: left;
-          }
-          .mint-cell-value .mint-field-core{
-            text-align: right;
-            margin-right: 0.27rem;
-          }
-        }
-        border-bottom: 1px solid #F5F5F5;
-      }
     }
     .footer{
       position: fixed;

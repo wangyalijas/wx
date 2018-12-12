@@ -5,8 +5,8 @@
       <div class="job-resume__info">
         <mt-field label="姓名" placeholder="请填写姓名"></mt-field>
         <mt-field label="性别" placeholder="请选择"></mt-field>
-        <mt-field label="电话号码" placeholder="请填写电话号码" type="tel"></mt-field>
-        <mt-field label="电子邮件" placeholder="请填写电子邮件" type="email"></mt-field>
+        <mt-field label="电话号码" placeholder="请填写您的电话号码" type="tel"></mt-field>
+        <mt-field label="电子邮件" placeholder="请输入电子邮件" type="email"></mt-field>
         <mt-field label="参加工作年月" placeholder="请选择" type="date" v-model="form.date"></mt-field>
       </div>
       <div class="job-resume__education">
@@ -66,9 +66,24 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .opcity {
   opacity: 0;
+}
+.mint-cell{
+  .mint-cell-wrapper{
+    .mint-cell-title{
+      text-align: left;
+      font-size: 14px;
+      color: #666666;
+    }
+    .mint-cell-value .mint-field-core{
+      text-align: right;
+      margin-right: 0.27rem;
+      font-size: 14px;
+      color: #333333;
+    }
+  }
 }
 .job-resume {
   position: relative;
@@ -82,19 +97,6 @@ export default {
   @include e(info){
     position: relative;
     padding: 0 0.53rem;
-    .mint-cell{
-      .mint-cell-wrapper{
-        border-bottom: 0.03rem solid #F5F5F5;
-        .mint-cell-title{
-          text-align: left;
-        }
-        .mint-cell-value .mint-field-core{
-          text-align: right;
-          margin-right: 0.27rem;
-        }
-      }
-      border-bottom: 1px solid #F5F5F5;
-    }
   }
   @include e(education) {
     padding:0 0.53rem;
@@ -102,7 +104,7 @@ export default {
     position: relative;
     border-bottom: 0.03rem solid #F5F5F5;
     @include m(title) {
-    position: absolute;
+      position: absolute;
       top: 1.01rem;
       left: 0.53rem;
       font-size: 0.43rem;
@@ -110,7 +112,7 @@ export default {
       font-weight: bold;
     }
     @include m(button) {
-    position: absolute;
+      position: absolute;
       background: #FFFFFF;
       box-shadow: 0 0 8px 0 rgba(149,177,224,0.35);
       border-radius: 20.5px;
@@ -138,7 +140,7 @@ export default {
       position: absolute;
       background: #FFFFFF;
       box-shadow: 0 0 0.21rem 0 rgba(149,177,224,0.35);
-      border-radius: 0.55rem;
+      border-radius: 12px;
       font-size: 0.6rem;
       color: #4982E2;
       top: 2.13rem;
