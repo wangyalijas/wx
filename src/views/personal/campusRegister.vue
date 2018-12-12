@@ -139,6 +139,7 @@ export default {
   .campus-register{
     position: relative;
     background: #ffffff;
+    height: 100vh;
     .main{
       position: relative;
       padding: 0.53rem 0.53rem 7.20rem 0.53rem;

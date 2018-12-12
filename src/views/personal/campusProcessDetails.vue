@@ -86,9 +86,10 @@ export default {
   .campus-process-details{
     position: relative;
     background: #ffffff;
+    height: 100vh;
     .main{
       position: relative;
-      padding: 0.53rem 0.53rem 3.79rem 0.53rem;
+      padding: 0.53rem 0.53rem 0 0.53rem;
       text-align: left;
       .main-sign{
         position: absolute;
