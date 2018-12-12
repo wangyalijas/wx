@@ -35,6 +35,7 @@ export default {
     position: fixed;
     bottom: 0;
     height: 1.33rem;
+    width: 10.00rem;
     background: #FFFFFF;
     box-shadow: 0 -0.05rem 0.11rem 0 rgba(231,225,225,0.30);
     .tab-bar{
