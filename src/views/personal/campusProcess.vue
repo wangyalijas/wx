@@ -180,7 +180,7 @@ export default {
               font-size: 0.43rem;
               color: #333333;
               margin-bottom: 0.27rem;
-              width: 150px;
+              width: 4.00rem;
               overflow:hidden;
               text-overflow:ellipsis;
               white-space:nowrap
