@@ -15,7 +15,7 @@
       </mt-cell>
     </div>
     <div class="main-resume">
-      <mt-cell title="我的简历" is-link>
+      <mt-cell title="我的简历" is-link href="/job-resume">
         <i class="iconfont icon-resume" slot="icon"></i>
       </mt-cell>
     </div>
