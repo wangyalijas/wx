@@ -3,11 +3,11 @@
     <main class="main">
       <mt-field label="姓名" placeholder="请填写姓名"></mt-field>
       <mt-field label="身份证" placeholder="请填写身份证"></mt-field>
-      <mt-field label="电话" placeholder="请填写电话号码"></mt-field>
+      <mt-field label="电话" placeholder="请填写电话号码" class="empty"></mt-field>
       <mt-field label="邮箱" placeholder="请填写邮箱" type="email"></mt-field>
     </main>
     <div class="footer">
-      <span class="footer-value">提交</span>
+      <span class="footer-value" @click="submit">提交</span>
     </div>
   </div>
 </template>
@@ -25,6 +25,7 @@ export default {
   filters: {
   },
   methods: {
+    submit() {},
   },
 };
 </script>
@@ -36,8 +37,13 @@ export default {
       position: relative;
       padding: 0.53rem 0.53rem 7.20rem 0.53rem;
       .mint-cell{
+        &.empty{
+          .mint-cell-wrapper{
+            border-bottom: 1px solid #f72659;
+            box-shadow: 0 1px 4px 0 #f72659;
+          }
+        }
         .mint-cell-wrapper{
-          border-bottom: 0.03rem solid #F5F5F5;
           .mint-cell-title{
             text-align: left;
           }
