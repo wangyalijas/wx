@@ -24,7 +24,18 @@ export default {
   },
   filters: {
   },
+  created() {
+    this.$nextTick(() => {
+      this.fetchPageData();
+    });
+  },
   methods: {
+    fetchPageData() {
+      this.$indicator.open();
+      setTimeout(() => {
+        this.$indicator.close();
+      }, 1000);
+    },
     handleClose(msg) {
       this.$messagebox.confirm(`确定取消关注${msg}？`, {
         title: '提示',
@@ -38,7 +49,7 @@ export default {
       }).catch((err) => {
         if (err === 'cancel') {
           // 取消的回调
-          console.log(2);
+          this.$toast('已取消操作');
         }
       });
     },

@@ -190,6 +190,12 @@ export default {
   computed: {
   },
   methods: {
+    fetchPageData() {
+      this.$indicator.open();
+      setTimeout(() => {
+        this.$indicator.close();
+      }, 1000);
+    },
     status(status) {
       switch (status) {
         case 0:
@@ -207,6 +213,11 @@ export default {
   components: {
     wxSelect,
     Tab,
+  },
+  created() {
+    this.$nextTick(() => {
+      this.fetchPageData();
+    });
   },
 };
 </script>

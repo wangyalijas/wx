@@ -42,6 +42,7 @@
     </div>
     <div class="loading-more" v-if="isLoadingMore">
       <span class="loading-more--text">正在加载中...</span>
+      <span class="loading-more--text" v-if="false">我是有底线的</span>
     </div>
     <tab :tabData="tabData"></tab>
   </div>
@@ -227,9 +228,16 @@ export default {
   },
   created() {
     this.$nextTick(() => {
+      this.fetchPageData();
     });
   },
   methods: {
+    fetchPageData() {
+      this.$indicator.open();
+      setTimeout(() => {
+        this.$indicator.close();
+      }, 1000);
+    },
     loadMore() {
       this.isLoading = true;
       this.isLoadingMore = true;

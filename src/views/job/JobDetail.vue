@@ -51,6 +51,19 @@
 <script>
 export default {
   name: 'JobDetail',
+  created() {
+    this.$nextTick(() => {
+      this.fetchPageData();
+    });
+  },
+  methods: {
+    fetchPageData() {
+      this.$indicator.open();
+      setTimeout(() => {
+        this.$indicator.close();
+      }, 1000);
+    },
+  },
 };
 </script>
 
