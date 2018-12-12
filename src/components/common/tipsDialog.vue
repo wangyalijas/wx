@@ -34,6 +34,8 @@ export default {
       handler(curVal) {
         if (curVal) {
           this.startTime();
+        } else {
+          clearInterval(this.timer);
         }
       },
       deep: true,
@@ -45,7 +47,6 @@ export default {
     startTime() {
       this.timer = setInterval(() => {
         this.$emit('handle-dialog');
-        clearInterval(this.timer);
       }, 2000);
     },
   },

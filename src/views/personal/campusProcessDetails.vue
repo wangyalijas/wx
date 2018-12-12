@@ -24,7 +24,7 @@
         </div>
       </div>
     </main>
-    <div class="footer" v-if="$route.query.processId === 1"
+    <div class="footer" v-if="$route.query.processId == 1"
          @click="handleRouter('campusRegister', {campusId: 1})">
       <span class="footer-value">我要报名</span>
     </div>
@@ -75,6 +75,7 @@ export default {
   },
   created() {
     this.$nextTick(() => {
+      console.log(this.$route.query.processId === 1);
     });
   },
   methods: {

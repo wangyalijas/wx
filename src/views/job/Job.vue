@@ -249,6 +249,7 @@ export default {
       height: 1.39rem;
     }
     @include e(list) {
+      margin-bottom: 1.33rem;
       background: #F7F7F7;
       @include m(item) {
         height: 2.40rem;
