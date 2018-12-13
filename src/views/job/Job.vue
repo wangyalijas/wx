@@ -199,9 +199,9 @@ export default {
     status(status) {
       switch (status) {
         case 0:
-          return 'green';
+          return 'blue';
         case 1:
-          return 'yellow';
+          return 'blue';
         case 2:
           return 'blue';
         default:

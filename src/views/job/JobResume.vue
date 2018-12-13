@@ -1,22 +1,42 @@
 <template>
   <div>
-    <div class="job-resume" :class="{'opcity': isShowEducation || isShowJobExperience}">
+    <div class="job-resume">
       <div class="job-resume__title">个人信息</div>
       <div class="job-resume__info">
-        <mt-field label="姓名" placeholder="请填写姓名"></mt-field>
-        <mt-field label="性别" placeholder="请选择"></mt-field>
-        <mt-field label="电话号码" placeholder="请填写您的电话号码" type="tel"></mt-field>
-        <mt-field label="电子邮件" placeholder="请输入电子邮件" type="email"></mt-field>
-        <mt-field label="参加工作年月" placeholder="请选择" type="date" v-model="form.date"></mt-field>
+        <mt-field label="姓名" placeholder="请填写姓名" v-model="form.name"></mt-field>
+        <mt-field label="性别" placeholder="请选择" v-model="form.sex"></mt-field>
+        <mt-field
+        label="电话号码"
+        placeholder="请填写您的电话号码"
+        type="tel"
+        v-model="form.telephone"
+        ></mt-field>
+        <mt-field
+        label="电子邮件"
+        placeholder="请输入电子邮件"
+        type="email"
+        v-model="form.email"
+        ></mt-field>
+        <mt-field
+        label="参加工作年月"
+        placeholder="请选择"
+        v-model="form.date"
+        @click.native.capture="openPicker"
+        :readonly="true"
+        ></mt-field>
       </div>
       <div class="job-resume__education">
         <div class="job-resume__education--title">教育经历</div>
-        <div class="job-resume__education--button" @click="isShowEducation = true">+ 添加教育经历</div>
+        <div
+        class="job-resume__education--button"
+        @click="handleRouter('JobEducation')">
+        + 添加教育经历
+        </div>
       </div>
       <div class="job-resume__education">
         <div class="job-resume__education--title">工作经历</div>
         <div class="job-resume__education--button"
-        @click="isShowJobExperience = true">+ 添加工作经历</div>
+             @click="handleRouter('JobExperience')">+ 添加工作经历</div>
       </div>
       <div class="job-resume__img">
         <div class="job-resume__img--title">附件</div>
@@ -27,41 +47,44 @@
         <span class="footer-value">提交</span>
       </div>
     </div>
-    <education
-     :isShowEducation="isShowEducation"
-     @writedEducation="writedEducation"></education>
-    <job-experience
-    :isShowJobExperience="isShowJobExperience"
-    @writedJobExperience="writedJobExperience"></job-experience>
+    <mt-datetime-picker
+      ref="picker"
+      type="date"
+      v-model="form.date"
+      year-format="{value} 年"
+      month-format="{value} 月"
+      date-format="{value} 日"
+      @confirm="handleConfirm">
+    </mt-datetime-picker>
   </div>
 </template>
 
 <script>
-import Education from '../../components/job/Education';
-import JobExperience from '../../components/job/JobExperience';
+import moment from 'moment';
 
 export default {
   name: 'JobResume',
   data() {
     return {
       form: {
+        name: '',
+        sex: '',
+        telephone: '',
+        email: '',
         date: '',
       },
-      isShowEducation: false,
-      isShowJobExperience: false,
     };
   },
   methods: {
-    writedEducation() {
-      this.isShowEducation = false;
+    openPicker() {
+      this.$refs.picker.open();
     },
-    writedJobExperience() {
-      this.isShowJobExperience = false;
+    handleConfirm(res) {
+      console.log(res);
+      // this.$set(this.form, 'date', )
     },
   },
   components: {
-    Education,
-    JobExperience,
   },
 };
 </script>

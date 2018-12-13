@@ -36,6 +36,22 @@ export default new Router({
       },
     },
     {
+      path: '/job-experience',
+      name: 'JobExperience',
+      component: loadView('job/JobExperience'),
+      meta: {
+        title: '添加工作经历',
+      },
+    },
+    {
+      path: '/job-education',
+      name: 'JobEducation',
+      component: loadView('job/JobEducation'),
+      meta: {
+        title: '添加教育经历',
+      },
+    },
+    {
       path: '/campus-process',
       name: 'campusProcess',
       meta: {
