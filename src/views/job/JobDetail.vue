@@ -77,6 +77,7 @@ export default {
   }
   .job-detail {
     background: #FFFFFF;
+    height: 100vh;
     @include e(title) {
       margin: 0 0.80rem;
       position: relative;
