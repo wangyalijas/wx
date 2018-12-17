@@ -4,7 +4,21 @@
       <div class="job-resume__title">个人信息</div>
       <div class="job-resume__info">
         <mt-field label="姓名" placeholder="请填写姓名" v-model="form.name"></mt-field>
-        <mt-field label="性别" placeholder="请选择" v-model="form.sex"></mt-field>
+        <div>
+          <div @click="openPopUp">
+            <mt-cell title="性别">
+              <span style="font-size: 14px">{{currentSexTags ? currentSexTags: '请选择'}}</span>
+            </mt-cell>
+          </div>
+          <mt-popup position="bottom" v-model="sexSwitch">
+            <mt-picker :slots="sexPicker" :show-toolbar="true" ref="sexPicker" value-key="label">
+              <span @click="handleSexConfirm"
+              class="mint-datetime-action mint-datetime-cancel">取消</span>
+              <span @click="handleSexConfirm"
+              class="mint-datetime-action mint-datetime-confirm">确认</span>
+            </mt-picker>
+          </mt-popup>
+        </div>
         <mt-field
         label="电话号码"
         placeholder="请填写您的电话号码"
@@ -17,13 +31,23 @@
         type="email"
         v-model="form.email"
         ></mt-field>
-        <mt-field
-        label="参加工作年月"
-        placeholder="请选择"
-        v-model="form.date"
-        @click.native.capture="openPicker"
-        :readonly="true"
-        ></mt-field>
+        <div>
+          <div @click="openPicker">
+            <mt-cell title="参加工作年月">
+              <span style="font-size: 14px">{{form.date ? form.date: '请选择'}}</span>
+            </mt-cell>
+          </div>
+          <mt-datetime-picker
+            ref="picker"
+            type="date"
+            :startDate="startDate"
+            :endDate="endDate"
+            year-format="{value} 年"
+            month-format="{value} 月"
+            date-format="{value} 日"
+            @confirm="handleConfirm">
+          </mt-datetime-picker>
+        </div>
       </div>
       <div class="job-resume__education">
         <div class="job-resume__education--title">教育经历</div>
@@ -47,20 +71,11 @@
         <span class="footer-value">提交</span>
       </div>
     </div>
-    <mt-datetime-picker
-      ref="picker"
-      type="date"
-      v-model="form.date"
-      year-format="{value} 年"
-      month-format="{value} 月"
-      date-format="{value} 日"
-      @confirm="handleConfirm">
-    </mt-datetime-picker>
   </div>
 </template>
 
 <script>
-import moment from 'moment';
+import dataFormat from '../../util/dataFormat';
 
 export default {
   name: 'JobResume',
@@ -73,15 +88,51 @@ export default {
         email: '',
         date: '',
       },
+      sexSwitch: false,
+      currentSexTags: null,
+      sexPicker: [
+        {
+          flex: 1,
+          values: [
+            {
+              label: '男',
+              id: 1,
+            },
+            {
+              label: '女',
+              id: 2,
+            },
+          ],
+          className: 'slot1',
+          textAlign: 'center',
+        },
+      ],
     };
+  },
+  computed: {
+    startDate() {
+      return new Date(new Date().getFullYear() - 60, 0, 1);
+    },
+    endDate() {
+      return new Date();
+    },
   },
   methods: {
     openPicker() {
       this.$refs.picker.open();
     },
+    openPopUp() {
+      this.sexSwitch = true;
+    },
+    handleSexConfirm() {
+      this.$set(this.form, 'sex', this.$refs.sexPicker.getValues()[0].id);
+      this.currentSexTags = this.$refs.sexPicker.getValues()[0].label;
+      console.log(this.sexSwitch);
+      this.sexSwitch = false;
+      console.log(this.sexSwitch);
+    },
     handleConfirm(res) {
-      console.log(res);
-      // this.$set(this.form, 'date', )
+      this.$set(this.form, 'date', dataFormat(res, 'yyyy-MM-dd'));
     },
   },
   components: {
@@ -90,6 +141,16 @@ export default {
 </script>
 
 <style lang="scss">
+  .mint-popup{
+    width: 100%;
+  }
+  .mint-field-core{
+    text-align: right;
+  }
+  .picker-toolbar {
+    height: 1.07rem;
+    border-bottom: solid 1px #eaeaea;
+  }
 .opcity {
   opacity: 0;
 }
@@ -184,7 +245,7 @@ export default {
   .footer{
     position: fixed;
     bottom: 0;
-    width: 10.00rem;
+    width: 100%;
     height: 1.33rem;
     background: #6EA4FF;
     box-shadow: 0 -0.05rem 0.16rem 0 rgba(212,212,212,0.30);

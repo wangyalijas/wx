@@ -1,12 +1,16 @@
 <template>
   <div class="select">
     <div class="select__header" @click="toggle">
-      <span class="select__header--title">{{title}}</span>
-      <span class="select__header--arrow" :class="{'rotate': isOpen}"></span>
+      <span class="select__header--title" :class="{'green': isOpen}" >{{title}}</span>
+      <span class="select__header--arrow" :class="[{'rotate': isOpen}, {'green': isOpen}]"></span>
     </div>
     <ul class="select__content" :class="{'open': isOpen}">
       <template v-for="(item, index) in options">
-        <li :key="index" class="select__content--option" @click="handleEmit(item)">{{item}}</li>
+        <li
+        :key="index"
+        class="select__content--option"
+        :class="isSelected(index)"
+        @click="handleClick(item, index)">{{item}}</li>
       </template>
     </ul>
   </div>
@@ -22,15 +26,28 @@ export default {
   data() {
     return {
       isOpen: false,
+      selectedItemIndex: null,
     };
   },
+  computed: {
+  },
   methods: {
+    isSelected(index) {
+      if (index === this.selectedItemIndex) {
+        return 'selected';
+      }
+      return '';
+    },
     toggle() {
       this.isOpen = !this.isOpen;
     },
+    handleClick(item, index) {
+      this.selectedItemIndex = index;
+      this.handleEmit(item);
+      this.toggle();
+    },
     handleEmit(item) {
       this.$emit('click', item);
-      this.toggle();
     },
   },
 };
@@ -48,6 +65,9 @@ export default {
       background: #ffffff;
       text-indent: 0.53rem;
       @include m(title) {
+      &.green {
+        color: #90D1FC;
+      }
       }
       @include m(arrow) {
         display: inline-block;
@@ -59,9 +79,15 @@ export default {
         &.rotate {
           transform: rotate(180deg)
         }
+        &.green {
+          color: #90D1FC;
+        }
       }
     }
     @include e(content) {
+      height: 2.67rem;
+      background: pink;
+      overflow-y: auto;
       font-size: 0.37rem;
       color: #606266;
       transition: .2s;
@@ -77,8 +103,11 @@ export default {
         display: block;
       }
       @include m(option) {
-        line-height: 0.6rem;
+        line-height: 0.7rem;
         text-indent: 0.53rem;
+        &.selected {
+          color: #90D1FC;
+        }
       }
     }
   }

@@ -39,6 +39,8 @@ export default {
   watch: {
   },
   methods: {
+    writed() {
+    },
   },
   created() {
   },
