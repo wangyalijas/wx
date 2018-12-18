@@ -109,8 +109,7 @@ export default {
           }
         }
       });
-      const isFlag = this.requiredDataArray.every(value => value.isComplete === false);
-      return isFlag;
+      return this.requiredDataArray.every(value => value.isComplete === false);
     },
     handleDialog() {
       /**

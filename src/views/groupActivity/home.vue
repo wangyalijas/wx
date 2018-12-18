@@ -1,7 +1,7 @@
 <template>
   <div class="group-activity">
     <div class="header">
-      <mt-swipe :auto="4000">
+      <mt-swipe :auto="3000">
         <mt-swipe-item>
           <img src="../../../public/img/swipe.jpg"/>
         </mt-swipe-item>
