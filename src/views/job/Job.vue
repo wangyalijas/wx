@@ -45,7 +45,7 @@ export default {
   name: 'Job',
   data() {
     return {
-      options: ['全部', '技术类', '全部', '技术类'],
+      options: ['全部', '技术类', '全部', '技术类', '全部', '技术类', '全部', '技术类'],
       selected: 'tab1',
       value: '',
       data: [

@@ -40,6 +40,20 @@
           2.负责后台开发数据及维护，调度系统与大数据处理平台相关工作；
         </div>
       </div>
+      <div class="job-detail__main--item">
+        <div class="job-detail__main--item__title">工作职责</div>
+        <div class="job-detail__main--item__content">
+          1.负责后台开发数据及维护，调度系统与大数据处理平台相关工作；<br>
+          2.负责后台开发数据及维护，调度系统与大数据处理平台相关工作；
+        </div>
+      </div>
+      <div class="job-detail__main--item">
+        <div class="job-detail__main--item__title">工作职责</div>
+        <div class="job-detail__main--item__content">
+          1.负责后台开发数据及维护，调度系统与大数据处理平台相关工作；<br>
+          2.负责后台开发数据及维护，调度系统与大数据处理平台相关工作；
+        </div>
+      </div>
     </div>
     <div class="job-detail__tab">
       <div class="job-detail__tab--item"><i class="iconfont icon-collect"></i>收藏</div>
@@ -152,7 +166,8 @@ export default {
       }
     }
     @include e(main) {
-      padding: 0.67rem 0.80rem;
+      padding: 0.67rem 0.80rem 1.33rem;
+      background: #FFFFFF;
       @include m(item) {
         margin-bottom: 0.80rem;
         @include e(title) {
@@ -173,8 +188,9 @@ export default {
     @include e(tab) {
       position: fixed;
       bottom: 0;
-      right: 0;
-      left: 0;
+      height: 1.33rem;
+      width: 10.00rem;
+      background: #FFFFFF;
       box-shadow: 0 -2px 4px 0 rgba(212,212,212,0.30);
       text-align: center;
       @include m(item) {
@@ -187,6 +203,9 @@ export default {
           line-height: 1.33rem;
           background: #FFFFFF;
           text-align: center;
+          position: absolute;
+          top: 0;
+          left: 0;
         }
         &:nth-child(2) {
           color: #ffffff;
@@ -195,6 +214,9 @@ export default {
           width: 6.40rem;
           text-align: center;
           line-height: 1.33rem;
+          position: absolute;
+          top: 0;
+          right: 0;
         }
       }
     }
