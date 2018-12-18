@@ -1,15 +1,22 @@
+import CreatePersistedState from 'vuex-persistedstate';
+
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import createPersistedState from 'vuex-persistedstate';
+
 import state from './state';
 import getters from './getters';
 import mutations from './mutations';
 import actions from './actions';
-
 import modules from './modules/index';
 
 Vue.use(Vuex);
+
+
+const vuexPersisted = new CreatePersistedState({
+  key: 'vuex',
+  storage: window.sessionStorage,
+});
 
 export default new Vuex.Store({
   state,
@@ -17,5 +24,5 @@ export default new Vuex.Store({
   mutations,
   actions,
   modules,
-  plugins: [createPersistedState({ storage: window.localStorage })],
+  plugins: [vuexPersisted],
 });
