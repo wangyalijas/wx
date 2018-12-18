@@ -1,6 +1,7 @@
 export default function (time, format) {
   const t = new Date(time);
-  const tf = function (i) { return (i < 10 ? '0' : '') + i; };
+  const tf = i => (i < 10 ? '0' : '') + i;
+  /* eslint-disable */
   return format.replace(/yyyy|MM|dd|HH|mm|ss/g, (a) => {
     switch (a) {
       case 'yyyy':

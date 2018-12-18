@@ -4,21 +4,9 @@
       <div class="job-resume__title">个人信息</div>
       <div class="job-resume__info">
         <mt-field label="姓名" placeholder="请填写姓名" v-model="form.name"></mt-field>
-        <div>
-          <div @click="openPopUp">
-            <mt-cell title="性别">
-              <span style="font-size: 14px">{{currentSexTags ? currentSexTags: '请选择'}}</span>
-            </mt-cell>
-          </div>
-          <mt-popup position="bottom" v-model="sexSwitch">
-            <mt-picker :slots="sexPicker" :show-toolbar="true" ref="sexPicker" value-key="label">
-              <span @click="handleSexConfirm"
-              class="mint-datetime-action mint-datetime-cancel">取消</span>
-              <span @click="handleSexConfirm"
-              class="mint-datetime-action mint-datetime-confirm">确认</span>
-            </mt-picker>
-          </mt-popup>
-        </div>
+        <mt-cell title="性别" @click.native="openPopUp">
+          <span style="font-size: 14px">{{currentSexTags ? currentSexTags: '请选择'}}</span>
+        </mt-cell>
         <mt-field
         label="电话号码"
         placeholder="请填写您的电话号码"
@@ -31,23 +19,9 @@
         type="email"
         v-model="form.email"
         ></mt-field>
-        <div>
-          <div @click="openPicker">
-            <mt-cell title="参加工作年月">
-              <span style="font-size: 14px">{{form.date ? form.date: '请选择'}}</span>
-            </mt-cell>
-          </div>
-          <mt-datetime-picker
-            ref="picker"
-            type="date"
-            :startDate="startDate"
-            :endDate="endDate"
-            year-format="{value} 年"
-            month-format="{value} 月"
-            date-format="{value} 日"
-            @confirm="handleConfirm">
-          </mt-datetime-picker>
-        </div>
+        <mt-cell title="参加工作年月" @click.native="openPicker">
+          <span style="font-size: 14px">{{form.date ? form.date: '请选择'}}</span>
+        </mt-cell>
       </div>
       <div class="job-resume__education">
         <div class="job-resume__education--title">教育经历</div>
@@ -71,6 +45,26 @@
         <span class="footer-value">提交</span>
       </div>
     </div>
+    <mt-popup position="bottom" v-model="sexSwitch">
+      <mt-picker :slots="sexPicker" :show-toolbar="true" ref="sexPicker" value-key="label">
+            <span @click="handleSexCancel"
+                  class="mint-datetime-action mint-datetime-cancel">取消</span>
+        <span @click="handleSexConfirm"
+              class="mint-datetime-action mint-datetime-confirm">确认</span>
+      </mt-picker>
+    </mt-popup>
+
+    <mt-datetime-picker
+      ref="picker"
+      type="date"
+      :startDate="startDate"
+      :endDate="endDate"
+      year-format="{value} 年"
+      month-format="{value} 月"
+      date-format="{value} 日"
+      @confirm="handleConfirm">
+    </mt-datetime-picker>
+
   </div>
 </template>
 
@@ -124,12 +118,13 @@ export default {
     openPopUp() {
       this.sexSwitch = true;
     },
+    handleSexCancel() {
+      this.sexSwitch = false;
+    },
     handleSexConfirm() {
       this.$set(this.form, 'sex', this.$refs.sexPicker.getValues()[0].id);
       this.currentSexTags = this.$refs.sexPicker.getValues()[0].label;
-      console.log(this.sexSwitch);
       this.sexSwitch = false;
-      console.log(this.sexSwitch);
     },
     handleConfirm(res) {
       this.$set(this.form, 'date', dataFormat(res, 'yyyy-MM-dd'));

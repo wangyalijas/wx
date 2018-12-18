@@ -19,11 +19,14 @@ axios.interceptors.response.use((res) => {
 
 const catchErrorEvt = function catchErrorEvt(error) {
   switch (error.status) {
-    case 404:
-      console.log('接口不存在');
+    case 422:
+      console.log('非法参数');
       break;
     case 500:
-      console.log('接口报错');
+      console.log('服务器内部错误');
+      break;
+    case 401:
+      console.log('非法访问');
       break;
     default:
       console.log('其他类型错误');
