@@ -3,10 +3,15 @@ import Mint from 'mint-ui';
 import 'mint-ui/lib/style.css';
 import App from './App.vue';
 import router from './router';
-import store from './store';
+import store from './store/index.js';
 import RouterMixin from './mixins/router';
+import Http from './services';
+import Api from './services/config';
 
 Vue.use(Mint);
+
+Vue.prototype.$http = Http;
+Vue.prototype.Api = Api;
 
 Vue.config.productionTip = false;
 Vue.mixin(RouterMixin);

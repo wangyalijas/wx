@@ -4,8 +4,23 @@
   </div>
 </template>
 <script>
+/* eslint-disable */
 export default {
   name: 'app',
+  methods: {
+    getEnum() {
+      this.$store.dispatch('getEnum')
+    },
+    getConstant() {
+      this.$store.dispatch('getConstant')
+    },
+  },
+  created() {
+    this.$nextTick(() => {
+      this.getEnum();
+      this.getConstant();
+    });
+  },
 };
 </script>
 <style lang="scss">

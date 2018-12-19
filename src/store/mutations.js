@@ -1,5 +1,9 @@
+/* eslint-disable */
 export default {
-  getOpenIdUserId(state, value) {
-    state.accessToken = value;
+  settingEnum(state, data) {
+    state.enum = data;
+  },
+  settingConstant(state, data) {
+    state.constant = data;
   },
 };
