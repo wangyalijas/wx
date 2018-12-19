@@ -2,13 +2,28 @@
   <div class="home">
     <div class="home__header">
       <div class="home__header--select">
-        <wx-select title="职位类别" :options="options"></wx-select>
+        <wx-select
+        title="职位类别"
+        :options="JobType"
+        :prop="{id: 'id', label: 'description'}"
+        @change="handleChangeJobType"
+        ></wx-select>
       </div>
       <div class="home__header--select">
-        <wx-select title="地点" :options="options"></wx-select>
+        <wx-select
+        title="地点"
+        :options="WorkPlace"
+        :prop="{id: 'id', label: 'name'}"
+        @change="handleWorkPlace"
+        ></wx-select>
       </div>
       <div class="home__header--select">
-        <wx-select title="招聘类型" :options="options"></wx-select>
+        <wx-select
+        title="招聘类型"
+        :options="RecruitType"
+        :prop="{id: 'id', label: 'description'}"
+        @change="handleRecruitType"
+        ></wx-select>
       </div>
     </div>
     <div class="home__search">
@@ -38,6 +53,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import wxSelect from '../../components/select/index.vue';
 import Tab from '@/components/common/tab';
 
@@ -45,7 +61,6 @@ export default {
   name: 'Job',
   data() {
     return {
-      options: ['全部', '技术类', '全部', '技术类', '全部', '技术类', '全部', '技术类'],
       selected: 'tab1',
       value: '',
       data: [
@@ -188,6 +203,11 @@ export default {
     };
   },
   computed: {
+    ...mapGetters({
+      JobType: 'handleJobType',
+      WorkPlace: 'handleWorkPlace',
+      RecruitType: 'handleRecruitType',
+    }),
   },
   methods: {
     fetchPageData() {
@@ -208,6 +228,15 @@ export default {
           break;
       }
       return false;
+    },
+    handleChangeJobType(res) {
+      console.log(res);
+    },
+    handleWorkPlace(res) {
+      console.log(res);
+    },
+    handleRecruitType(res) {
+      console.log(res);
     },
   },
   components: {

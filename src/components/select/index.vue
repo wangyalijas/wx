@@ -10,7 +10,7 @@
         :key="index"
         class="select__content--option"
         :class="isSelected(index)"
-        @click="handleClick(item, index)">{{item}}</li>
+        @click="handleClick(item, index)">{{item[`${prop.label}`]}}</li>
       </template>
     </ul>
   </div>
@@ -21,7 +21,8 @@ export default {
   name: 'wxSelect',
   props: {
     title: String,
-    options: Array,
+    prop: Object,
+    options: [Object, Array],
   },
   data() {
     return {
@@ -47,7 +48,7 @@ export default {
       this.toggle();
     },
     handleEmit(item) {
-      this.$emit('click', item);
+      this.$emit('change', item);
     },
   },
 };
