@@ -1,5 +1,6 @@
 import { Toast } from 'mint-ui';
 import setting from '@/services/config';
+import store from '@/store';
 
 const mockMode = false; // 是否使用mock数据
 const axios = require('axios');
@@ -38,7 +39,7 @@ function successState(params) {
     Toast(params.res.data.tip);
   }
 }
-export default (options, data = {}, headers) => {
+export default (options, data = {}) => {
   const httpOptions = {
     url: baseURL + options.url,
     method: options.method,
@@ -46,7 +47,11 @@ export default (options, data = {}, headers) => {
     params: Object.assign(data),
     // post 请求的数据
     data: Object.assign(data),
-    headers: headers || (options.method === 'get' ? {} : { 'Content-Type': 'application/json;charset=UTF-8' }),
+    headers: {
+      'Content-Type': 'application/json',
+      'X-UserId': store.state.accessToken.XUserId,
+      'X-OpenId': store.state.accessToken.XOpenId,
+    },
   };
   if (mockMode) {
     httpOptions.url = baseURL + options.mockUrl;

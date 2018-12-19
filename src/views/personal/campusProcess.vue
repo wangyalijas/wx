@@ -34,12 +34,18 @@
 </template>
 
 <script>
+import { createNamespacedHelpers } from 'vuex';
 import Tab from '@/components/common/tab';
 
+const { mapGetters } = createNamespacedHelpers('campusProcess');
 export default {
   name: 'campusProcess',
   data() {
     return {
+      pagination: {
+        currentPage: 0,
+        pageSize: 10,
+      },
       statusData: {
         1: 'notStart',
         2: 'progress',
@@ -94,6 +100,7 @@ export default {
     };
   },
   computed: {
+    ...mapGetters({}),
   },
   components: {
     Tab,
@@ -114,15 +121,19 @@ export default {
   },
   created() {
     this.$nextTick(() => {
-      this.fetchPageData();
+      this.fetchPageDataAsync();
     });
   },
   methods: {
-    fetchPageData() {
-      this.$indicator.open();
-      setTimeout(() => {
-        this.$indicator.close();
-      }, 1000);
+    async fetchPageDataAsync() {
+      // this.$indicator.open();
+      const params = {
+        currentPage: this.pagination.currentPage,
+        pageSize: this.pagination.pageSize,
+      };
+      const result = await this.$store.dispatch('campusProcess/getScheduleList', params);
+      console.log(result);
+      // this.$indicator.close();
     },
   },
 };

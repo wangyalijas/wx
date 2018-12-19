@@ -11,5 +11,11 @@ export default {
       mockUrl: '',
       method: 'GET',
     },
+    getScheduleList: {
+      // 校园行程列表
+      url: '/getScheduleList',
+      mockUrl: '',
+      method: 'GET',
+    },
   },
 };
