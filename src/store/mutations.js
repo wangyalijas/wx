@@ -6,4 +6,7 @@ export default {
   settingConstant(state, data) {
     state.constant = data;
   },
+  getOpenIdUserId(state, data) {
+    state.header = data;
+  },
 };

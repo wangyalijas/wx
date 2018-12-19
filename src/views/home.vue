@@ -20,10 +20,10 @@ export default {
   methods: {
     fetchOpenIdAsync() {
       this.$store.commit('getOpenIdUserId', {
-        'X-UserId': this.$route.query['X-UserId'],
-        'X-OpenId': this.$route.query['X-OpenId'],
+        'X-UserId': this.$route.query.userId,
+        'X-OpenId': this.$route.query.openId,
       });
-      if (this.$store.state.accessToken) {
+      if (this.$store.state.header) {
         this.handleRouter('Job');
       }
     },

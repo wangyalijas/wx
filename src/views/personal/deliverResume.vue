@@ -4,13 +4,28 @@
       <header class="header">
         <span class="header-top" @click="handleTop">回顶部</span>
         <div class="header-select">
-          <wx-select title="全部城市" :options="options" @click="handleSelectCity"></wx-select>
+          <wx-select
+            title="全部城市"
+            :options="WorkPlace"
+            :prop="{id: 'id', label: 'name'}"
+            @change="handleWorkPlace"
+          ></wx-select>
         </div>
         <div class="header-select">
-          <wx-select title="全部类别" :options="options" @click="handleSelectType"></wx-select>
+          <wx-select
+            title="全部类别"
+            :options="JobType"
+            :prop="{id: 'id', label: 'description'}"
+            @change="handleChangeJobType"
+          ></wx-select>
         </div>
         <div class="header-select">
-          <wx-select title="全部学历" :options="options" @click="handleSelectLevel"></wx-select>
+          <wx-select
+            title="招聘类型"
+            :options="RecruitType"
+            :prop="{id: 'id', label: 'description'}"
+            @change="handleRecruitType"
+          ></wx-select>
         </div>
       </header>
       <div class="search">
@@ -22,7 +37,7 @@
       </div>
     </div>
     <div class="list"
-         v-infinite-scroll="loadMore"
+         v-infinite-scroll="loadingMoreData"
          infinite-scroll-disabled="isLoading"
          infinite-scroll-distance="50">
       <template v-for="(item, index1) in data">
@@ -40,7 +55,8 @@
         </div>
       </template>
     </div>
-    <div class="loading-more" v-if="isLoadingMore">
+    <div class="loading-more page-infinite-loading"
+         :style="`display: ${isLoadingMore} ? block : none`">
       <span class="loading-more--text">正在加载中...</span>
       <span class="loading-more--text" v-if="false">我是有底线的</span>
     </div>
@@ -51,15 +67,13 @@
 <script>
 import Tab from '@/components/common/tab';
 import WxSelect from '@/components/select/index';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'deliverResume',
   data() {
     return {
-      isLoading: false,
-      isLoadingMore: false,
       searchValue: '',
-      options: ['全部', '技术类', '全部', '技术类', '全部', '技术类', '全部', '技术类'],
       tabData: [{
         name: '校园行程',
         route: 'campusProcess',
@@ -219,6 +233,11 @@ export default {
     };
   },
   computed: {
+    ...mapGetters({
+      JobType: 'handleJobType',
+      WorkPlace: 'handleWorkPlace',
+      RecruitType: 'handleRecruitType',
+    }),
   },
   components: {
     WxSelect,
@@ -228,53 +247,24 @@ export default {
   },
   created() {
     this.$nextTick(() => {
-      this.fetchPageData();
+      this.fetchPageDataAsync();
     });
   },
   methods: {
-    fetchPageData() {
-      this.$indicator.open();
-      setTimeout(() => {
-        this.$indicator.close();
-      }, 1000);
-    },
-    loadMore() {
-      this.isLoading = true;
-      this.isLoadingMore = true;
-      setTimeout(() => {
-        this.data.push({
-          title: 'JS-01软件开发工程师',
-          labels: [
-            {
-              name: '呼和浩特',
-              status: 0,
-            },
-            {
-              name: '5-10年',
-              status: 1,
-            },
-            {
-              name: '博士及以上',
-              status: 2,
-            },
-          ],
-          time: '2018-11-03',
-        });
-        this.isLoadingMore = false;
-        this.isLoading = false;
-      }, 2000);
+    async fetchPageDataAsync() {
+      console.log('test');
     },
     handleTop() {
       window.scroll(0, 0);
     },
-    handleSelectCity(msg) {
-      console.log(msg);
+    handleChangeJobType(res) {
+      console.log(res);
     },
-    handleSelectType(msg) {
-      console.log(msg);
+    handleWorkPlace(res) {
+      console.log(res);
     },
-    handleSelectLevel(msg) {
-      console.log(msg);
+    handleRecruitType(res) {
+      console.log(res);
     },
   },
 };

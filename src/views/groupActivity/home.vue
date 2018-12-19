@@ -18,7 +18,10 @@
                      :key="index">{{item.name}}</mt-tab-item>
       </mt-navbar>
     </div>
-    <main class="main">
+    <main class="main"
+          v-infinite-scroll="loadingMoreData"
+          infinite-scroll-disabled="isLoading"
+          infinite-scroll-distance="50">
       <div class="main-list"
            v-for="(item, index) in pageData"
            :key="index">
@@ -31,50 +34,46 @@
         </div>
       </div>
     </main>
+    <div class="loading-more"
+         :style="`display: ${isLoadingMore} ? block : none`">
+      <span class="loading-more--text" v-if="!isLoadingComplete">正在加载中...</span>
+      <span class="loading-more--text" v-if="isLoadingComplete">我是有底线的</span>
+    </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'groupActivity',
   data() {
     return {
-      selectedBar: '1',
+      selectedBar: '0',
       navBarData: [{
+        value: 'Dynamics',
         name: '集团动态',
         index: '0',
       }, {
+        value: 'Introduction',
         name: '公司简介',
         index: '1',
       }, {
+        value: 'Welfare',
         name: '员工福利',
         index: '2',
       }, {
+        value: 'Activity',
         name: '精彩活动',
         index: '3',
       }],
-      pageData: [{
-        title: '数字化医疗产品解决方案',
-        content: '卫宁健康作为中国专业从事医疗卫生领域信息化的上市公司，致力于提供优质的医...',
-      }, {
-        title: '数字化医疗产品解决方案',
-        content: '卫宁健康作为中国专业从事医疗卫生领域信息化的上市公司，致力于提供优质的医...',
-      }, {
-        title: '数字化医疗产品解决方案',
-        content: '卫宁健康作为中国专业从事医疗卫生领域信息化的上市公司，致力于提供优质的医...',
-      }, {
-        title: '数字化医疗产品解决方案',
-        content: '卫宁健康作为中国专业从事医疗卫生领域信息化的上市公司，致力于提供优质的医...',
-      }, {
-        title: '数字化医疗产品解决方案',
-        content: '卫宁健康作为中国专业从事医疗卫生领域信息化的上市公司，致力于提供优质的医...',
-      }, {
-        title: '数字化医疗产品解决方案',
-        content: '卫宁健康作为中国专业从事医疗卫生领域信息化的上市公司，致力于提供优质的医...',
-      }],
+      pageData: [],
     };
   },
   computed: {
+    ...mapGetters({
+      NewsType: 'handleNewsType',
+    }),
   },
   components: {
   },
@@ -82,15 +81,16 @@ export default {
   },
   created() {
     this.$nextTick(() => {
-      this.fetchPageData();
+      this.fetchPageDataAsync(false);
     });
   },
   methods: {
-    fetchPageData() {
-      this.$indicator.open();
-      setTimeout(() => {
-        this.$indicator.close();
-      }, 1000);
+    async fetchPageDataAsync(flag) {
+      this.sendAxios(flag, 'news/getNewsList', {
+        currentPage: this.pagination.currentPage,
+        pageSize: this.pagination.pageSize,
+        newsType: this.selectedBar,
+      });
     },
   },
 };
@@ -171,6 +171,14 @@ export default {
             }
           }
         }
+      }
+    }
+    .loading-more{
+      background: #ffffff;
+      height: 1.07rem;
+      text-align: center;
+      @include m(text){
+        line-height: 1.07rem;
       }
     }
   }

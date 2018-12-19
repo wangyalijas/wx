@@ -8,4 +8,13 @@ export default {
   handleRecruitType({ constant }) {
     return constant ? constant.RecruitType || {} : {};
   },
+  handleScheduleState({ constant }) {
+    return constant ? constant.ScheduleState || {} : {};
+  },
+  handleReviewType({ constant }) {
+    return constant ? constant.ReviewType || {} : {};
+  },
+  handleNewsType({ constant }) {
+    return constant ? constant.NewsType || {} : {};
+  },
 };

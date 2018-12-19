@@ -17,5 +17,25 @@ export default {
       mockUrl: '',
       method: 'GET',
     },
+    getSchedule: {
+      url: 'getSchedule',
+      mockUrl: '',
+      method: 'GET',
+    },
+    getUserCollectionJob: {
+      url: 'getUserCollectionJob',
+      mockUrl: '',
+      method: 'GET',
+    },
+    getUserDeliveryJob: {
+      url: 'getUserDeliveryJob',
+      mockUrl: '',
+      method: 'GET',
+    },
+    getNewsList: {
+      url: 'getNewsList',
+      mockUrl: '',
+      method: 'GET',
+    },
   },
 };

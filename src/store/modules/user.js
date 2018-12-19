@@ -1,7 +1,7 @@
 import setting from '@/services/config';
 import api from '@/services/index';
 
-const campusProcess = {
+const user = {
   namespaced: true,
   state: {
   },
@@ -11,20 +11,20 @@ const campusProcess = {
   },
   // 异步操作
   actions: {
-    getScheduleList(state, params) {
+    getUserCollectionJob(state, params) {
       return new Promise((resolve, reject) => {
-        api(setting.urlConfig.getScheduleList, params).then((data) => {
-          console.log('%c%s', 'color:blue', '=======> 获取校园行程列表');
+        api(setting.urlConfig.getUserCollectionJob, params).then((data) => {
+          console.log('%c%s', 'color:blue', '=======> 获取用户收藏职位');
           resolve(data);
         }).catch((err) => {
           reject(err);
         });
       });
     },
-    getSchedule(state, params) {
+    getUserDeliveryJob(state, params) {
       return new Promise((resolve, reject) => {
-        api(setting.urlConfig.getSchedule, params).then((data) => {
-          console.log('%c%s', 'color:blue', '=======> 获取校园行程详情');
+        api(setting.urlConfig.getUserDeliveryJob, params).then((data) => {
+          console.log('%c%s', 'color:blue', '=======> 获取用户投递职位');
           resolve(data);
         }).catch((err) => {
           reject(err);
@@ -33,4 +33,4 @@ const campusProcess = {
     },
   },
 };
-export default campusProcess;
+export default user;

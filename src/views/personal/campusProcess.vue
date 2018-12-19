@@ -11,82 +11,52 @@
         <img src="../../../public/img/swipe.jpg"/>
       </mt-swipe-item>
     </mt-swipe>
-    <section class="main">
+    <section class="main"
+             v-infinite-scroll="loadingMoreData"
+             infinite-scroll-disabled="isLoading"
+             infinite-scroll-distance="50">
       <div class="main-list"
            v-for="(item, index) in pageData"
            :key="index"
-           @click="handleRouter('campusProcessDetails', {processId: item.status})">
+           @click="handleRouter('campusProcessDetails', {processId: item.id})">
         <div class="main-list-inner clearfix">
-          <span class="main-list-inner__sign" :class="statusData[item.status]">
-            {{item.status | formatStatus}}
+          <template v-for="(status, statusIndex) in ScheduleState">
+            <span :key="statusIndex"
+                  v-if="item.scheduleState == status.id"
+                  class="main-list-inner__sign"
+                  :class="status.name">
+              {{status.description}}
+            </span>
+          </template>
+          <span class="main-list-inner__left">
+            <img :src="item.cover"/>
           </span>
-          <span class="main-list-inner__left"></span>
           <div class="main-list-inner__right">
-            <span class="main-list-inner__right--title">{{item.title}}</span>
-            <span class="main-list-inner__right--time">时间：{{item.time}}</span>
-            <span class="main-list-inner__right--site">地点：{{item.site}}</span>
+            <span class="main-list-inner__right--title">{{item.name}}</span>
+            <span class="main-list-inner__right--time">时间：{{item.startTime}}</span>
+            <span class="main-list-inner__right--site">地点：{{item.place}}</span>
           </div>
         </div>
       </div>
     </section>
+    <div class="loading-more"
+         :style="`display: ${isLoadingMore} ? block : none`">
+      <span class="loading-more--text" v-if="!isLoadingComplete">正在加载中...</span>
+      <span class="loading-more--text" v-if="isLoadingComplete">我是有底线的</span>
+    </div>
     <tab :tabData="tabData"></tab>
   </div>
 </template>
 
 <script>
-import { createNamespacedHelpers } from 'vuex';
+import { mapGetters } from 'vuex';
 import Tab from '@/components/common/tab';
 
-const { mapGetters } = createNamespacedHelpers('campusProcess');
 export default {
   name: 'campusProcess',
   data() {
     return {
-      pagination: {
-        currentPage: 0,
-        pageSize: 10,
-      },
-      statusData: {
-        1: 'notStart',
-        2: 'progress',
-        3: 'ending',
-      },
-      pageData: [{
-        title: '徐州大学宣讲会',
-        time: '2018-10-19',
-        site: '南区科技馆2层',
-        status: 1,
-      }, {
-        title: '徐州大学宣讲会',
-        time: '2018-10-19',
-        site: '南区科技馆2层',
-        status: 2,
-      }, {
-        title: '徐州大学宣讲会',
-        time: '2018-10-19',
-        site: '南区科技馆2层',
-        status: 3,
-      }, {
-        title: '徐州大学宣讲会',
-        time: '2018-10-19',
-        site: '南区科技馆2层',
-        status: 2,
-      }, {
-        title: '徐州大学宣讲会',
-        time: '2018-10-19',
-        site: '南区科技馆2层',
-        status: 3,
-      }, {
-        title: '徐州大学宣讲会',
-        time: '2018-10-19',
-        site: '南区科技馆2层',
-        status: 2,
-      }, {
-        title: '徐州大学宣讲会',
-        time: '2018-10-19',
-        site: '南区科技馆2层',
-        status: 3,
-      }],
+      pageData: [],
       tabData: [{
         name: '校园行程',
         route: 'campusProcess',
@@ -100,40 +70,27 @@ export default {
     };
   },
   computed: {
-    ...mapGetters({}),
+    ...mapGetters({
+      ScheduleState: 'handleScheduleState',
+    }),
   },
   components: {
     Tab,
   },
   filters: {
-    formatStatus: (value) => {
-      if (value === 1) {
-        return '未开始';
-      }
-      if (value === 2) {
-        return '进行中';
-      }
-      if (value === 3) {
-        return '已结束';
-      }
-      return true;
-    },
   },
   created() {
     this.$nextTick(() => {
-      this.fetchPageDataAsync();
+      // 第一次加载数据
+      this.fetchPageDataAsync(false);
     });
   },
   methods: {
-    async fetchPageDataAsync() {
-      // this.$indicator.open();
-      const params = {
+    async fetchPageDataAsync(flag) {
+      this.sendAxios(flag, 'campusProcess/getScheduleList', {
         currentPage: this.pagination.currentPage,
         pageSize: this.pagination.pageSize,
-      };
-      const result = await this.$store.dispatch('campusProcess/getScheduleList', params);
-      console.log(result);
-      // this.$indicator.close();
+      });
     },
   },
 };
@@ -153,7 +110,6 @@ export default {
       }
     }
     .main{
-      margin-bottom: 1.33rem;
       .main-list{
         margin: 0.27rem 0 0 0;
         height: 2.75rem;
@@ -168,17 +124,17 @@ export default {
             font-size: 0.32rem;
             border-radius: 0.05rem;
             padding: 0.05rem 0.24rem;
-            &.notStart{
+            &.NotStart{
               color: #F29B2C;
               background: #F9F5ED;
               border: 0.03rem solid #EFDAC1;
             }
-            &.progress{
+            &.OnGoing{
               background: #EDF9F9;
               border: 0.03rem solid #C1EFE8;
               color: #1DB7AE;
             }
-            &.ending{
+            &.End{
               background: #F0F0F0;
               border: 0.03rem solid #D0D0D0;
               color: #B2B2B2;
@@ -189,6 +145,10 @@ export default {
             width: 1.95rem;
             height: 1.95rem;
             background: #f8f8f8;
+            img{
+              width: 1.95rem;
+              height: 1.95rem;
+            }
           }
           @include e(right){
             float: left;
@@ -201,8 +161,8 @@ export default {
               font-weight: 700;
               font-size: 0.43rem;
               color: #333333;
-              margin-bottom: 0.27rem;
-              width: 4.00rem;
+              margin-bottom: 0.2rem;
+              width: 4.27rem;
               overflow:hidden;
               text-overflow:ellipsis;
               white-space:nowrap
@@ -216,6 +176,18 @@ export default {
             }
           }
         }
+        &:last-child{
+          border-bottom: 1px solid #eee;
+        }
+      }
+    }
+    .loading-more{
+      margin-bottom: 1.33rem;
+      background: #ffffff;
+      height: 1.07rem;
+      text-align: center;
+      @include m(text){
+        line-height: 1.07rem;
       }
     }
   }

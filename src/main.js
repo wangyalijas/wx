@@ -5,6 +5,7 @@ import App from './App.vue';
 import router from './router';
 import store from './store/index.js';
 import RouterMixin from './mixins/router';
+import LoadMoreMixin from './mixins/loadMore';
 import Http from './services';
 import Api from './services/config';
 
@@ -14,6 +15,7 @@ Vue.prototype.$http = Http;
 Vue.prototype.Api = Api;
 
 Vue.config.productionTip = false;
+Vue.mixin(LoadMoreMixin);
 Vue.mixin(RouterMixin);
 
 router.beforeEach((to, from, next) => {
