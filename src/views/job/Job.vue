@@ -4,7 +4,7 @@
       <div class="home__header--select">
         <wx-select
         title="职位类别"
-        :options="JobType"
+        :options="jobType"
         :prop="{id: 'id', label: 'description'}"
         @change="handleChangeJobType"
         ></wx-select>
@@ -12,7 +12,7 @@
       <div class="home__header--select">
         <wx-select
         title="地点"
-        :options="WorkPlace"
+        :options="workPlace"
         :prop="{id: 'id', label: 'name'}"
         @change="handleWorkPlace"
         ></wx-select>
@@ -20,7 +20,7 @@
       <div class="home__header--select">
         <wx-select
         title="招聘类型"
-        :options="RecruitType"
+        :options="recruitType"
         :prop="{id: 'id', label: 'description'}"
         @change="handleRecruitType"
         ></wx-select>
@@ -204,9 +204,9 @@ export default {
   },
   computed: {
     ...mapGetters({
-      JobType: 'handleJobType',
-      WorkPlace: 'handleWorkPlace',
-      RecruitType: 'handleRecruitType',
+      jobType: 'handleJobType',
+      workPlace: 'handleWorkPlace',
+      recruitType: 'handleRecruitType',
     }),
   },
   methods: {
