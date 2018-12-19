@@ -1,20 +1,21 @@
-import Vue from 'vue';
+import http from '../services';
+import Api from '../services/config';
 
 export default {
-  getEnum({ commit }, type = '') {
+  getEnum({ commit, state }, type = '') {
     const params = {
       type,
     };
-    Vue.$http(Vue.Api.getEnum, params).then(({ data }) => {
-      commit('settingEnum', data.data);
+    http(Api.urlConfig.getEnum, params, state.header).then(({ data }) => {
+      commit('settingEnum', data);
     });
   },
-  getConstant({ commit }, type = '') {
+  getConstant({ commit, state }, type = '') {
     const params = {
       type,
     };
-    Vue.$http(Vue.Api.getConstant, params).then(({ data }) => {
-      commit('settingConstant', data.data);
+    http(Api.urlConfig.getConstant, params, state.header).then(({ data }) => {
+      commit('settingConstant', data);
     });
   },
 };

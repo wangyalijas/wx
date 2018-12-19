@@ -1,4 +1,8 @@
 export default {
-  enum: null,
-  constant: null,
+  enum: '',
+  constant: '',
+  header: {
+    'X-UserId': 1,
+    'X-OpenId': 'test123456',
+  },
 };
