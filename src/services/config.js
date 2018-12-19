@@ -13,7 +13,7 @@ export default {
     },
     getScheduleList: {
       // 校园行程列表
-      url: '/getScheduleList',
+      url: 'getScheduleList',
       mockUrl: '',
       method: 'GET',
     },
