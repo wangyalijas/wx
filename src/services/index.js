@@ -19,6 +19,7 @@ axios.interceptors.response.use((res) => {
 }, error => Promise.reject(error));
 
 const catchErrorEvt = function catchErrorEvt(error) {
+  console.log(error.code);
   switch (error.status) {
     case 422:
       console.log('非法参数');
@@ -47,7 +48,7 @@ export default (options, data = {}) => {
     params: Object.assign(data),
     // post 请求的数据
     data: Object.assign(data),
-    headers: Store.state.header,
+    headers: Object.assign({ 'Content-Type': 'application/json' }, Store.state.header),
   };
   if (mockMode) {
     httpOptions.url = baseURL + options.mockUrl;
