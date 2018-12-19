@@ -23,13 +23,17 @@
           infinite-scroll-disabled="isLoading"
           infinite-scroll-distance="50">
       <div class="main-list"
+           @click="handleOpenNews(item.weUrl)"
            v-for="(item, index) in pageData"
            :key="index">
         <div class="main-list-inner clearfix">
-          <span class="main-list-inner__left"></span>
+          <span class="main-list-inner__left">
+            <img :src="item.cover">
+          </span>
           <div class="main-list-inner__right">
-            <span class="main-list-inner__right--title">{{item.title}}</span>
-            <span class="main-list-inner__right--value">{{item.content}}</span>
+            <span class="main-list-inner__right--title">{{item.name}}</span>
+            <span class="main-list-inner__right--value">
+              {{item.simpleContent | formatContent}}</span>
           </div>
         </div>
       </div>
@@ -75,9 +79,24 @@ export default {
       NewsType: 'handleNewsType',
     }),
   },
+  watch: {
+    selectedBar(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.$set(this.pagination, 'currentPage', 1);
+        this.fetchPageDataAsync(false);
+      }
+    },
+  },
   components: {
   },
   filters: {
+    formatContent(value) {
+      // 计算字节数
+      if (value.replace(/[^\x00-\xff]/g, 'xx').length >= 70) {
+        return `${value.slice(0, 70)}...`;
+      }
+      return value;
+    },
   },
   created() {
     this.$nextTick(() => {
@@ -91,6 +110,9 @@ export default {
         pageSize: this.pagination.pageSize,
         newsType: this.selectedBar,
       });
+    },
+    handleOpenNews(wbUrl) {
+      window.location.href = wbUrl;
     },
   },
 };
@@ -145,6 +167,10 @@ export default {
             width: 1.73rem;
             height: 1.73rem;
             background: #f8f8f8;
+            img{
+              width: 1.73rem;
+              height: 1.73rem;
+            }
           }
           @include e(right){
             float: left;
@@ -166,6 +192,7 @@ export default {
             @include m(value){
               display: inline-block;
               overflow:hidden;
+              max-width: 6.67rem;
               font-size: 12px;
               color: #333333;
             }
