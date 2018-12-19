@@ -12,6 +12,14 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
+      path: '/home',
+      name: 'home',
+      component: loadView('home'),
+      meta: {
+        title: '跳转',
+      },
+    },
+    {
       path: '/',
       name: 'Job',
       component: loadView('job/Job'),
