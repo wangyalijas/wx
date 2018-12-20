@@ -39,5 +39,10 @@ export default {
       mockUrl: '',
       method: 'GET',
     },
+    postUserSchedule: {
+      url: 'getNewsList',
+      mockUrl: '',
+      method: 'POST',
+    },
   },
 };

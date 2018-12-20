@@ -89,8 +89,17 @@ export default {
         this.$set(this.submitInfo, type, '');
       }
     },
-    submit() {
+    async submit() {
       if (this.checkComplete()) {
+        const params = {
+          scheduleId: this.$route.query.campusId,
+          name: this.submitInfo.name,
+          IDNumber: this.submitInfo.cardId,
+          phone: this.submitInfo.phoneNum,
+          email: this.submitInfo.email,
+        };
+        const result = await this.$store.dispatch('campusProcess/postUserSchedule', params);
+        console.log(result);
         this.$set(this.statusObj, 'flag', true);
       }
     },
