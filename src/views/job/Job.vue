@@ -28,22 +28,29 @@
     </div>
     <div class="home__search">
       <mt-search
-        v-model="value"
+        v-model="getJobListParams.name"
         cancel-text="取消"
-        placeholder="搜索职位">
+        placeholder="搜索职位"
+        @input="handleSearch">
       </mt-search>
     </div>
     <div class="home__list">
-      <template v-for="(item, index1) in data">
-        <div :key="index1" class="home__list--item" @click="handleRouter('JobDetail')">
-          <span class="home__list--item__title">{{item.title}}</span>
-          <span class="home__list--item__time">{{item.time}}</span>
+      <template v-for="(item, index1) in jobList">
+        <div
+        :key="index1"
+        class="home__list--item"
+        @click="handleRouter('JobDetail', {id: item.id})">
+          <span class="home__list--item__title">{{item.name}}</span>
+          <span class="home__list--item__time">{{item.createdAt}}</span>
           <ul class="home__list--item__label">
-            <li
-            v-for="(label, index2) in item.labels"
-            :key="index2"
-            class="home__list--item__label--item"
-            :class="status(label.status)">{{label.name}}</li>
+            <li class="home__list--item__label--item blue">{{item.place}}</li>
+            <li class="home__list--item__label--item blue">{{item.workLife}}</li>
+            <li class="home__list--item__label--item blue">{{item.education}}</li>
+            <!--<li-->
+            <!--v-for="(label, index2) in item.labels"-->
+            <!--:key="index2"-->
+            <!--class="home__list&#45;&#45;item__label&#45;&#45;item"-->
+            <!--:class="status(label.status)">{{label.name}}</li>-->
           </ul>
         </div>
       </template>
@@ -63,7 +70,7 @@ export default {
     return {
       selected: 'tab1',
       value: '',
-      data: [
+      jobList: [
         {
           title: 'JS-01软件开发工程师',
           labels: [
@@ -200,6 +207,14 @@ export default {
           route: 'campusProcess',
         },
       ],
+      getJobListParams: {
+        jobType: '',
+        place: '',
+        recruitType: '',
+        name: '',
+        currentPage: 1,
+        pageSize: 10,
+      },
     };
   },
   computed: {
@@ -212,8 +227,11 @@ export default {
   methods: {
     fetchPageData() {
       this.$indicator.open();
-      setTimeout(() => {
+      this.$store.dispatch('job/getJobList', this.getJobListParams).then((res) => {
+        this.jobList = res;
         this.$indicator.close();
+      })
+      setTimeout(() => {
       }, 1000);
     },
     status(status) {
@@ -230,13 +248,19 @@ export default {
       return false;
     },
     handleChangeJobType(res) {
-      console.log(res);
+      this.$set(this.getJobListParams, 'jobType', res)
+      this.fetchPageData();
     },
     handleWorkPlace(res) {
-      console.log(res);
+      this.$set(this.getJobListParams, 'place', res)
+      this.fetchPageData();
     },
     handleRecruitType(res) {
-      console.log(res);
+      this.$set(this.getJobListParams, 'recruitType', res)
+      this.fetchPageData();
+    },
+    handleSearch() {
+      this.fetchPageData();
     },
   },
   components: {

@@ -65,18 +65,21 @@
 <script>
 export default {
   name: 'JobDetail',
-  created() {
-    this.$nextTick(() => {
-      this.fetchPageData();
-    });
-  },
   methods: {
     fetchPageData() {
       this.$indicator.open();
+      this.$store.dispatch('getJob', this.$route.query).then((res) => {
+        console.log(res);
+      })
       setTimeout(() => {
         this.$indicator.close();
       }, 1000);
     },
+  },
+  created() {
+    this.$nextTick(() => {
+      this.fetchPageData();
+    });
   },
 };
 </script>
