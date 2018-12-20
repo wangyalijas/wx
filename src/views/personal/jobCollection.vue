@@ -9,7 +9,7 @@
         :title="item.name"
         v-for="(item, index) in pageData"
         :key="index"
-        :right="handleSwiperRight(index)">
+        :right="handleSwiperRight(item)">
         <div class="value-sign"
              :class="{active: item.isEnd == 0}">
           <span class="value-sign__value">
@@ -75,29 +75,40 @@ export default {
         pageSize: this.pagination.pageSize,
       });
     },
-    handleSwiperRight(index) {
+    handleSwiperRight(item) {
       return [{
         content: this.rightSwiper.name,
         style: { background: this.rightSwiper.backColor },
-        handler: () => this.handleCancle(index),
+        handler: () => this.handleCancle(item),
       }];
     },
-    handleCancle(index) {
-      this.$messagebox.confirm(`确定取消关注${index}？`, {
+    handleCancle(item) {
+      this.$messagebox.confirm(`确定取消关注${item.name}？`, {
         title: '提示',
         confirmButtonText: '确定',
         cancelButtonText: '取消',
       }).then((action) => {
         if (action === 'confirm') {
           // 确认的回调
-          this.$toast('取消关注成功');
+          this.postCollection(item);
         }
       }).catch((err) => {
         if (err === 'cancel') {
           // 取消的回调
-          this.$toast('已取消操作');
+          this.$toast('取消操作');
         }
       });
+    },
+    async postCollection(item) {
+      const params = {
+        jobId: item.id,
+      };
+      const result = await this.$store.dispatch('job/postCollection', params);
+      if (result.state) {
+        this.$toast('取消关注');
+        this.$set(this.pagination, 'currentPage', 1);
+        this.fetchPageDataAsync(false);
+      }
     },
   },
 };

@@ -10,7 +10,7 @@
       <mt-cell title="投递记录" is-link href="/post-records">
         <i class="iconfont icon-deliver" slot="icon"></i>
       </mt-cell>
-      <mt-cell title="集团动态" is-link href="/group-activity">
+      <mt-cell title="集团动态（暂时入口）" is-link href="/group-activity">
         <i class="iconfont icon-deliver" slot="icon"></i>
       </mt-cell>
     </div>

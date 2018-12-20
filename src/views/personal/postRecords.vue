@@ -160,6 +160,14 @@ export default {
         }
       }
     }
+    .main-empty{
+      height: calc(100vh - 1.33rem);
+      background: #ffffff;
+      text-align: center;
+      span{
+        line-height: 100vh;
+      }
+    }
     .footer{
       position: fixed;
       bottom: 0;

@@ -1,3 +1,6 @@
+import setting from '@/services/config';
+import api from '@/services/index';
+
 const state = {
   disX: null,
   tableData: null,
@@ -21,7 +24,18 @@ const mutations = {
   },
 };
 
-const actions = {};
+const actions = {
+  postCollection(state, params) {
+    return new Promise((resolve, reject) => {
+      api(setting.urlConfig.postCollection, params).then((data) => {
+        console.log('%c%s', 'color:blue', '=======> 职位收藏');
+        resolve(data);
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  },
+};
 
 export default {
   namespaced: true,

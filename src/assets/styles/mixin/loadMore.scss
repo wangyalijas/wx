@@ -2,10 +2,10 @@
   border-top: 1px solid #eee;
   margin-bottom: 1.33rem;
   background: #ffffff;
-  height: 1.07rem;
+  height: 1.33rem;
   text-align: center;
   @include e(wrapper){
-    height: 1.07rem;
+    height: 1.33rem;
     position: relative;
     @include m(spin){
       position: absolute;
@@ -23,11 +23,11 @@
       width: 14px;
     }
     @include m(text){
-      line-height: 1.07rem;
+      line-height: 1.33rem;
       padding-left: 20px;
     }
   }
   @include m(text){
-    line-height: 1.07rem;
+    line-height: 1.33rem;
   }
 }

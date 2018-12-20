@@ -44,5 +44,10 @@ export default {
       mockUrl: '',
       method: 'POST',
     },
+    postCollection: {
+      url: 'postCollection',
+      mockUrl: '',
+      method: 'POST',
+    },
   },
 };
