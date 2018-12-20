@@ -40,7 +40,10 @@
     </main>
     <div class="loading-more"
          :style="`display: ${isLoadingMore} ? block : none`">
-      <span class="loading-more--text" v-if="!isLoadingComplete">正在加载中...</span>
+      <div class="loading-more__wrapper" v-if="!isLoadingComplete">
+        <span class="loading-more__wrapper--spin"></span>
+        <span class="loading-more__wrapper--text">加载中</span>
+      </div>
       <span class="loading-more--text" v-if="isLoadingComplete">我是有底线的</span>
     </div>
   </div>
@@ -93,7 +96,7 @@ export default {
     formatContent(value) {
       // 计算字节数
       if (value.replace(/[^\x00-\xff]/g, 'xx').length >= 70) {
-        return `${value.slice(0, 70)}...`;
+        return `${value.slice(0, 35)}...`;
       }
       return value;
     },
@@ -118,6 +121,7 @@ export default {
 };
 </script>
 <style lang="scss">
+  @import "../../assets/styles/mixin/loadMore.scss";
   .group-activity{
     position: relative;
     .header{
@@ -195,18 +199,17 @@ export default {
               max-width: 6.67rem;
               font-size: 12px;
               color: #333333;
+              word-wrap:break-word
             }
           }
+        }
+        &:last-child{
+          margin-bottom: 0;
         }
       }
     }
     .loading-more{
-      background: #ffffff;
-      height: 1.07rem;
-      text-align: center;
-      @include m(text){
-        line-height: 1.07rem;
-      }
+      margin-bottom: 0;
     }
   }
 </style>

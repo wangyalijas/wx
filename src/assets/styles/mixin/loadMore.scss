@@ -1,0 +1,33 @@
+.loading-more{
+  border-top: 1px solid #eee;
+  margin-bottom: 1.33rem;
+  background: #ffffff;
+  height: 1.07rem;
+  text-align: center;
+  @include e(wrapper){
+    height: 1.07rem;
+    position: relative;
+    @include m(spin){
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin: -9px 0 0 -30px;
+      display: block;
+      animation: mint-spinner-rotate .8s infinite linear;
+      border: 2px solid transparent;
+      border-radius: 50%;
+      border-top-color: rgb(204, 204, 204);
+      border-left-color: rgb(204, 204, 204);
+      border-bottom-color: rgb(204, 204, 204);
+      height: 14px;
+      width: 14px;
+    }
+    @include m(text){
+      line-height: 1.07rem;
+      padding-left: 20px;
+    }
+  }
+  @include m(text){
+    line-height: 1.07rem;
+  }
+}

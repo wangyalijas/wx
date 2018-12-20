@@ -28,14 +28,17 @@
       <div class="loading-more"
            v-if="pageData.length > 0"
            :style="`display: ${isLoadingMore} ? block : none`">
-        <span class="loading-more--text" v-if="!isLoadingComplete">正在加载中...</span>
+        <div class="loading-more__wrapper" v-if="!isLoadingComplete">
+          <span class="loading-more__wrapper--spin"></span>
+          <span class="loading-more__wrapper--text">加载中</span>
+        </div>
         <span class="loading-more--text" v-if="isLoadingComplete">我是有底线的</span>
       </div>
     </main>
     <div class="main-empty" v-if="pageData.length <= 0">
       <span>暂无数据</span>
     </div>
-    <div class="footer">
+    <div class="footer" @click="handleRouter('deliverResume')">
       <span class="footer-value">寻找适合我的职位</span>
     </div>
   </div>
@@ -77,6 +80,7 @@ export default {
 };
 </script>
 <style lang="scss">
+  @import "../../assets/styles/mixin/loadMore.scss";
   .post-records{
     position: relative;
     .main{
@@ -87,6 +91,7 @@ export default {
         height: 3.28rem;
         width: 10.00rem;
         background: #ffffff;
+        box-shadow: 0 2px 6px 0 rgba(223,237,241,0.30);
         @include e(inner){
           padding: 0.53rem 0 0 0.53rem;
           @include m(sign){
@@ -152,16 +157,6 @@ export default {
               }
             }
           }
-        }
-      }
-      .loading-more{
-        border-top: 1px solid #eee;
-        margin-bottom: 1.33rem;
-        background: #ffffff;
-        height: 1.07rem;
-        text-align: center;
-        @include m(text){
-          line-height: 1.07rem;
         }
       }
     }

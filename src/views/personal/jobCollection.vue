@@ -31,7 +31,10 @@
     <div class="loading-more"
          v-if="pageData.length > 0"
          :style="`display: ${isLoadingMore} ? block : none`">
-      <span class="loading-more--text" v-if="!isLoadingComplete">正在加载中...</span>
+      <div class="loading-more__wrapper" v-if="!isLoadingComplete">
+        <span class="loading-more__wrapper--spin"></span>
+        <span class="loading-more__wrapper--text">加载中</span>
+      </div>
       <span class="loading-more--text" v-if="isLoadingComplete">我是有底线的</span>
     </div>
   </div>
@@ -100,6 +103,7 @@ export default {
 };
 </script>
 <style lang="scss">
+  @import "../../assets/styles/mixin/loadMore.scss";
   .job-collection{
     position: relative;
     .main-cell-swiper{
@@ -109,7 +113,7 @@ export default {
         margin-bottom: 0.27rem;
         .mint-cell-wrapper{
           display: block;
-          padding: 0 0 0.53rem 0.53rem;
+          padding: 0 0 0.48rem 0.53rem;
           .mint-cell-title{
             padding-top: 0.53rem;
             margin-bottom: 0.40rem;
@@ -208,12 +212,8 @@ export default {
       }
     }
     .loading-more{
-      background: #ffffff;
-      height: 1.07rem;
-      text-align: center;
-      @include m(text){
-        line-height: 1.07rem;
-      }
+      border-top: none;
+      margin-bottom: 0;
     }
   }
 </style>

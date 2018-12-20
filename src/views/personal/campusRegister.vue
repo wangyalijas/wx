@@ -36,7 +36,7 @@ export default {
   data() {
     return {
       statusObj: {
-        name: '提交成功',
+        name: '行程报名成功',
         status: 'success',
         icon: 'icon-success',
         flag: false,
@@ -99,8 +99,9 @@ export default {
           email: this.submitInfo.email,
         };
         const result = await this.$store.dispatch('campusProcess/postUserSchedule', params);
-        console.log(result);
-        this.$set(this.statusObj, 'flag', true);
+        if (result.state) {
+          this.$set(this.statusObj, 'flag', true);
+        }
       }
     },
     checkComplete() {
@@ -127,6 +128,7 @@ export default {
        * @Description: 弹框回传
        * */
       this.$set(this.statusObj, 'flag', false);
+      this.handleRouter('campusProcess');
     },
   },
 };

@@ -40,7 +40,7 @@ export default {
       method: 'GET',
     },
     postUserSchedule: {
-      url: 'getNewsList',
+      url: 'postUserSchedule',
       mockUrl: '',
       method: 'POST',
     },

@@ -55,9 +55,12 @@
         </div>
       </template>
     </div>
-    <div class="loading-more page-infinite-loading"
+    <div class="loading-more"
          :style="`display: ${isLoadingMore} ? block : none`">
-      <span class="loading-more--text">正在加载中...</span>
+      <div class="loading-more__wrapper">
+        <span class="loading-more__wrapper--spin"></span>
+        <span class="loading-more__wrapper--text">加载中</span>
+      </div>
       <span class="loading-more--text" v-if="false">我是有底线的</span>
     </div>
     <tab :tabData="tabData"></tab>
@@ -270,6 +273,7 @@ export default {
 };
 </script>
 <style lang="scss">
+  @import "../../assets/styles/mixin/loadMore.scss";
   .deliver-resume{
     position: relative;
     .main{
@@ -357,17 +361,7 @@ export default {
         }
         &:last-child{
           margin-bottom: 0;
-          border-bottom: 1px solid #eee;
         }
-      }
-    }
-    .loading-more{
-      margin-bottom: 1.33rem;
-      background: #ffffff;
-      height: 1.07rem;
-      text-align: center;
-      @include m(text){
-        line-height: 1.07rem;
       }
     }
   }
