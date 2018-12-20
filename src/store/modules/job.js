@@ -2,33 +2,29 @@ import setting from '@/services/config';
 import api from '@/services/index';
 /* eslint-disable */
 const state = {
-  // jobList: null,
 };
 
 const getters = {
 };
 
 const mutations = {
-  // settingJobList(state, data) {
-  //   state.jobList = data;
-  // },
 };
 
 const actions = {
-  getJobList({ commit , rootState}, payload) {
+  getJobList({ commit }, payload) {
     return new Promise(((resolve, reject) => {
-      api(setting.urlConfig.job.getJobList, payload, rootState.header).then(res => {
-        // commit('settingJobList', res);
+      api(setting.urlConfig.job.getJobList, payload).then(res => {
+        console.log('%c%s', 'color:blue', '=======> 职位列表');
         resolve(res)
       }).catch(res => {
         reject(res)
       });
     }))
   },
-  getJob({ commit , rootState}, payload) {
+  getJob({ commit }, payload) {
     return new Promise(((resolve, reject) => {
-      api(setting.urlConfig.job.getJob, payload, rootState.header).then(res => {
-        // commit('settingJobList', res);
+      api(setting.urlConfig.job.getJob, payload).then(res => {
+        console.log('%c%s', 'color:blue', '=======> 职位详情');
         resolve(res)
       }).catch(res => {
         reject(res)

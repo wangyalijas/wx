@@ -34,8 +34,11 @@
         @input="handleSearch">
       </mt-search>
     </div>
-    <div class="home__list">
-      <template v-for="(item, index1) in jobList">
+    <div class="home__list"
+         v-infinite-scroll="loadingMoreData"
+         infinite-scroll-disabled="isLoading"
+         infinite-scroll-distance="50">
+      <template v-for="(item, index1) in pageData">
         <div
         :key="index1"
         class="home__list--item"
@@ -55,6 +58,14 @@
         </div>
       </template>
     </div>
+    <div class="loading-more"
+         :style="`display: ${isLoadingMore} ? block : none`">
+      <div class="loading-more__wrapper" v-if="!isLoadingComplete">
+        <span class="loading-more__wrapper--spin"></span>
+        <span class="loading-more__wrapper--text">加载中</span>
+      </div>
+      <span class="loading-more--text" v-if="isLoadingComplete">我是有底线的</span>
+    </div>
     <tab :tabData="tabData"></tab>
   </div>
 </template>
@@ -70,134 +81,6 @@ export default {
     return {
       selected: 'tab1',
       value: '',
-      jobList: [
-        {
-          title: 'JS-01软件开发工程师',
-          labels: [
-            {
-              name: '呼和浩特',
-              status: 0,
-            },
-            {
-              name: '5-10年',
-              status: 1,
-            },
-            {
-              name: '博士及以上',
-              status: 2,
-            },
-          ],
-          time: '2018-11-03',
-        },
-        {
-          title: 'JS-01软件开发工程师',
-          labels: [
-            {
-              name: '呼和浩特',
-              status: 0,
-            },
-            {
-              name: '5-10年',
-              status: 1,
-            },
-            {
-              name: '博士及以上',
-              status: 2,
-            },
-          ],
-          time: '2018-11-03',
-        },
-        {
-          title: 'JS-01软件开发工程师',
-          labels: [
-            {
-              name: '呼和浩特',
-              status: 0,
-            },
-            {
-              name: '5-10年',
-              status: 1,
-            },
-            {
-              name: '博士及以上',
-              status: 2,
-            },
-          ],
-          time: '2018-11-03',
-        },
-        {
-          title: 'JS-01软件开发工程师',
-          labels: [
-            {
-              name: '呼和浩特',
-              status: 0,
-            },
-            {
-              name: '5-10年',
-              status: 1,
-            },
-            {
-              name: '博士及以上',
-              status: 2,
-            },
-          ],
-          time: '2018-11-03',
-        },
-        {
-          title: 'JS-01软件开发工程师',
-          labels: [
-            {
-              name: '呼和浩特',
-              status: 0,
-            },
-            {
-              name: '5-10年',
-              status: 1,
-            },
-            {
-              name: '博士及以上',
-              status: 2,
-            },
-          ],
-          time: '2018-11-03',
-        },
-        {
-          title: 'JS-01软件开发工程师',
-          labels: [
-            {
-              name: '呼和浩特',
-              status: 0,
-            },
-            {
-              name: '5-10年',
-              status: 1,
-            },
-            {
-              name: '博士及以上',
-              status: 2,
-            },
-          ],
-          time: '2018-11-03',
-        },
-        {
-          title: 'JS-01软件开发工程师',
-          labels: [
-            {
-              name: '呼和浩特',
-              status: 0,
-            },
-            {
-              name: '5-10年',
-              status: 1,
-            },
-            {
-              name: '博士及以上',
-              status: 2,
-            },
-          ],
-          time: '2018-11-03',
-        },
-      ],
       tabData: [
         {
           name: '招聘职位',
@@ -212,9 +95,8 @@ export default {
         place: '',
         recruitType: '',
         name: '',
-        currentPage: 1,
-        pageSize: 10,
       },
+      pageData: [],
     };
   },
   computed: {
@@ -225,14 +107,26 @@ export default {
     }),
   },
   methods: {
-    fetchPageData() {
-      this.$indicator.open();
-      this.$store.dispatch('job/getJobList', this.getJobListParams).then((res) => {
-        this.jobList = res;
-        this.$indicator.close();
-      })
-      setTimeout(() => {
-      }, 1000);
+    fetchPageDataAsync(flag) {
+      this.sendAxios(flag, 'job/getJobList', Object.assign(this.getJobListParams, this.pagination));
+    },
+    handleChangeJobType(res) {
+      this.$set(this.getJobListParams, 'jobType', res)
+      this.$set(this.pagination, 'currentPage', 1);
+      this.fetchPageDataAsync(false);
+    },
+    handleWorkPlace(res) {
+      this.$set(this.getJobListParams, 'place', res)
+      this.$set(this.pagination, 'currentPage', 1);
+      this.fetchPageDataAsync(false);
+    },
+    handleRecruitType(res) {
+      this.$set(this.getJobListParams, 'recruitType', res)
+      this.$set(this.pagination, 'currentPage', 1);
+      this.fetchPageDataAsync(false);
+    },
+    handleSearch() {
+      this.fetchPageDataAsync(false);
     },
     status(status) {
       switch (status) {
@@ -247,21 +141,6 @@ export default {
       }
       return false;
     },
-    handleChangeJobType(res) {
-      this.$set(this.getJobListParams, 'jobType', res)
-      this.fetchPageData();
-    },
-    handleWorkPlace(res) {
-      this.$set(this.getJobListParams, 'place', res)
-      this.fetchPageData();
-    },
-    handleRecruitType(res) {
-      this.$set(this.getJobListParams, 'recruitType', res)
-      this.fetchPageData();
-    },
-    handleSearch() {
-      this.fetchPageData();
-    },
   },
   components: {
     wxSelect,
@@ -269,7 +148,7 @@ export default {
   },
   created() {
     this.$nextTick(() => {
-      this.fetchPageData();
+      this.fetchPageDataAsync(false);
     });
   },
 };
@@ -298,6 +177,7 @@ export default {
 }
 </style>
 <style lang="scss" scoped>
+  @import "../../assets/styles/mixin/loadMore.scss";
   .home {
     @include e(header) {
      width: 100%;
@@ -313,13 +193,16 @@ export default {
       height: 1.39rem;
     }
     @include e(list) {
-      margin-bottom: 1.33rem;
+      /*margin-bottom: 1.33rem;*/
       background: #F7F7F7;
       @include m(item) {
         height: 2.40rem;
         background: #ffffff;
         margin-bottom: 0.27rem;
         position: relative;
+        &:last-child {
+          margin-bottom: 0;
+        }
         @include e(title) {
           position: absolute;
           top: 0.40rem;
