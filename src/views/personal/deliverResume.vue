@@ -32,6 +32,7 @@
         <mt-search
           v-model="searchValue"
           cancel-text="取消"
+          @keyup.native="changeType"
           placeholder="搜索职位">
         </mt-search>
       </div>
@@ -40,16 +41,15 @@
          v-infinite-scroll="loadingMoreData"
          infinite-scroll-disabled="isLoading"
          infinite-scroll-distance="50">
-      <template v-for="(item, index1) in data">
+      <template v-for="(item, index1) in pageData">
         <div :key="index1" class="list--item" @click="handleRouter('JobDetail')">
           <div class="list--item--inner">
-            <div class="list--item--inner__title">{{item.title}}</div>
-            <div class="list--item--inner__time">{{item.time}}</div>
+            <div class="list--item--inner__title">{{item.name}}</div>
+            <div class="list--item--inner__time">{{item.createdAt}}</div>
             <ul class="list--item--inner__label clearfix">
-              <li
-                v-for="(label, index2) in item.labels"
-                :key="index2"
-                class="list--item--inner__label--item">{{label.name}}</li>
+              <li class="list--item--inner__label--item">{{item.place}}</li>
+              <li class="list--item--inner__label--item">{{item.education}}</li>
+              <li class="list--item--inner__label--item">{{JobType[item.jobType].description}}</li>
             </ul>
           </div>
         </div>
@@ -57,11 +57,11 @@
     </div>
     <div class="loading-more"
          :style="`display: ${isLoadingMore} ? block : none`">
-      <div class="loading-more__wrapper">
+      <div class="loading-more__wrapper" v-if="!isLoadingComplete">
         <span class="loading-more__wrapper--spin"></span>
         <span class="loading-more__wrapper--text">加载中</span>
       </div>
-      <span class="loading-more--text" v-if="false">我是有底线的</span>
+      <span class="loading-more--text" v-if="isLoadingComplete">我是有底线的</span>
     </div>
     <tab :tabData="tabData"></tab>
   </div>
@@ -77,6 +77,11 @@ export default {
   data() {
     return {
       searchValue: '',
+      selectSearch: {
+        jobType: '',
+        place: '',
+        recruitType: '',
+      },
       tabData: [{
         name: '校园行程',
         route: 'campusProcess',
@@ -87,152 +92,7 @@ export default {
         name: '个人中心',
         route: 'personalCenter',
       }],
-      data: [
-        {
-          title: 'JS-01软件开发工程师',
-          labels: [
-            {
-              name: '呼和浩特',
-              status: 0,
-            },
-            {
-              name: '5-10年',
-              status: 1,
-            },
-            {
-              name: '博士及以上',
-              status: 2,
-            },
-          ],
-          time: '2018-11-03',
-        },
-        {
-          title: 'JS-01软件开发工程师',
-          labels: [
-            {
-              name: '呼和浩特',
-              status: 0,
-            },
-            {
-              name: '5-10年',
-              status: 1,
-            },
-            {
-              name: '博士及以上',
-              status: 2,
-            },
-          ],
-          time: '2018-11-03',
-        },
-        {
-          title: 'JS-01软件开发工程师',
-          labels: [
-            {
-              name: '呼和浩特',
-              status: 0,
-            },
-            {
-              name: '5-10年',
-              status: 1,
-            },
-            {
-              name: '博士及以上',
-              status: 2,
-            },
-          ],
-          time: '2018-11-03',
-        },
-        {
-          title: 'JS-01软件开发工程师',
-          labels: [
-            {
-              name: '呼和浩特',
-              status: 0,
-            },
-            {
-              name: '5-10年',
-              status: 1,
-            },
-            {
-              name: '博士及以上',
-              status: 2,
-            },
-          ],
-          time: '2018-11-03',
-        },
-        {
-          title: 'JS-01软件开发工程师',
-          labels: [
-            {
-              name: '呼和浩特',
-              status: 0,
-            },
-            {
-              name: '5-10年',
-              status: 1,
-            },
-            {
-              name: '博士及以上',
-              status: 2,
-            },
-          ],
-          time: '2018-11-03',
-        },
-        {
-          title: 'JS-01软件开发工程师',
-          labels: [
-            {
-              name: '呼和浩特',
-              status: 0,
-            },
-            {
-              name: '5-10年',
-              status: 1,
-            },
-            {
-              name: '博士及以上',
-              status: 2,
-            },
-          ],
-          time: '2018-11-03',
-        },
-        {
-          title: 'JS-01软件开发工程师',
-          labels: [
-            {
-              name: '呼和浩特',
-              status: 0,
-            },
-            {
-              name: '5-10年',
-              status: 1,
-            },
-            {
-              name: '博士及以上',
-              status: 2,
-            },
-          ],
-          time: '2018-11-03',
-        },
-        {
-          title: 'JS-01软件开发工程师',
-          labels: [
-            {
-              name: '呼和浩特',
-              status: 0,
-            },
-            {
-              name: '5-10年',
-              status: 1,
-            },
-            {
-              name: '博士及以上',
-              status: 2,
-            },
-          ],
-          time: '2018-11-03',
-        },
-      ],
+      pageData: [],
     };
   },
   computed: {
@@ -250,24 +110,38 @@ export default {
   },
   created() {
     this.$nextTick(() => {
-      this.fetchPageDataAsync();
+      this.fetchPageDataAsync(false);
     });
   },
   methods: {
-    async fetchPageDataAsync() {
-      console.log('test');
+    async fetchPageDataAsync(flag) {
+      this.sendAxios(flag, 'job/getJobList', {
+        currentPage: this.pagination.currentPage,
+        pageSize: this.pagination.pageSize,
+        jobType: this.selectSearch.jobType,
+        place: this.selectSearch.place,
+        recruitType: this.selectSearch.recruitType,
+        name: this.searchValue,
+      });
     },
     handleTop() {
       window.scroll(0, 0);
     },
     handleChangeJobType(res) {
-      console.log(res);
+      this.$set(this.selectSearch, 'jobType', res.id);
+      this.changeType();
     },
     handleWorkPlace(res) {
-      console.log(res);
+      this.$set(this.selectSearch, 'place', res.name);
+      this.changeType();
     },
     handleRecruitType(res) {
-      console.log(res);
+      this.$set(this.selectSearch, 'recruitType', res.id);
+      this.changeType();
+    },
+    changeType() {
+      this.$set(this.pagination, 'currentPage', 1);
+      this.fetchPageDataAsync(false);
     },
   },
 };

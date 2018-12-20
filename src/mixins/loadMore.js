@@ -20,6 +20,7 @@ export default {
       }, 1000);
     },
     async sendAxios(flag, httpConfig, params = {}) {
+      console.log(params);
       const result = await this.$store.dispatch(httpConfig, params);
       if (flag) {
         // 多次加载数据

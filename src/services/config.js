@@ -49,5 +49,10 @@ export default {
       mockUrl: '',
       method: 'POST',
     },
+    getJobList: {
+      url: 'getJobList',
+      mockUrl: '',
+      method: 'GET',
+    },
   },
 };

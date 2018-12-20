@@ -35,6 +35,16 @@ const actions = {
       });
     });
   },
+  getJobList(state, params) {
+    return new Promise((resolve, reject) => {
+      api(setting.urlConfig.getJobList, params).then((data) => {
+        console.log('%c%s', 'color:blue', '=======> 获取职位列表');
+        resolve(data);
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  },
 };
 
 export default {
