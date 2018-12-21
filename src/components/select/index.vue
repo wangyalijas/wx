@@ -21,7 +21,15 @@ export default {
   name: 'wxSelect',
   props: {
     title: String,
-    prop: Object,
+    prop: {
+      type: Object,
+      default() {
+        return {
+          id: 'id',
+          label: 'description',
+        };
+      },
+    },
     options: [Object, Array],
   },
   data() {

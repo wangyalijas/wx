@@ -174,6 +174,7 @@ export default {
   },
   created() {
     this.$nextTick(() => {
+      console.log(this.isGetData);
       if (this.isGetData) {
         this.getResume();
       }

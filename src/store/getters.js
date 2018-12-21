@@ -10,7 +10,9 @@ export default {
     return constant ? addAllDataToConstantTop(objectToArray(constant.JobType)) || [] : [];
   },
   handleWorkPlace({ constant }) {
-    return constant ? addAllDataToConstantTop(objectToArray(constant.WorkPlace, [{id: '', name: '全部'}])) || [] : [];
+    return constant ? addAllDataToConstantTop(Object.keys(constant.WorkPlace).sort().map(index => Object.assign(constant.WorkPlace[index],
+    {description: constant.WorkPlace[index].name})), [{id: '', name: '', description: '全部'}])
+    || [] : [];
   },
   handleRecruitType({ constant }) {
     return constant ? addAllDataToConstantTop(objectToArray(constant.RecruitType)) || [] : [];
