@@ -46,8 +46,10 @@
       </div>
     </div>
     <div class="job-detail__tab">
-      <div class="job-detail__tab--item"><i class="iconfont icon-collect"></i>收藏</div>
-      <div class="job-detail__tab--item" @click="handleRouter('JobResume')">投递岗位</div>
+      <div class="job-detail__tab--item"
+           @click="handleCollection"><i class="iconfont icon-collect"></i>收藏</div>
+      <div class="job-detail__tab--item"
+           @click="handleRouter('JobResume')">投递岗位</div>
     </div>
   </div>
 </template>
@@ -85,6 +87,16 @@ export default {
         result = 'length-long';
       }
       return result;
+    },
+    async handleCollection() {
+      const params = {
+        jobId: this.$route.query.id,
+      };
+      const result = await this.$store.dispatch('job/postCollection', params);
+      if (result.state) {
+        this.$toast(result.tip);
+        this.fetchPageData();
+      }
     },
   },
   created() {
