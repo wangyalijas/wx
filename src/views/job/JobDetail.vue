@@ -191,14 +191,14 @@ export default {
         }
         &:nth-child(2) {
           top: 0.27rem;
-          left: 4.99rem;
+          right: 0.27rem;
         }
         &:nth-child(3) {
           top: 1.07rem;
         }
         &:nth-child(4) {
           top: 1.07rem;
-          left: 4.99rem;
+          right: 0.27rem;
         }
         span:nth-child(1) {
           margin-right: 0.53rem;
