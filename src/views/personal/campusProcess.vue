@@ -1,14 +1,11 @@
 <template>
   <div class="campus-process">
     <mt-swipe :auto="3000">
-      <mt-swipe-item>
-        <img src="../../../public/img/swipe.jpg"/>
-      </mt-swipe-item>
-      <mt-swipe-item>
-        <img src="../../../public/img/swipe.jpg"/>
-      </mt-swipe-item>
-      <mt-swipe-item>
-        <img src="../../../public/img/swipe.jpg"/>
+      <mt-swipe-item v-for="(item, index) in recommendNews"
+                     :key="index"
+                     @click.native="handleOpenNews(item.weUrl)">
+        <span class="mint-swipe-item-name">{{item.name}}</span>
+        <img :src="item.bannerCover"/>
       </mt-swipe-item>
     </mt-swipe>
     <section class="main"
@@ -70,6 +67,7 @@ export default {
         name: '个人中心',
         route: 'personalCenter',
       }],
+      recommendNews: [],
     };
   },
   computed: {
@@ -85,16 +83,22 @@ export default {
   created() {
     this.$nextTick(() => {
       // 第一次加载数据
+      this.fetchRecommendNews();
       this.fetchPageDataAsync(false);
-      console.log(this.ScheduleState);
     });
   },
   methods: {
+    async fetchRecommendNews() {
+      this.recommendNews = await this.$store.dispatch('news/getRecommendNews', { isSchoolScheduleNews: true });
+    },
     async fetchPageDataAsync(flag) {
       this.sendAxios(flag, 'campusProcess/getScheduleList', {
         currentPage: this.pagination.currentPage,
         pageSize: this.pagination.pageSize,
       });
+    },
+    handleOpenNews(wbUrl) {
+      window.location.href = wbUrl;
     },
   },
 };
@@ -111,6 +115,13 @@ export default {
       .mint-swipe-items-wrap{
         img{
           height: 4.61rem;
+        }
+        .mint-swipe-item-name{
+          position: absolute;
+          left: 0.27rem;
+          bottom: 0.13rem;
+          font-size: 14px;
+          color: #ffffff;
         }
       }
     }

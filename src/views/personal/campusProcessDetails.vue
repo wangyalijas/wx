@@ -32,7 +32,7 @@
       </div>
     </main>
     <div class="footer" v-if="detailsDataObj.scheduleState == 0"
-         @click="handleRouter('campusRegister', {campusId: detailsDataObj.id})">
+         @click="submit">
       <span class="footer-value">我要报名</span>
     </div>
   </div>
@@ -53,7 +53,10 @@ export default {
       ScheduleState: 'handleScheduleState',
     }),
     content() {
-      return this.detailsDataObj.content.split('\n');
+      if (this.detailsDataObj.content) {
+        return this.detailsDataObj.content.split('\n');
+      }
+      return true;
     },
   },
   components: {
@@ -71,6 +74,13 @@ export default {
         id: this.$route.query.processId,
       };
       this.detailsDataObj = await this.$store.dispatch('campusProcess/getSchedule', params);
+    },
+    submit() {
+      if (!this.detailsDataObj.isJoin) {
+        this.handleRouter('campusRegister', { campusId: this.detailsDataObj.id });
+      } else {
+        this.$toast('不能重复报名');
+      }
     },
   },
 };

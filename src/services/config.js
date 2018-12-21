@@ -74,5 +74,10 @@ export default {
       mockUrl: '',
       method: 'GET',
     },
+    getRecommendNews: {
+      url: 'getRecommendNews',
+      mockUrl: '',
+      method: 'GET',
+    },
   },
 };

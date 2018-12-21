@@ -21,6 +21,16 @@ const news = {
         });
       });
     },
+    getRecommendNews(state, params) {
+      return new Promise((resolve, reject) => {
+        api(setting.urlConfig.getRecommendNews, params).then((data) => {
+          console.log('%c%s', 'color:blue', '=======> 获取推荐新闻');
+          resolve(data);
+        }).catch((err) => {
+          reject(err);
+        });
+      });
+    },
   },
 };
 export default news;

@@ -2,14 +2,11 @@
   <div class="group-activity">
     <div class="header">
       <mt-swipe :auto="3000">
-        <mt-swipe-item>
-          <img src="../../../public/img/swipe.jpg"/>
-        </mt-swipe-item>
-        <mt-swipe-item>
-          <img src="../../../public/img/swipe.jpg"/>
-        </mt-swipe-item>
-        <mt-swipe-item>
-          <img src="../../../public/img/swipe.jpg"/>
+        <mt-swipe-item v-for="(item, index) in recommendNews"
+                       :key="index"
+                       @click.native="handleOpenNews(item.weUrl)">
+          <span class="mint-swipe-item-name">{{item.name}}</span>
+          <img :src="item.bannerCover"/>
         </mt-swipe-item>
       </mt-swipe>
       <mt-navbar v-model="selectedBar">
@@ -75,6 +72,7 @@ export default {
         index: '3',
       }],
       pageData: [],
+      recommendNews: [],
     };
   },
   computed: {
@@ -103,10 +101,14 @@ export default {
   },
   created() {
     this.$nextTick(() => {
+      this.fetchRecommendNews();
       this.fetchPageDataAsync(false);
     });
   },
   methods: {
+    async fetchRecommendNews() {
+      this.recommendNews = await this.$store.dispatch('news/getRecommendNews', { isSchoolScheduleNews: false });
+    },
     async fetchPageDataAsync(flag) {
       this.sendAxios(flag, 'news/getNewsList', {
         currentPage: this.pagination.currentPage,
@@ -138,6 +140,13 @@ export default {
         .mint-swipe-items-wrap{
           img{
             height: 4.59rem;
+          }
+          .mint-swipe-item-name{
+            position: absolute;
+            left: 0.27rem;
+            bottom: 0.13rem;
+            font-size: 14px;
+            color: #ffffff;
           }
         }
       }
