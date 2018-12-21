@@ -220,7 +220,7 @@ export default {
           bottom: 0.40rem;
           @include m(item) {
             float: left;
-            padding: 0.1rem 0.27rem;
+            padding: 0.03rem 0.24rem;
             border-radius: 2px;
             font-size: 0.35rem;
             margin-right: 0.27rem;
