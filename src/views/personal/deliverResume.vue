@@ -7,7 +7,6 @@
           <wx-select
             title="全部城市"
             :options="WorkPlace"
-            :prop="{id: 'id', label: 'name'}"
             @change="handleWorkPlace"
           ></wx-select>
         </div>
@@ -15,7 +14,6 @@
           <wx-select
             title="全部类别"
             :options="JobType"
-            :prop="{id: 'id', label: 'description'}"
             @change="handleChangeJobType"
           ></wx-select>
         </div>
@@ -23,7 +21,6 @@
           <wx-select
             title="招聘类型"
             :options="RecruitType"
-            :prop="{id: 'id', label: 'description'}"
             @change="handleRecruitType"
           ></wx-select>
         </div>

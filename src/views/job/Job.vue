@@ -5,7 +5,6 @@
         <wx-select
         title="职位类别"
         :options="jobType"
-        :prop="{id: 'id', label: 'description'}"
         @change="handleChangeJobType"
         ></wx-select>
       </div>
@@ -13,7 +12,6 @@
         <wx-select
         title="地点"
         :options="workPlace"
-        :prop="{id: 'id', label: 'name'}"
         @change="handleWorkPlace"
         ></wx-select>
       </div>
@@ -21,7 +19,6 @@
         <wx-select
         title="招聘类型"
         :options="recruitType"
-        :prop="{id: 'id', label: 'description'}"
         @change="handleRecruitType"
         ></wx-select>
       </div>
@@ -116,7 +113,7 @@ export default {
       this.fetchPageDataAsync(false);
     },
     handleWorkPlace(res) {
-      this.$set(this.getJobListParams, 'place', res.id);
+      this.$set(this.getJobListParams, 'place', res.name);
       this.$set(this.pagination, 'currentPage', 1);
       this.fetchPageDataAsync(false);
     },
