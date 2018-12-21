@@ -30,6 +30,10 @@ export default {
         };
       },
     },
+    value: {
+      type: String,
+      default: '全部',
+    },
     options: [Object, Array],
   },
   created() {
@@ -41,6 +45,8 @@ export default {
     };
   },
   computed: {
+  },
+  watch: {
   },
   methods: {
     isSelected(index) {
@@ -60,6 +66,14 @@ export default {
     handleEmit(item) {
       this.$emit('change', item);
     },
+    initSelectedItemIndex() {
+      this.selectedItemIndex = this.options.map(item => item[`${this.prop.label}`]).indexOf(this.value);
+    },
+  },
+  created() {
+    this.$nextTick(() => {
+      this.initSelectedItemIndex();
+    });
   },
 };
 </script>

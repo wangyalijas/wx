@@ -27,10 +27,17 @@ export default {
         mockUrl: '',
         method: 'POST',
       },
+    },
+    resume: {
       getResume: {
         url: 'getResume',
         mockUrl: '',
         method: 'GET',
+      },
+      postResume: {
+        url: 'postResume',
+        mockUrl: '',
+        method: 'POST',
       },
     },
     getScheduleList: {
