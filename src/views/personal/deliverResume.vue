@@ -49,7 +49,7 @@
             <ul class="list--item--inner__label clearfix">
               <li class="list--item--inner__label--item">{{item.place}}</li>
               <li class="list--item--inner__label--item">{{item.education}}</li>
-              <li class="list--item--inner__label--item">{{JobType[item.jobType].description}}</li>
+              <li class="list--item--inner__label--item">{{formatType(item.jobType, JobType)}}</li>
             </ul>
           </div>
         </div>
@@ -114,6 +114,15 @@ export default {
     });
   },
   methods: {
+    formatType(item, valueArr) {
+      let result = '';
+      valueArr.forEach((value) => {
+        if (item === value.id) {
+          result = value.description;
+        }
+      });
+      return result;
+    },
     async fetchPageDataAsync(flag) {
       this.sendAxios(flag, 'job/getJobList', {
         currentPage: this.pagination.currentPage,

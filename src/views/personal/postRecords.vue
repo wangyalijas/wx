@@ -17,11 +17,11 @@
           <div class="main-list__inner__info">
             <span class="main-list__inner__info--time">{{item.createdAt}}</span>
             <span class="main-list__inner__info--status" :class="{active: item.reviewType == 0}">
-              {{ReviewType[item.reviewType].description}}</span>
+              {{formatType(item.reviewType, ReviewType)}}</span>
           </div>
           <div :class="['main-list__inner__label', { active: item.isEnd == 0 }]">
             <span>{{item.place}}</span>
-            <span>{{JobType[item.jobType].description}}</span>
+            <span>{{formatType(item.jobType, JobType)}}</span>
           </div>
         </div>
       </div>
@@ -62,14 +62,21 @@ export default {
   },
   components: {
   },
-  filters: {
-  },
   created() {
     this.$nextTick(() => {
       this.fetchPageDataAsync(false);
     });
   },
   methods: {
+    formatType(item, valueArr) {
+      let result = '';
+      valueArr.forEach((value) => {
+        if (item === value.id) {
+          result = value.description;
+        }
+      });
+      return result;
+    },
     async fetchPageDataAsync(flag) {
       this.sendAxios(flag, 'user/getUserDeliveryJob', {
         currentPage: this.pagination.currentPage,

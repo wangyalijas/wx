@@ -86,6 +86,7 @@ export default {
     this.$nextTick(() => {
       // 第一次加载数据
       this.fetchPageDataAsync(false);
+      console.log(this.ScheduleState);
     });
   },
   methods: {

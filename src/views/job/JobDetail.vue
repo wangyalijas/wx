@@ -98,7 +98,7 @@ export default {
       if (this.data.isCollection) {
         return this.$toast('不能重复收藏！');
       }
-      this.$store.dispatch('job/postCollection', { jobId: this.$route.query.id }).then((res) => {
+      this.$store.dispatch('job/postCollection', { jobId: this.$route.query.id }).then(() => {
         this.fetchPageData();
       });
       return this.$toast('收藏成功！');
@@ -107,7 +107,7 @@ export default {
       if (this.data.isDelivery) {
         return this.$toast('不能重复投递！');
       }
-      this.$store.dispatch('job/postDelivery', { jobId: this.$route.query.id }).then((res) => {
+      this.$store.dispatch('job/postDelivery', { jobId: this.$route.query.id }).then(() => {
         this.fetchPageData();
       });
       return this.$toast('投递成功！');

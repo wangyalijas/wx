@@ -21,7 +21,7 @@
         <div :class="['value-label', { active: item.isEnd == 0 }]">
           <span class="value-label__name">{{item.place}}</span>
           <span class="value-label__name">
-            {{JobType[item.jobType].description}}</span>
+            {{formatType(item.jobType, JobType)}}</span>
         </div>
       </mt-cell-swipe>
     </main>
@@ -69,6 +69,15 @@ export default {
     });
   },
   methods: {
+    formatType(item, valueArr) {
+      let result = '';
+      valueArr.forEach((value) => {
+        if (item === value.id) {
+          result = value.description;
+        }
+      });
+      return result;
+    },
     async fetchPageDataAsync(flag) {
       this.sendAxios(flag, 'user/getUserCollectionJob', {
         currentPage: this.pagination.currentPage,
