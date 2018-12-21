@@ -102,6 +102,7 @@ export default {
     }),
     formatSchool() {
       // 校园招聘 招聘类型：实习
+      this.$set(this.selectSearch, 'recruitType', this.isSchool ? '1' : '');
       return this.isSchool ? '实习' : '全部';
     },
   },
