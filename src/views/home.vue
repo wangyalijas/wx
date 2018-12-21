@@ -24,7 +24,19 @@ export default {
         'X-OpenId': this.$route.query.openId,
       });
       if (this.$store.state.header) {
-        this.handleRouter('Job');
+        switch (this.$route.query.type) {
+          case 'social':
+            this.handleRouter('Job');
+            break;
+          case 'school':
+            this.handleRouter('campusProcess');
+            break;
+          case 'news':
+            this.handleRouter('groupActivity');
+            break;
+          default:
+            break;
+        }
       }
     },
   },

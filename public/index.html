@@ -8,6 +8,16 @@
     <script src="./plugin/flexible/flexible.debug.js"></script>
     <link rel="stylesheet" type="text/css" href="./fonts/iconfont.css">
     <title>职位列表</title>
+    <style>
+      .wexin-wrapper{
+        height: 100vh;
+        text-align: center;
+      }
+      .wexin-wrapper span{
+        line-height: 100vh;
+        font-size: 0.53rem;
+      }
+    </style>
   </head>
   <body>
     <noscript>
@@ -15,5 +25,13 @@
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
+    <script type="text/javascript">
+      // 只能在微信浏览器打开
+      let ua = window.navigator.userAgent.toLowerCase();
+      let isWeixin = ua.includes('micromessenger');
+      if (!isWeixin) {
+        document.body.innerHTML = `<div class="wexin-wrapper"><span>请在微信客户端打开链接</span></div>`;
+      }
+    </script>
   </body>
 </html>
