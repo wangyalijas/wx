@@ -20,6 +20,14 @@ export default new Router({
       },
     },
     {
+      path: '/config',
+      name: 'config',
+      component: loadView('config/index'),
+      meta: {
+        title: '微信客户端',
+      },
+    },
+    {
       path: '/',
       name: 'Job',
       component: loadView('job/Job'),

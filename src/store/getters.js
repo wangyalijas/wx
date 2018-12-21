@@ -33,4 +33,7 @@ export default {
     return state.enum;
     // return enum ? enum.Education || {} : {};
   },
+  handleIsSchool(state) {
+    return state.isSchool;
+  },
 };

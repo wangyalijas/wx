@@ -9,4 +9,7 @@ export default {
   getOpenIdUserId(state, data) {
     state.header = data;
   },
+  handleIsSchool(state, data) {
+    state.isSchool = data;
+  },
 };

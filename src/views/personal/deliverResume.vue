@@ -19,6 +19,7 @@
         </div>
         <div class="header-select">
           <wx-select
+            :value="formatSchool"
             title="招聘类型"
             :options="RecruitType"
             @change="handleRecruitType"
@@ -97,7 +98,12 @@ export default {
       JobType: 'handleJobType',
       WorkPlace: 'handleWorkPlace',
       RecruitType: 'handleRecruitType',
+      isSchool: 'handleIsSchool',
     }),
+    formatSchool() {
+      // 校园招聘 招聘类型：实习
+      return this.isSchool ? '实习' : '全部';
+    },
   },
   components: {
     WxSelect,

@@ -5,4 +5,5 @@ export default {
     'X-UserId': 1,
     'X-OpenId': 'test123456',
   },
+  isSchool: false,
 };
