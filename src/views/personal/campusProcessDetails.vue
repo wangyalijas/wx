@@ -9,7 +9,9 @@
       </template>
       <div class="main-title">{{detailsDataObj.name}}</div>
       <div class="main-info">
-        <span class="main-info__item">{{detailsDataObj.content}}</span>
+        <span class="main-info__item"
+              v-for="(item, index) in content"
+              :key="index">{{item}}</span>
       </div>
       <div class="main-plan">笔试面试安排</div>
       <div class="main-time">
@@ -50,6 +52,9 @@ export default {
     ...mapGetters({
       ScheduleState: 'handleScheduleState',
     }),
+    content() {
+      return this.detailsDataObj.content.split('\n');
+    },
   },
   components: {
   },
@@ -113,6 +118,8 @@ export default {
         line-height: 0.75rem;
         @include e(item){
           display: block;
+          max-width: 8.93rem;
+          word-break: break-all;
         }
       }
       .main-plan{
