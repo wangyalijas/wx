@@ -100,7 +100,7 @@ export default {
       }
       this.$store.dispatch('job/postCollection', { jobId: this.$route.query.id }).then((res) => {
         this.fetchPageData();
-      })
+      });
       return this.$toast('收藏成功！');
     },
     handleDelivery() {
@@ -109,7 +109,7 @@ export default {
       }
       this.$store.dispatch('job/postDelivery', { jobId: this.$route.query.id }).then((res) => {
         this.fetchPageData();
-      })
+      });
       return this.$toast('投递成功！');
     },
     handleRecruitType(data) {
