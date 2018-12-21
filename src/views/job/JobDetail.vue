@@ -10,7 +10,7 @@
     <ul class="job-detail__category">
       <li class="job-detail__category--item">
         <span>职业类别</span>
-        <span>技术类</span>
+        <span>{{handleRecruitType(data.recruitType)}}</span>
       </li>
       <li class="job-detail__category--item">
         <span>工作年限</span>
@@ -46,13 +46,18 @@
       </div>
     </div>
     <div class="job-detail__tab">
-      <div class="job-detail__tab--item"><i class="iconfont icon-collect"></i>收藏</div>
-      <div class="job-detail__tab--item" @click="handleRouter('JobResume')">投递岗位</div>
+      <div class="job-detail__tab--item"
+      @click="handleCollection">
+      <i class="iconfont icon-collect"></i>收藏
+      </div>
+      <div class="job-detail__tab--item" @click="handleDelivery">投递岗位</div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'JobDetail',
   data() {
@@ -61,6 +66,9 @@ export default {
     };
   },
   computed: {
+    ...mapGetters({
+      recruitType: 'handleRecruitType',
+    }),
     duty() {
       return this.data.duty.split('；');
     },
@@ -85,6 +93,27 @@ export default {
         result = 'length-long';
       }
       return result;
+    },
+    handleCollection() {
+      if (this.data.isCollection) {
+        return this.$toast('不能重复收藏！');
+      }
+      this.$store.dispatch('job/postCollection', { jobId: this.$route.query.id }).then((res) => {
+        this.fetchPageData();
+      })
+      return this.$toast('收藏成功！');
+    },
+    handleDelivery() {
+      if (this.data.isDelivery) {
+        return this.$toast('不能重复投递！');
+      }
+      this.$store.dispatch('job/postDelivery', { jobId: this.$route.query.id }).then((res) => {
+        this.fetchPageData();
+      })
+      return this.$toast('投递成功！');
+    },
+    handleRecruitType(data) {
+      return this.recruitType.filter(item => item.id === data).shift().description;
     },
   },
   created() {
@@ -124,7 +153,7 @@ export default {
         text-align: center;
         line-height: 1.04rem;
         top: 0.8rem;
-        overflow:hidden;
+        overflow: hidden;
       }
       @include m(job) {
         height: 0.59rem;

@@ -9,7 +9,7 @@
       <mt-field label="学历" placeholder="请选择学历"></mt-field>
     </div>
     <div class="footer">
-      <span class="footer-value">提交</span>
+      <span class="footer-value" @click="handleRouter('JobResume')">提交</span>
     </div>
   </div>
 </template>

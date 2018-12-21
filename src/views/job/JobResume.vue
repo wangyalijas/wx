@@ -1,30 +1,44 @@
 <template>
   <div>
-    <div class="job-resume">
+    <div class="job-resume" v-if="resume">
       <div class="job-resume__title">个人信息</div>
       <div class="job-resume__info">
-        <mt-field label="姓名" placeholder="请填写姓名" v-model="form.name"></mt-field>
+        <mt-field label="姓名" placeholder="请填写姓名" v-model="resume.resume.name"></mt-field>
         <mt-cell title="性别" @click.native="openPopUp">
-          <span style="font-size: 14px">{{currentSexTags ? currentSexTags: '请选择'}}</span>
+          <span style="font-size: 14px">
+            {{handleGenderType(resume.resume.genderType)
+              ? handleGenderType(resume.resume.genderType): '请选择'}}
+          </span>
         </mt-cell>
         <mt-field
         label="电话号码"
         placeholder="请填写您的电话号码"
         type="tel"
-        v-model="form.telephone"
+        v-model="resume.resume.phone"
         ></mt-field>
         <mt-field
         label="电子邮件"
         placeholder="请输入电子邮件"
         type="email"
-        v-model="form.email"
+        v-model="resume.resume.email"
         ></mt-field>
         <mt-cell title="参加工作年月" @click.native="openPicker">
-          <span style="font-size: 14px">{{form.date ? form.date: '请选择'}}</span>
+          <span style="font-size: 14px">
+            {{resume.resume.workYear ? resume.resume.workYear: '请选择'}}
+          </span>
         </mt-cell>
       </div>
       <div class="job-resume__education">
         <div class="job-resume__education--title">教育经历</div>
+        <div class="job-resume__education--main">
+        <template  v-for="(item, index) in resume.educations">
+          <div class="job-resume__education--main__item" :key="index">
+            <div class="job-resume__education--main__item--title">{{item.school}}</div>
+            <div class="job-resume__education--main__item--description">{{item.major}}</div>
+            <div class="job-resume__education--main__item--time">{{item.startTime}}</div>
+          </div>
+        </template>
+        </div>
         <div
         class="job-resume__education--button"
         @click="handleRouter('JobEducation')">
@@ -33,6 +47,15 @@
       </div>
       <div class="job-resume__education">
         <div class="job-resume__education--title">工作经历</div>
+        <div class="job-resume__education--main">
+          <template  v-for="(item, index) in resume.works">
+            <div class="job-resume__education--main__item" :key="index">
+              <div class="job-resume__education--main__item--title">{{item.jobName}}</div>
+              <div class="job-resume__education--main__item--description">{{item.major}}</div>
+              <div class="job-resume__education--main__item--time">{{item.startTime}}</div>
+            </div>
+          </template>
+        </div>
         <div class="job-resume__education--button"
              @click="handleRouter('JobExperience')">+ 添加工作经历</div>
       </div>
@@ -69,31 +92,28 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import dataFormat from '../../util/dataFormat';
 
 export default {
   name: 'JobResume',
   data() {
     return {
-      form: {
-        name: '',
-        sex: '',
-        telephone: '',
-        email: '',
-        date: '',
-      },
       sexSwitch: false,
-      currentSexTags: null,
       sexPicker: [
         {
           flex: 1,
           values: [
             {
               label: '男',
-              id: 1,
+              id: 0,
             },
             {
               label: '女',
+              id: 1,
+            },
+            {
+              label: '其他',
               id: 2,
             },
           ],
@@ -101,9 +121,14 @@ export default {
           textAlign: 'center',
         },
       ],
+      isGetData: false,
     };
   },
   computed: {
+    ...mapGetters({
+      gender: 'handleGender',
+      resume: 'job/handleResume',
+    }),
     startDate() {
       return new Date(new Date().getFullYear() - 60, 0, 1);
     },
@@ -112,6 +137,9 @@ export default {
     },
   },
   methods: {
+    handleGenderType(data) {
+      return this.gender.filter(item => item.id === data).shift().description;
+    },
     openPicker() {
       this.$refs.picker.open();
     },
@@ -122,13 +150,34 @@ export default {
       this.sexSwitch = false;
     },
     handleSexConfirm() {
-      this.$set(this.form, 'sex', this.$refs.sexPicker.getValues()[0].id);
-      this.currentSexTags = this.$refs.sexPicker.getValues()[0].label;
+      this.$set(this.resume.resume, 'genderType', this.$refs.sexPicker.getValues()[0].id);
       this.sexSwitch = false;
     },
     handleConfirm(res) {
-      this.$set(this.form, 'date', dataFormat(res, 'yyyy-MM-dd'));
+      this.$set(this.resume.resume, 'workYear', dataFormat(res, 'yyyy-MM-dd'));
     },
+    getResume() {
+      this.$indicator.open();
+      this.$store.dispatch('job/getResume').then(() => {
+        this.$indicator.close();
+      });
+    },
+  },
+  beforeRouteEnter(to, from, next) {
+    if (from.name === 'JobEducation' || from.name === 'JobExperience') {
+      next();
+    } else {
+      next((vm) => {
+        vm.isGetData = true;
+      });
+    }
+  },
+  created() {
+    this.$nextTick(() => {
+      if (this.isGetData) {
+        this.getResume();
+      }
+    });
   },
   components: {
   },
@@ -179,27 +228,57 @@ export default {
   }
   @include e(education) {
     padding:0 0.53rem;
-    height: 4.03rem;
     position: relative;
     border-bottom: 0.03rem solid #F5F5F5;
     @include m(title) {
-      position: absolute;
-      top: 1.01rem;
-      left: 0.53rem;
       font-size: 0.43rem;
       color: #333333;
       font-weight: bold;
+      padding: 0.40rem  0.27rem 0.27rem;
+    }
+    @include m(main) {
+      padding: 0 0.27rem;
+      @include e(item){
+        position: relative;
+        height: 1.20rem;
+        margin-top: 0.27rem;
+        @include m(title) {
+          font-size: 0.37rem;
+          color: #666666;
+          font-weight: bold;
+          position: absolute;
+          top: 0;
+          left: 0;
+        }
+        @include m(description) {
+          font-size: 0.35rem;
+          color: #999999;
+          position: absolute;
+          bottom: 0;
+          left: 0;
+        }
+        @include m(time) {
+          font-size: 0.35rem;
+          color: #999999;
+          position: absolute;
+          right: 0;
+          top: 0;
+        }
+      }
     }
     @include m(button) {
-      position: absolute;
       background: #FFFFFF;
       box-shadow: 0 0 8px 0 rgba(149,177,224,0.35);
       border-radius: 20.5px;
       font-size: 0.37rem;
       color: #4982E2;
-      top: 2.13rem;
-      left: 2.80rem;
-      padding: 0.29rem 0.80rem;
+      margin-top: 0.80rem;
+      margin-left: 2.20rem;
+      width: 4.40rem;
+      height: 1.09rem;
+      text-align: center;
+      line-height:  1.09rem;
+      margin-bottom: 0.80rem;
     }
   }
   @include e(img) {

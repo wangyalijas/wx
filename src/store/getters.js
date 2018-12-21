@@ -15,6 +15,9 @@ export default {
   handleRecruitType({ constant }) {
     return constant ? addAllDataToConstantTop(objectToArray(constant.RecruitType)) || [] : [];
   },
+  handleGender({ constant }) {
+    return constant ? objectToArray(constant.Gender) || [] : [];
+  },
   handleScheduleState({ constant }) {
     return constant ? addAllDataToConstantTop(objectToArray(constant.ScheduleState)) || [] : [];
   },

@@ -22,6 +22,16 @@ export default {
         mockUrl: '',
         method: 'GET',
       },
+      postDelivery: {
+        url: 'postDelivery',
+        mockUrl: '',
+        method: 'POST',
+      },
+      getResume: {
+        url: 'getResume',
+        mockUrl: '',
+        method: 'GET',
+      },
     },
     getScheduleList: {
       // 校园行程列表
