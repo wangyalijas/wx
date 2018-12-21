@@ -59,6 +59,11 @@ export default {
         mockUrl: '',
         method: 'PUT',
       },
+      postResumeAttachment: {
+        url: 'postResumeAttachment',
+        mockUrl: '',
+        method: 'POSt',
+      },
     },
     getScheduleList: {
       // 校园行程列表

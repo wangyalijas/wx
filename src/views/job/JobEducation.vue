@@ -16,8 +16,7 @@
       <mt-field label="专业" placeholder="请填写专业" v-model="form.major"></mt-field>
       <mt-cell title="学历" @click.native="openPopUp">
           <span style="font-size: 14px">
-            {{transformationEducationType(form.educationType)
-              ? transformationEducationType(form.educationType): '请选择学历'}}
+            {{ transformationEducationType(form.educationType) }}
           </span>
       </mt-cell>
     </div>
@@ -127,10 +126,8 @@ export default {
       this.educationTypeSwitch = true;
     },
     transformationEducationType(data) {
-      if (!data) {
-        return false
-      }
-      return this.educationType.filter(item => item.id == data).shift().description;
+      const result = this.educationType.filter(item => item.id == data).shift();
+      return result ? result.description : '请选择学历';
     },
     handleStartPickerConfirm(res) {
       this.$set(this.form, 'startTime', dataFormat(res, 'yyyy-MM-dd'));

@@ -17,16 +17,18 @@ const mutations = {
   settingResume(state, payload) {
     state.resume = payload;
   },
-  modifyEducation(state, payload) {
-    let index = state.resume.educations.indexOf(payload.data);
-    state.resume.educations.splice(index, 1, payload.form);
+  modifyEducation(state, {form, data}) {
+    let educations = state.resume.educations;
+    let index = educations.indexOf(educations.filter(item => item.id === data.id).shift());
+    educations.splice(index, 1, form);
   },
   settingNewEducation(state, payload) {
     state.resume.educations.push(payload);
   },
-  modifyWork(state, payload) {
-    let index = state.resume.works.indexOf(payload.data);
-    state.resume.works.splice(index, 1, payload.form);
+  modifyWork(state, {form, data}) {
+    let works = state.resume.works;
+    let index = works.indexOf(works.filter(item => item.id === data.id).shift());
+    works.splice(index, 1, form);
   },
   settingNewWork(state, payload) {
     state.resume.works.push(payload);
@@ -100,6 +102,16 @@ const actions = {
       }
       api(urlConfig, payload).then(res => {
         console.log('%c%s', 'color:blue', '=======> 修改工作经历');
+        resolve(res)
+      }).catch(res => {
+        reject(res)
+      });
+    }))
+  },
+  postResumeAttachment({ commit }, payload) {
+    return new Promise(((resolve, reject) => {
+      api(setting.urlConfig.resume.postResumeAttachment, payload).then(res => {
+        console.log('%c%s', 'color:blue', '=======> 上传简历');
         resolve(res)
       }).catch(res => {
         reject(res)

@@ -84,8 +84,9 @@
       </div>
       <div class="job-resume__img">
         <div class="job-resume__img--title">附件</div>
-        <div class="job-resume__img--button">+</div>
-        <div class="job-resume__img--tip">提示：图片必须小于2M</div>
+        <div class="job-resume__img--content">
+          <upload :data="resume.attachments"></upload>
+        </div>
       </div>
       <div class="footer" @click="postResume">
         <span class="footer-value">提交</span>
@@ -110,13 +111,13 @@
       date-format="{value} 日"
       @confirm="handleConfirm">
     </mt-datetime-picker>
-
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
 import dataFormat from '../../util/dataFormat';
+import upload from '../../components/upload/index.vue';
 
 export default {
   name: 'JobResume',
@@ -190,7 +191,6 @@ export default {
     },
     postResume() {
       this.$indicator.open();
-      console.log(this.resume.resume);
       this.$store.dispatch('resume/postResume', this.resume.resume).then((res) => {
         if (res.code) {
           this.$indicator.close();
@@ -210,13 +210,13 @@ export default {
   },
   created() {
     this.$nextTick(() => {
-      console.log(this.isGetData);
       if (this.isGetData) {
         this.getResume();
       }
     });
   },
   components: {
+    upload,
   },
 };
 </script>
@@ -377,37 +377,16 @@ export default {
   }
   @include e(img) {
     padding:0 0.53rem 2rem;
-    height: 4.03rem;
-    position: relative;
     border-bottom: 0.03rem solid #F5F5F5;
     @include m(title) {
-      position: absolute;
-      top: 1.01rem;
-      left: 0.53rem;
+      margin-top: 0.53rem;
+      margin-left: 0.53rem;
       font-size: 0.43rem;
       color: #333333;
       font-weight: bold;
     }
-    @include m(button) {
-      position: absolute;
-      background: #FFFFFF;
-      box-shadow: 0 0 0.21rem 0 rgba(149,177,224,0.35);
-      border-radius: 12px;
-      font-size: 0.6rem;
-      color: #4982E2;
-      top: 2.13rem;
-      left: 4.24rem;
-      width: 1.49rem;
-      height: 1.49rem;
-      text-align: center;
-      line-height: 1.49rem;
-    }
-    @include m(tip) {
-      font-size: 0.37rem;
-      color: #666666;
-      position: absolute;
-      left: 3.04rem;
-      top: 3.89rem;
+    @include m(content) {
+      margin-top: 0.53rem;
     }
   }
   .footer{
