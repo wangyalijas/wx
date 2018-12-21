@@ -12,7 +12,6 @@
         <wx-select
         title="地点"
         :options="workPlace"
-        value="上海"
         @change="handleWorkPlace"
         ></wx-select>
       </div>

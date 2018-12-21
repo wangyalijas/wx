@@ -14,16 +14,15 @@
       </mt-cell>
       <mt-field label="学校" placeholder="请填写毕业院校" v-model="form.school"></mt-field>
       <mt-field label="专业" placeholder="请填写专业" v-model="form.major"></mt-field>
-      <!--<mt-field label="学历" placeholder="请选择学历" v-model="form.educationType"></mt-field>-->
       <mt-cell title="学历" @click.native="openPopUp">
           <span style="font-size: 14px">
-            {{handleEducationType(form.educationType)
-              ? handleEducationType(form.educationType): '请选择学历'}}
+            {{transformationEducationType(form.educationType)
+              ? transformationEducationType(form.educationType): '请选择学历'}}
           </span>
       </mt-cell>
     </div>
-    <div class="footer">
-      <span class="footer-value" @click="handleRouter('JobResume')">提交</span>
+    <div class="footer" @click="postResume">
+      <span class="footer-value">提交</span>
     </div>
     <mt-datetime-picker
       ref="startPicker"
@@ -33,7 +32,7 @@
       year-format="{value} 年"
       month-format="{value} 月"
       date-format="{value} 日"
-      @confirm="handleConfirm">
+      @confirm="handleStartPickerConfirm">
     </mt-datetime-picker>
     <mt-datetime-picker
       ref="endPicker"
@@ -43,14 +42,14 @@
       year-format="{value} 年"
       month-format="{value} 月"
       date-format="{value} 日"
-      @confirm="handleConfirm">
+      @confirm="handleEndPickerConfirm">
     </mt-datetime-picker>
     <mt-popup position="bottom" v-model="educationTypeSwitch">
       <mt-picker
       :slots="educationTypePicker"
       :show-toolbar="true"
       ref="educationTypePicker"
-      value-key="label">
+      value-key="description">
           <span @click="handleEducationTypeCancel"
                   class="mint-datetime-action mint-datetime-cancel">取消</span>
           <span @click="handleEducationTypeConfirm"
@@ -63,6 +62,8 @@
 <script>
 /* eslint-disable */
 import { mapGetters } from 'vuex';
+import dataFormat from '../../util/dataFormat';
+
 export default {
   name: 'JobEducation',
   props: {
@@ -78,33 +79,22 @@ export default {
         educationType: null, // 学历
       },
       educationTypeSwitch: false,
-      educationTypePicker: [
-        {
-          flex: 1,
-          values: [
-            {
-              label: '男',
-              id: 0,
-            },
-            {
-              label: '女',
-              id: 1,
-            },
-            {
-              label: '其他',
-              id: 2,
-            },
-          ],
-          className: 'slot1',
-          textAlign: 'center',
-        },
-      ],
     };
   },
   computed: {
     ...mapGetters({
       educationType: 'handleEducationType',
     }),
+    educationTypePicker() {
+      return [
+        {
+          flex: 1,
+          values: this.educationType,
+          className: 'slot1',
+          textAlign: 'center',
+        },
+      ]
+    },
     startDate() {
       return new Date(new Date().getFullYear() - 60, 0, 1);
     },
@@ -136,14 +126,42 @@ export default {
     openPopUp() {
       this.educationTypeSwitch = true;
     },
-    handleEducationType(data) {
-      // return this.gender.filter(item => item.id === data).shift().description;
+    transformationEducationType(data) {
+      if (!data) {
+        return false
+      }
+      return this.educationType.filter(item => item.id == data).shift().description;
     },
-    handleConfirm() {
+    handleStartPickerConfirm(res) {
+      this.$set(this.form, 'startTime', dataFormat(res, 'yyyy-MM-dd'));
+    },
+    handleEndPickerConfirm(res) {
+      this.$set(this.form, 'endTime', dataFormat(res, 'yyyy-MM-dd'));
     },
     handleEducationTypeConfirm() {
+      this.$set(this.form, 'educationType', this.$refs.educationTypePicker.getValues()[0].id);
+      this.educationTypeSwitch = false;
     },
     handleEducationTypeCancel() {
+      this.educationTypeSwitch = false;
+    },
+    postResume() {
+      console.log(this.data)
+      if(this.data.hasOwnProperty('id')) {
+        this.$store.dispatch('resume/putResumeEducation', this.form).then((res) => {
+          if(res.state) {
+            this.$store.commit('resume/modifyEducation', {form: this.form, data: this.data});
+            this.handleRouter('JobResume')
+          }
+        });
+      } else {
+        this.$store.dispatch('resume/postResumeEducation', this.form ).then((res) => {
+          if(res.state) {
+            this.$store.commit('resume/settingNewEducation', Object.assign(this.form, {id: res.id}));
+            this.handleRouter('JobResume')
+          }
+        });
+      }
     },
   },
   created() {

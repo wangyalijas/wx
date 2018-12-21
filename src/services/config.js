@@ -39,6 +39,26 @@ export default {
         mockUrl: '',
         method: 'POST',
       },
+      postResumeEducation: {
+        url: 'postResumeEducation',
+        mockUrl: '',
+        method: 'POST',
+      },
+      putResumeEducation: {
+        url: 'putResumeEducation',
+        mockUrl: '',
+        method: 'PUT',
+      },
+      postResumeWork: {
+        url: 'postResumeWork',
+        mockUrl: '',
+        method: 'POST',
+      },
+      putResumeWork: {
+        url: 'putResumeWork',
+        mockUrl: '',
+        method: 'PUT',
+      },
     },
     getScheduleList: {
       // 校园行程列表

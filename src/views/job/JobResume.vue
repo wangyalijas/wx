@@ -51,7 +51,10 @@
         <div class="job-resume__job--title">工作经历</div>
         <div class="job-resume__job--main">
           <template  v-for="(item, index) in resume.works">
-            <div class="job-resume__job--main__item" :key="index">
+            <div
+            class="job-resume__job--main__item"
+            :key="index"
+            @click="handleRouter('JobExperience', item)">
               <div class="job-resume__job--main__item--header">
                 <div class="job-resume__job--main__item--header--title">{{item.company}}</div>
                 <div class="job-resume__job--main__item--header--description">{{item.jobName}}</div>

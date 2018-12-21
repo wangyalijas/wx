@@ -29,9 +29,8 @@ export default {
   handleNewsType({ constant }) {
     return constant ? addAllDataToConstantTop(objectToArray(constant.NewsType)) || [] : [];
   },
-  handleEducationType(state) {
-    return state.enum;
-    // return enum ? enum.Education || {} : {};
+  handleEducationType({ constant }) {
+    return constant ? objectToArray(constant.Education) || [] : [];
   },
   handleIsSchool(state) {
     return state.isSchool;
