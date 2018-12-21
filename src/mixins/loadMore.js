@@ -17,7 +17,7 @@ export default {
       setTimeout(() => {
         this.pagination.currentPage += 1;
         this.fetchPageDataAsync(true);
-      }, 1000);
+      });
     },
     async sendAxios(flag, httpConfig, params = {}) {
       const result = await this.$store.dispatch(httpConfig, params);
