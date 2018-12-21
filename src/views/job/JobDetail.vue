@@ -1,11 +1,11 @@
 <template>
-  <div class="job-detail">
+  <div class="job-detail" v-if="data">
     <div class="job-detail__title">
-      <div class="job-detail__title--area">上海</div>
-      <div class="job-detail__title--job">MIGO4-实施工程师</div>
+      <div class="job-detail__title--area" :class="length(data.place)">{{data.place}}</div>
+      <div class="job-detail__title--job">{{data.name}}</div>
       <div class="job-detail__title--time">
         <i class="iconfont icon-calendar" slot="icon"></i>
-        2018-03-15</div>
+        {{data.createdAt}}</div>
     </div>
     <ul class="job-detail__category">
       <li class="job-detail__category--item">
@@ -14,44 +14,22 @@
       </li>
       <li class="job-detail__category--item">
         <span>工作年限</span>
-        <span>两年</span>
+        <span>{{data.workLife}}</span>
       </li>
       <li class="job-detail__category--item">
         <span>招聘人数</span>
-        <span>2人</span>
+        <span>{{data.recruitCount}}人</span>
       </li>
       <li class="job-detail__category--item">
         <span>学历要求</span>
-        <span>本科</span>
+        <span>{{data.education}}</span>
       </li>
     </ul>
     <div class="job-detail__main">
       <div class="job-detail__main--item">
         <div class="job-detail__main--item__title">工作职责</div>
         <div class="job-detail__main--item__content">
-          1.负责后台开发数据及维护，调度系统与大数据处理平台相关工作；<br>
-          2.负责后台开发数据及维护，调度系统与大数据处理平台相关工作；
-        </div>
-      </div>
-      <div class="job-detail__main--item">
-        <div class="job-detail__main--item__title">工作职责</div>
-        <div class="job-detail__main--item__content">
-          1.负责后台开发数据及维护，调度系统与大数据处理平台相关工作；<br>
-          2.负责后台开发数据及维护，调度系统与大数据处理平台相关工作；
-        </div>
-      </div>
-      <div class="job-detail__main--item">
-        <div class="job-detail__main--item__title">工作职责</div>
-        <div class="job-detail__main--item__content">
-          1.负责后台开发数据及维护，调度系统与大数据处理平台相关工作；<br>
-          2.负责后台开发数据及维护，调度系统与大数据处理平台相关工作；
-        </div>
-      </div>
-      <div class="job-detail__main--item">
-        <div class="job-detail__main--item__title">工作职责</div>
-        <div class="job-detail__main--item__content">
-          1.负责后台开发数据及维护，调度系统与大数据处理平台相关工作；<br>
-          2.负责后台开发数据及维护，调度系统与大数据处理平台相关工作；
+          {{data.duty}}
         </div>
       </div>
     </div>
@@ -65,18 +43,35 @@
 <script>
 export default {
   name: 'JobDetail',
-  created() {
-    this.$nextTick(() => {
-      this.fetchPageData();
-    });
+  data() {
+    return {
+      data: null,
+    };
   },
   methods: {
     fetchPageData() {
       this.$indicator.open();
-      setTimeout(() => {
+      this.$store.dispatch('job/getJob', this.$route.query).then((res) => {
+        console.log(res);
+        this.data = res;
         this.$indicator.close();
-      }, 1000);
+      });
     },
+    length(area) {
+      let result = 'length-default'
+      if (area.length < 2) {
+        result = 'length-2';
+      }
+      if (area.length < 3) {
+        result = 'length-long';
+      }
+      return result;
+    },
+  },
+  created() {
+    this.$nextTick(() => {
+      this.fetchPageData();
+    });
   },
 };
 </script>
@@ -148,14 +143,14 @@ export default {
         }
         &:nth-child(2) {
           top: 0.27rem;
-          left: 5.2rem;
+          left: 4.99rem;
         }
         &:nth-child(3) {
           top: 1.07rem;
         }
         &:nth-child(4) {
           top: 1.07rem;
-          left: 5.2rem;
+          left: 4.99rem;
         }
         span:nth-child(1) {
           margin-right: 0.53rem;

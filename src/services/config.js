@@ -12,6 +12,16 @@ export default {
         mockUrl: '',
         method: 'GET',
       },
+      getJobList: {
+        url: 'getJobList',
+        mockUrl: '',
+        method: 'GET',
+      },
+      getJob: {
+        url: 'getJob',
+        mockUrl: '',
+        method: 'GET',
+      },
     },
     getScheduleList: {
       // 校园行程列表

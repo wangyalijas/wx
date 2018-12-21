@@ -48,7 +48,7 @@ export default {
       this.toggle();
     },
     handleEmit(item) {
-      this.$emit('change', item);
+      this.$emit('change', item[`${this.prop.id}`]);
     },
   },
 };
