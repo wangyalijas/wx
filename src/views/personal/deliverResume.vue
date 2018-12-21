@@ -42,7 +42,7 @@
          infinite-scroll-disabled="isLoading"
          infinite-scroll-distance="50">
       <template v-for="(item, index1) in pageData">
-        <div :key="index1" class="list--item" @click="handleRouter('JobDetail')">
+        <div :key="index1" class="list--item" @click="handleRouter('JobDetail', {id: item.id})">
           <div class="list--item--inner">
             <div class="list--item--inner__title">{{item.name}}</div>
             <div class="list--item--inner__time">{{item.createdAt}}</div>

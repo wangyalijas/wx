@@ -28,8 +28,20 @@
     <div class="job-detail__main">
       <div class="job-detail__main--item">
         <div class="job-detail__main--item__title">工作职责</div>
-        <div class="job-detail__main--item__content">
-          {{data.duty}}
+        <div class="job-detail__main--item__content"
+             v-for="(dutyItem, dutyIndex) in duty"
+             :key="dutyIndex">
+          {{dutyItem}}
+        </div>
+      </div>
+    </div>
+    <div class="job-detail__main">
+      <div class="job-detail__main--item">
+        <div class="job-detail__main--item__title">工作要求</div>
+        <div class="job-detail__main--item__content"
+             v-for="(requireItem, requireIndex) in requirement"
+             :key="requireIndex">
+          {{requireItem}}
         </div>
       </div>
     </div>
@@ -48,17 +60,24 @@ export default {
       data: null,
     };
   },
+  computed: {
+    duty() {
+      return this.data.duty.split('；');
+    },
+    requirement() {
+      return this.data.requirement.split('；');
+    },
+  },
   methods: {
     fetchPageData() {
       this.$indicator.open();
       this.$store.dispatch('job/getJob', this.$route.query).then((res) => {
-        console.log(res);
         this.data = res;
         this.$indicator.close();
       });
     },
     length(area) {
-      let result = 'length-default'
+      let result = 'length-default';
       if (area.length < 2) {
         result = 'length-2';
       }
@@ -105,6 +124,7 @@ export default {
         text-align: center;
         line-height: 1.04rem;
         top: 0.8rem;
+        overflow:hidden;
       }
       @include m(job) {
         height: 0.59rem;
@@ -117,14 +137,13 @@ export default {
         font-weight: bold;
       }
       @include m(time) {
-        margin-top: 0.13rem;
         height: 0.48rem;
         line-height: 0.48rem;
         font-size: 0.35rem;
         color: #999999;
         position: absolute;
         left: 1.57rem;
-        bottom: 0.9rem;
+        bottom: 0.7rem;
         .icon-calendar{
           font-size: 12px;
         }
@@ -161,10 +180,9 @@ export default {
       }
     }
     @include e(main) {
-      padding: 0.67rem 0.80rem 1.33rem;
+      padding: 0.80rem 0.80rem 0;
       background: #FFFFFF;
       @include m(item) {
-        margin-bottom: 0.80rem;
         @include e(title) {
           font-size: 0.35rem;
           color: #333333;

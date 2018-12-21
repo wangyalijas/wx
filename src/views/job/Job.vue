@@ -111,17 +111,17 @@ export default {
       this.sendAxios(flag, 'job/getJobList', Object.assign(this.getJobListParams, this.pagination));
     },
     handleChangeJobType(res) {
-      this.$set(this.getJobListParams, 'jobType', res)
+      this.$set(this.getJobListParams, 'jobType', res);
       this.$set(this.pagination, 'currentPage', 1);
       this.fetchPageDataAsync(false);
     },
     handleWorkPlace(res) {
-      this.$set(this.getJobListParams, 'place', res)
+      this.$set(this.getJobListParams, 'place', res);
       this.$set(this.pagination, 'currentPage', 1);
       this.fetchPageDataAsync(false);
     },
     handleRecruitType(res) {
-      this.$set(this.getJobListParams, 'recruitType', res)
+      this.$set(this.getJobListParams, 'recruitType', res);
       this.$set(this.pagination, 'currentPage', 1);
       this.fetchPageDataAsync(false);
     },
