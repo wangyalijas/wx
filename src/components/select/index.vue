@@ -36,8 +36,6 @@ export default {
     },
     options: [Object, Array],
   },
-  created() {
-  },
   data() {
     return {
       isOpen: false,
