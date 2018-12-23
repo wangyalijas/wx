@@ -27,6 +27,11 @@ export default {
         mockUrl: '',
         method: 'POST',
       },
+      postResumeAttachment: {
+        url: 'postResumeAttachment',
+        mockUrl: '',
+        method: 'POST',
+      },
     },
     resume: {
       getResume: {

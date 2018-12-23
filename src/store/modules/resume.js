@@ -2,6 +2,9 @@ import setting from '@/services/config';
 import api from '@/services/index';
 import axios from 'axios';
 
+const mockMode = false; // 是否使用mock数据
+const baseURL = mockMode ? '' : setting.baseUrl;
+
 /* eslint-disable */
 const state = {
   resume: null,
@@ -118,6 +121,31 @@ const actions = {
       });
     }))
   },
+  postResumeAttachment({ commit }, payload) {
+    return new Promise(((resolve, reject) => {
+      api(setting.urlConfig.job.postResumeAttachment, payload).then(res => {
+        console.log('%c%s', 'color:blue', '=======> 上传简历');
+        resolve(res)
+      }).catch(res => {
+        reject(res)
+      });
+    }))
+  },
+  deleteResumeAttachment({ commit }, payload) {
+    return new Promise(((resolve, reject) => {
+      const urlConfig = {
+        url: `deleteResumeAttachment/${payload}`,
+        mockUrl: '',
+        method: 'DELETE',
+      }
+      api(urlConfig, payload).then(res => {
+        console.log('%c%s', 'color:blue', '=======> 删除附件');
+        resolve(res)
+      }).catch(res => {
+        reject(res)
+      });
+    }))
+  }
 };
 
 

@@ -15,12 +15,13 @@
             {{form.endTime? form.endTime: '请选择'}}
           </span>
       </mt-cell>
-        <div class="education__info--job">
+      <div class="education__info--job fixed-textarea">
           <div class="education__info--job__title">
             工作内容
           </div>
           <div class="education__info--job__content">
             <textarea
+            @input="packUpKeyBoard()"
             placeholder="请填写工作内容"
             cols="30"
             rows="6"
@@ -33,6 +34,7 @@
         </div>
         <div class="education__info--job__content" style="margin-bottom: 0.80rem;">
           <textarea
+          @blur="packUpKeyBoard()"
           placeholder="请填写工作业绩"
           cols="30"
           rows="6"
@@ -111,6 +113,9 @@ export default {
     },
   },
   methods: {
+    packUpKeyBoard() {
+      window.scroll(0, 500);
+    },
     postResume() {
       console.log(this.data)
       if(this.data.hasOwnProperty('id')) {
@@ -179,6 +184,8 @@ export default {
           margin-top: 0.40rem;
           width: 100%;
           textarea {
+            -webkit-appearance: none;
+            outline: none;
             border: 0.03rem solid #F5F5F5;
             outline: 0;
             line-height: 1.6;

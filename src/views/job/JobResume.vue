@@ -380,7 +380,7 @@ export default {
     border-bottom: 0.03rem solid #F5F5F5;
     @include m(title) {
       margin-top: 0.53rem;
-      margin-left: 0.53rem;
+      /*margin-left: 0.53rem;*/
       font-size: 0.43rem;
       color: #333333;
       font-weight: bold;
