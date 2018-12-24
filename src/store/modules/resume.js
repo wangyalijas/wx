@@ -1,9 +1,5 @@
 import setting from '@/services/config';
 import api from '@/services/index';
-import axios from 'axios';
-
-const mockMode = false; // 是否使用mock数据
-const baseURL = mockMode ? '' : setting.baseUrl;
 
 /* eslint-disable */
 const state = {
@@ -36,13 +32,21 @@ const mutations = {
   settingNewWork(state, payload) {
     state.resume.works.push(payload);
   },
+  deleteAttachment(state, payload) {
+    let attachments = state.resume.attachments;
+    let index = attachments.indexOf(attachments.filter(item => item.id === payload).shift())
+    attachments.splice(index, 1);
+  },
+  addAttachment(state, payload) {
+    let attachments = state.resume.attachments;
+    attachments.push(payload);
+  },
 };
 
 const actions = {
   getResume({ commit }, payload) {
     return new Promise(((resolve, reject) => {
       api(setting.urlConfig.resume.getResume, payload).then(res => {
-        console.log(res)
         console.log('%c%s', 'color:blue', '=======> 获取简历信息');
         commit('settingResume', res)
         resolve(res)
@@ -115,16 +119,9 @@ const actions = {
     return new Promise(((resolve, reject) => {
       api(setting.urlConfig.resume.postResumeAttachment, payload).then(res => {
         console.log('%c%s', 'color:blue', '=======> 上传简历');
-        resolve(res)
-      }).catch(res => {
-        reject(res)
-      });
-    }))
-  },
-  postResumeAttachment({ commit }, payload) {
-    return new Promise(((resolve, reject) => {
-      api(setting.urlConfig.job.postResumeAttachment, payload).then(res => {
-        console.log('%c%s', 'color:blue', '=======> 上传简历');
+        if(res.state) {
+          commit('addAttachment', {id: res.id, address: res.address});
+        }
         resolve(res)
       }).catch(res => {
         reject(res)
@@ -140,6 +137,10 @@ const actions = {
       }
       api(urlConfig, payload).then(res => {
         console.log('%c%s', 'color:blue', '=======> 删除附件');
+        console.log(res, 'res')
+        if(res.state) {
+          commit('deleteAttachment', payload);
+        }
         resolve(res)
       }).catch(res => {
         reject(res)
