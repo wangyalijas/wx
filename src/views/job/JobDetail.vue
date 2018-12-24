@@ -70,10 +70,10 @@ export default {
       recruitType: 'handleRecruitType',
     }),
     duty() {
-      return this.data.duty.split('；');
+      return this.data.duty.split('\n');
     },
     requirement() {
-      return this.data.requirement.split('；');
+      return this.data.requirement.split('\n');
     },
   },
   methods: {

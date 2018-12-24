@@ -1,6 +1,5 @@
 import setting from '@/services/config';
 import api from '@/services/index';
-import axios from 'axios';
 
 /* eslint-disable */
 const state = {
