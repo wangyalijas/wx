@@ -27,6 +27,11 @@ export default {
         mockUrl: '',
         method: 'POST',
       },
+      postResumeAttachment: {
+        url: 'postResumeAttachment',
+        mockUrl: '',
+        method: 'POST',
+      },
     },
     resume: {
       getResume: {
@@ -58,6 +63,11 @@ export default {
         url: 'putResumeWork',
         mockUrl: '',
         method: 'PUT',
+      },
+      postResumeAttachment: {
+        url: 'postResumeAttachment',
+        mockUrl: '',
+        method: 'POSt',
       },
     },
     getScheduleList: {

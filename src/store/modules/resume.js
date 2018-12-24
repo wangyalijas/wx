@@ -16,19 +16,30 @@ const mutations = {
   settingResume(state, payload) {
     state.resume = payload;
   },
-  modifyEducation(state, payload) {
-    let index = state.resume.educations.indexOf(payload.data);
-    state.resume.educations.splice(index, 1, payload.form);
+  modifyEducation(state, {form, data}) {
+    let educations = state.resume.educations;
+    let index = educations.indexOf(educations.filter(item => item.id === data.id).shift());
+    educations.splice(index, 1, form);
   },
   settingNewEducation(state, payload) {
     state.resume.educations.push(payload);
   },
-  modifyWork(state, payload) {
-    let index = state.resume.works.indexOf(payload.data);
-    state.resume.works.splice(index, 1, payload.form);
+  modifyWork(state, {form, data}) {
+    let works = state.resume.works;
+    let index = works.indexOf(works.filter(item => item.id === data.id).shift());
+    works.splice(index, 1, form);
   },
   settingNewWork(state, payload) {
     state.resume.works.push(payload);
+  },
+  deleteAttachment(state, payload) {
+    let attachments = state.resume.attachments;
+    let index = attachments.indexOf(attachments.filter(item => item.id === payload).shift())
+    attachments.splice(index, 1);
+  },
+  addAttachment(state, payload) {
+    let attachments = state.resume.attachments;
+    attachments.push(payload);
   },
 };
 
@@ -36,7 +47,6 @@ const actions = {
   getResume({ commit }, payload) {
     return new Promise(((resolve, reject) => {
       api(setting.urlConfig.resume.getResume, payload).then(res => {
-        console.log(res)
         console.log('%c%s', 'color:blue', '=======> 获取简历信息');
         commit('settingResume', res)
         resolve(res)
@@ -105,6 +115,38 @@ const actions = {
       });
     }))
   },
+  postResumeAttachment({ commit }, payload) {
+    return new Promise(((resolve, reject) => {
+      api(setting.urlConfig.resume.postResumeAttachment, payload).then(res => {
+        console.log('%c%s', 'color:blue', '=======> 上传简历');
+        if(res.state) {
+          commit('addAttachment', {id: res.id, address: res.address});
+        }
+        resolve(res)
+      }).catch(res => {
+        reject(res)
+      });
+    }))
+  },
+  deleteResumeAttachment({ commit }, payload) {
+    return new Promise(((resolve, reject) => {
+      const urlConfig = {
+        url: `deleteResumeAttachment/${payload}`,
+        mockUrl: '',
+        method: 'DELETE',
+      }
+      api(urlConfig, payload).then(res => {
+        console.log('%c%s', 'color:blue', '=======> 删除附件');
+        console.log(res, 'res')
+        if(res.state) {
+          commit('deleteAttachment', payload);
+        }
+        resolve(res)
+      }).catch(res => {
+        reject(res)
+      });
+    }))
+  }
 };
 
 

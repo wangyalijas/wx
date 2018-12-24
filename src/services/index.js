@@ -61,6 +61,9 @@ export default (options, data = {}, headers) => {
   // 请求协议对应的方法
   if (options.method === 'GET') {
     delete httpOptions.data;
+  } else if (options.method === 'DELETE') {
+    delete httpOptions.params;
+    delete httpOptions.data;
   } else {
     delete httpOptions.params;
   }

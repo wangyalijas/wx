@@ -9,7 +9,9 @@ import LoadMoreMixin from './mixins/loadMore';
 import Http from './services';
 import Api from './services/config';
 import wexin from './assets/wexin';
+import longtap from './directive/longtap';
 
+Vue.use(longtap);
 Vue.use(Mint);
 
 Vue.prototype.$http = Http;
