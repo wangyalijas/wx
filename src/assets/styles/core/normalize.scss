@@ -158,3 +158,17 @@ label.bui-radios-label.bui-radios-anim .bui-radios {
 .longtap-active {
 
 }
+
+input:valid {
+  //border-color: green;
+}
+
+.is-danger {
+  border: 0.03rem solid rgba(255, 0, 0, 0.3) !important;
+  box-shadow: 0 0 9px 0 rgba(255, 0, 0, 0.3) !important;
+}
+
+.mint-cell-value .mint-field-core{
+  text-align: right;
+  margin-right: 0.27rem;
+}

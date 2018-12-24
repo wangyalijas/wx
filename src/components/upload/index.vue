@@ -5,6 +5,9 @@
         <div :key="index" class="upload--img__item"
              v-longtap="callback">
           <img :src="item.address" alt="">
+          <div class="delete" @click="deleteAttchment(index)">
+            <i class="iconfont icon-shanchu"></i>
+          </div>
         </div>
       </template>
       <div
@@ -27,6 +30,11 @@ export default {
   name: 'upload',
   props: {
     data: Array,
+  },
+  data() {
+    return {
+      index: null,
+    };
   },
   methods: {
     handleInputChange(event) {
@@ -73,42 +81,66 @@ export default {
       });
     },
     callback(e, el, vNode) {
-      console.log(vNode.key, 1)
-      const index = vNode.key;
-      this.$toast('长按');
-      this.$store.dispatch('resume/deleteResumeAttachment', this.data[`${index}`].id).then((res) => {
+      this.index = vNode.key;
+    },
+    deleteAttchment(index) {
+      if (index !== this.index) {
+        return false;
+      }
+      this.$store.dispatch('resume/deleteResumeAttachment', this.data[`${this.index}`].id).then((res) => {
         if (res.state) {
           console.log(res);
           this.$toast('删除成功！');
         }
       });
+      return true;
     },
   },
 };
 </script>
 
 <style scoped lang="scss">
+  .longtap-active .delete{
+    display: block;
+   }
+  .delete {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 0.32rem;
+    display: none;
+    background: rgba(44, 41, 73, 0.4);
+    .iconfont {
+      position: absolute;
+      top: 0.40rem;
+      left: 0.48rem;
+    }
+  }
   .upload {
     width: 100%;
     @include m(img) {
       display: flex;
       flex-wrap: wrap;
       align-items:center;
-      justify-content:left;
+      justify-content:center;
       width: 100%;
       @include e(item) {
         width: 1.49rem;
         height: 1.49rem;
         background: pink;
         box-shadow: 0 0 0.21rem 0 rgba(149,177,224,0.35);
-        border-radius: 12px;
+        border-radius: 0.32rem;
         margin-right: 0.27rem;
         margin-top: 0.27rem;
+        position: relative;
         img {
-          border-radius: 12px;
+          border-radius: 0.32rem;
           width: 100%;
           height: 100%;
-          pointer-events: none;
+          /*pointer-events: none;*/
+          user-select: none;
         }
       }
     }

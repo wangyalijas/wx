@@ -3,7 +3,13 @@
     <div class="job-resume" v-if="resume">
       <div class="job-resume__title">个人信息</div>
       <div class="job-resume__info">
-        <mt-field label="姓名" placeholder="请填写姓名" v-model="resume.resume.name"></mt-field>
+        <mt-field
+        label="姓名"
+        placeholder="请填写姓名"
+        v-model="resume.resume.name"
+        v-validate="'required'"
+        name="name"
+        :class="{'is-danger': errors.first('name')}"></mt-field>
         <mt-cell title="性别" @click.native="openPopUp">
           <span style="font-size: 14px">
             {{handleGenderType(resume.resume.genderType)
@@ -15,12 +21,18 @@
         placeholder="请填写您的电话号码"
         type="tel"
         v-model="resume.resume.phone"
+        v-validate="'required|phone'"
+        name="phone"
+        :class="{'is-danger': errors.first('phone')}"
         ></mt-field>
         <mt-field
         label="电子邮件"
         placeholder="请输入电子邮件"
         type="email"
         v-model="resume.resume.email"
+        v-validate="'required|email'"
+        name="email"
+        :class="{'is-danger': errors.first('email')}"
         ></mt-field>
         <mt-cell title="参加工作年月" @click.native="openPicker">
           <span style="font-size: 14px">
@@ -190,12 +202,17 @@ export default {
       });
     },
     postResume() {
-      this.$indicator.open();
-      this.$store.dispatch('resume/postResume', this.resume.resume).then((res) => {
-        if (res.code) {
-          this.$indicator.close();
-          this.getResume();
+      this.$validator.validateAll().then((result) => {
+        if (!result) {
+          return this.$toast('格式有误！');
         }
+        this.$indicator.open();
+        this.$store.dispatch('resume/postResume', this.resume.resume).then((res) => {
+          if (res.code) {
+            this.$indicator.close();
+            this.getResume();
+          }
+        });
       });
     },
   },

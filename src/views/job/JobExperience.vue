@@ -2,10 +2,33 @@
   <div class="education">
     <div class="education__title">工作经历</div>
     <div class="education__info">
-      <mt-field label="公司名称" placeholder="请输入公司名称" v-model="form.company"></mt-field>
-      <mt-field label="职位名称" placeholder="请输入职位名称" v-model="form.jobName"></mt-field>
-      <mt-field label="所在行业" placeholder="请输入行业" v-model="form.industry"></mt-field>
-      <mt-cell title="开始时间" @click.native="openStartPicker">
+      <mt-field
+      label="公司名称"
+      placeholder="请输入公司名称"
+      v-model="form.company"
+      v-validate="'required'"
+      name="company"
+      :class="{'is-danger': errors.first('company')}"></mt-field>
+      <mt-field
+      label="职位名称"
+      placeholder="请输入职位名称"
+      v-model="form.jobName"
+      v-validate="'required'"
+      name="jobName"
+      :class="{'is-danger': errors.first('jobName')}"></mt-field>
+      <mt-field
+      label="所在行业"
+      placeholder="请输入行业"
+      v-model="form.industry"
+      v-validate="'required'"
+      name="industry"
+      :class="{'is-danger': errors.first('industry')}"></mt-field>
+      <mt-cell
+      title="开始时间"
+      @click.native="openStartPicker"
+      v-validate="'required'"
+      name="startTime"
+      :class="{'is-danger': errors.first('startTime')}">
           <span style="font-size: 14px">
             {{form.startTime ? form.startTime: '请选择'}}
           </span>
@@ -25,7 +48,10 @@
             placeholder="请填写工作内容"
             cols="30"
             rows="6"
-            v-model="form.jobDuty"></textarea>
+            v-model="form.jobDuty"
+            v-validate="'required'"
+            name="jobDuty"
+            :class="{'is-danger': errors.first('jobDuty')}"></textarea>
           </div>
         </div>
       <div class="education__info--job">
@@ -39,6 +65,9 @@
           cols="30"
           rows="6"
           v-model="form.jobAchievement"
+          v-validate="'required'"
+          name="jobAchievement"
+          :class="{'is-danger': errors.first('jobAchievement')}"
           ></textarea>
         </div>
       </div>
@@ -117,22 +146,26 @@ export default {
       window.scroll(0, 500);
     },
     postResume() {
-      console.log(this.data)
-      if(this.data.hasOwnProperty('id')) {
-        this.$store.dispatch('resume/putResumeWork', this.form).then((res) => {
-          if(res.state) {
-            this.$store.commit('resume/modifyWork', {form: this.form, data: this.data});
-            this.handleRouter('JobResume')
+      this.$validator.validateAll().then((result) => {
+          if (!result) {
+            return this.$toast('格式有误！');
           }
-        });
-      } else {
-        this.$store.dispatch('resume/postResumeWork', this.form ).then((res) => {
-          if(res.state) {
-            this.$store.commit('resume/settingNewWork', Object.assign(this.form, {id: res.id}));
-            this.handleRouter('JobResume')
-          }
-        });
-      }
+        if(this.data.hasOwnProperty('id')) {
+          this.$store.dispatch('resume/putResumeWork', this.form).then((res) => {
+            if(res.state) {
+              this.$store.commit('resume/modifyWork', {form: this.form, data: this.data});
+              this.handleRouter('JobResume')
+            }
+          });
+        } else {
+          this.$store.dispatch('resume/postResumeWork', this.form ).then((res) => {
+            if(res.state) {
+              this.$store.commit('resume/settingNewWork', Object.assign(this.form, {id: res.id}));
+              this.handleRouter('JobResume')
+            }
+          });
+        }
+      });
     },
     openStartPicker() {
       this.$refs.startPicker.open();

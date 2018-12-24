@@ -12,8 +12,20 @@
             {{form.endTime? form.endTime: '请选择'}}
           </span>
       </mt-cell>
-      <mt-field label="学校" placeholder="请填写毕业院校" v-model="form.school"></mt-field>
-      <mt-field label="专业" placeholder="请填写专业" v-model="form.major"></mt-field>
+      <mt-field
+      label="学校"
+      placeholder="请填写毕业院校"
+      v-model="form.school"
+      v-validate="'required'"
+      name="school"
+      :class="{'is-danger': errors.first('school')}"></mt-field>
+      <mt-field
+      label="专业"
+      placeholder="请填写专业"
+      v-model="form.major"
+      v-validate="'required'"
+      name="major"
+      :class="{'is-danger': errors.first('major')}"></mt-field>
       <mt-cell title="学历" @click.native="openPopUp">
           <span style="font-size: 14px">
             {{ transformationEducationType(form.educationType) }}
@@ -143,22 +155,26 @@ export default {
       this.educationTypeSwitch = false;
     },
     postResume() {
-      console.log(this.data)
-      if(this.data.hasOwnProperty('id')) {
-        this.$store.dispatch('resume/putResumeEducation', this.form).then((res) => {
-          if(res.state) {
-            this.$store.commit('resume/modifyEducation', {form: this.form, data: this.data});
-            this.handleRouter('JobResume')
-          }
-        });
-      } else {
-        this.$store.dispatch('resume/postResumeEducation', this.form ).then((res) => {
-          if(res.state) {
-            this.$store.commit('resume/settingNewEducation', Object.assign(this.form, {id: res.id}));
-            this.handleRouter('JobResume')
-          }
-        });
-      }
+      this.$validator.validateAll().then((result) => {
+        if (!result) {
+          return this.$toast('格式有误！');
+        }
+        if(this.data.hasOwnProperty('id')) {
+          this.$store.dispatch('resume/putResumeEducation', this.form).then((res) => {
+            if(res.state) {
+              this.$store.commit('resume/modifyEducation', {form: this.form, data: this.data});
+              this.handleRouter('JobResume')
+            }
+          });
+        } else {
+          this.$store.dispatch('resume/postResumeEducation', this.form ).then((res) => {
+            if(res.state) {
+              this.$store.commit('resume/settingNewEducation', Object.assign(this.form, {id: res.id}));
+              this.handleRouter('JobResume')
+            }
+          });
+        }
+      });
     },
   },
   created() {
