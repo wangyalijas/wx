@@ -1,16 +1,15 @@
 <template>
-  <div>
-    <mt-datetime-picker
-      :ref="pickerName"
-      type="date"
-      :startDate="startDate"
-      :endDate="endDate"
-      year-format="{value} 年"
-      month-format="{value} 月"
-      date-format="{value} 日"
-      @confirm="handleConfirm">
-    </mt-datetime-picker>
-  </div>
+  <mt-datetime-picker
+    @click.native="event => event.stopPropagation()"
+    :ref="pickerName"
+    type="date"
+    :startDate="startDate"
+    :endDate="endDate"
+    year-format="{value} 年"
+    month-format="{value} 月"
+    date-format="{value} 日"
+    @confirm="handleConfirm">
+  </mt-datetime-picker>
 </template>
 
 <script>

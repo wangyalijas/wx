@@ -3,11 +3,8 @@
     <div class="upload--img">
       <template v-for="(item, index) in data">
         <div :key="index" class="upload--img__item"
-             v-longtap="callback">
-          <img :src="item.address" alt="">
-          <div class="delete" @click="deleteAttchment(index)">
-            <i class="iconfont icon-shanchu"></i>
-          </div>
+             @click="handleRouter('JobAttachmentDetail', item)">
+          <img :src="item.address">
         </div>
       </template>
       <div
@@ -82,18 +79,6 @@ export default {
     },
     callback(e, el, vNode) {
       this.index = vNode.key;
-    },
-    deleteAttchment(index) {
-      if (index !== this.index) {
-        return false;
-      }
-      this.$store.dispatch('resume/deleteResumeAttachment', this.data[`${this.index}`].id).then((res) => {
-        if (res.state) {
-          console.log(res);
-          this.$toast('删除成功！');
-        }
-      });
-      return true;
     },
   },
 };

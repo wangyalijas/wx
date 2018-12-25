@@ -68,6 +68,14 @@ export default new Router({
       },
     },
     {
+      path: '/job-attachment-detail',
+      name: 'JobAttachmentDetail',
+      component: loadView('job/JobAttachmentDetail'),
+      meta: {
+        title: '简历附件详情',
+      },
+    },
+    {
       path: '/campus-process',
       name: 'campusProcess',
       meta: {

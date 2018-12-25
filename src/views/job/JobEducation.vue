@@ -2,15 +2,39 @@
   <div class="education">
     <div class="education__title">教育经历</div>
     <div class="education__info">
-      <mt-cell title="开始时间" @click.native="openStartPicker">
+      <mt-cell
+      title="开始时间"
+      @click.native="openStartPicker"
+      :class="{'is-danger': errors.first('startTime')}">
           <span style="font-size: 14px">
             {{form.startTime ? form.startTime: '请选择'}}
           </span>
+        <DatetimePicker
+          ref="startTime"
+          :pickerName="'startTime'"
+          :startDate="startDate"
+          :endDate="endDate"
+          v-model="form.startTime"
+          v-validate="'required'"
+          name="startTime"
+          :value-transformer="datetimeValueTransformer"></DatetimePicker>
       </mt-cell>
-      <mt-cell title="结束时间" @click.native="openEndPicker">
+      <mt-cell
+      title="结束时间"
+      @click.native="openEndPicker"
+      :class="{'is-danger': errors.first('endTime')}">
           <span style="font-size: 14px">
-            {{form.endTime? form.endTime: '请选择'}}
+            {{form.endTime ? form.endTime: '请选择'}}
           </span>
+        <DatetimePicker
+          ref="endTime"
+          :pickerName="'endTime'"
+          :startDate="startDate"
+          :endDate="endDate"
+          v-model="form.endTime"
+          v-validate="'required'"
+          name="endTime"
+          :value-transformer="datetimeValueTransformer"></DatetimePicker>
       </mt-cell>
       <mt-field
       label="学校"
@@ -26,47 +50,22 @@
       v-validate="'required'"
       name="major"
       :class="{'is-danger': errors.first('major')}"></mt-field>
-      <mt-cell title="学历" @click.native="openPopUp">
+      <mt-cell
+      title="学历"
+      @click.native="openPopUp"
+      :class="{'is-danger': errors.first('educationType')}">
           <span style="font-size: 14px">
             {{ transformationEducationType(form.educationType) }}
           </span>
       </mt-cell>
+      <MajorPopup ref="educationType"
+                  v-model="form.educationType"
+                  v-validate="'required'"
+                  name="educationType"></MajorPopup>
     </div>
     <div class="footer" @click="postResume">
       <span class="footer-value">提交</span>
     </div>
-    <mt-datetime-picker
-      ref="startPicker"
-      type="date"
-      :startDate="startDate"
-      :endDate="endDate"
-      year-format="{value} 年"
-      month-format="{value} 月"
-      date-format="{value} 日"
-      @confirm="handleStartPickerConfirm">
-    </mt-datetime-picker>
-    <mt-datetime-picker
-      ref="endPicker"
-      type="date"
-      :startDate="startDate"
-      :endDate="endDate"
-      year-format="{value} 年"
-      month-format="{value} 月"
-      date-format="{value} 日"
-      @confirm="handleEndPickerConfirm">
-    </mt-datetime-picker>
-    <mt-popup position="bottom" v-model="educationTypeSwitch">
-      <mt-picker
-      :slots="educationTypePicker"
-      :show-toolbar="true"
-      ref="educationTypePicker"
-      value-key="description">
-          <span @click="handleEducationTypeCancel"
-                  class="mint-datetime-action mint-datetime-cancel">取消</span>
-          <span @click="handleEducationTypeConfirm"
-              class="mint-datetime-action mint-datetime-confirm">确认</span>
-      </mt-picker>
-    </mt-popup>
   </div>
 </template>
 
@@ -74,7 +73,8 @@
 /* eslint-disable */
 import { mapGetters } from 'vuex';
 import dataFormat from '../../util/dataFormat';
-
+import DatetimePicker from '../../components/DatetimePicker/index.vue';
+import MajorPopup from '../../components/popup/MajorPopup.vue'
 export default {
   name: 'JobEducation',
   props: {
@@ -89,7 +89,6 @@ export default {
         major: '', // 专业
         educationType: null, // 学历
       },
-      educationTypeSwitch: false,
     };
   },
   computed: {
@@ -128,31 +127,30 @@ export default {
     },
   },
   methods: {
-    openStartPicker() {
-      this.$refs.startPicker.open();
+    datetimeValueTransformer(value) {
+      return dataFormat(value, 'yyyy-MM-dd');
     },
-    openEndPicker() {
-      this.$refs.endPicker.open();
+    openStartPicker(event) {
+      if (event.path[0].classList.contains('v-modal')) {
+        return;
+      }
+      this.$refs.startTime.open();
+    },
+    openEndPicker(event) {
+      if (event.path[0].classList.contains('v-modal')) {
+        return;
+      }
+      this.$refs.endTime.open();
     },
     openPopUp() {
-      this.educationTypeSwitch = true;
+      if (event.path[0].classList.contains('v-modal')) {
+        return;
+      }
+      this.$refs.educationType.open()
     },
     transformationEducationType(data) {
       const result = this.educationType.filter(item => item.id == data).shift();
       return result ? result.description : '请选择学历';
-    },
-    handleStartPickerConfirm(res) {
-      this.$set(this.form, 'startTime', dataFormat(res, 'yyyy-MM-dd'));
-    },
-    handleEndPickerConfirm(res) {
-      this.$set(this.form, 'endTime', dataFormat(res, 'yyyy-MM-dd'));
-    },
-    handleEducationTypeConfirm() {
-      this.$set(this.form, 'educationType', this.$refs.educationTypePicker.getValues()[0].id);
-      this.educationTypeSwitch = false;
-    },
-    handleEducationTypeCancel() {
-      this.educationTypeSwitch = false;
     },
     postResume() {
       this.$validator.validateAll().then((result) => {
@@ -182,6 +180,10 @@ export default {
       this.data = this.$route.query;
     });
   },
+  components: {
+    DatetimePicker,
+    MajorPopup,
+  }
 };
 </script>
 

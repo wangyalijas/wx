@@ -26,17 +26,36 @@
       <mt-cell
       title="开始时间"
       @click.native="openStartPicker"
-      v-validate="'required'"
-      name="startTime"
       :class="{'is-danger': errors.first('startTime')}">
           <span style="font-size: 14px">
             {{form.startTime ? form.startTime: '请选择'}}
           </span>
+        <DatetimePicker
+          ref="startTime"
+          :pickerName="'startTime'"
+          :startDate="startDate"
+          :endDate="endDate"
+          v-model="form.startTime"
+          v-validate="'required'"
+          name="startTime"
+          :value-transformer="datetimeValueTransformer"></DatetimePicker>
       </mt-cell>
-      <mt-cell title="结束时间" @click.native="openEndPicker">
+      <mt-cell
+      title="结束时间"
+      @click.native="openEndPicker"
+      :class="{'is-danger': errors.first('endTime')}">
           <span style="font-size: 14px">
             {{form.endTime? form.endTime: '请选择'}}
           </span>
+        <DatetimePicker
+          ref="endTime"
+          :pickerName="'endTime'"
+          :startDate="startDate"
+          :endDate="endDate"
+          v-model="form.endTime"
+          v-validate="'required'"
+          name="endTime"
+          :value-transformer="datetimeValueTransformer"></DatetimePicker>
       </mt-cell>
       <div class="education__info--job fixed-textarea">
           <div class="education__info--job__title">
@@ -75,33 +94,13 @@
     <div class="footer" @click="postResume">
       <span class="footer-value">提交</span>
     </div>
-    <mt-datetime-picker
-      ref="startPicker"
-      type="date"
-      :startDate="startDate"
-      :endDate="endDate"
-      year-format="{value} 年"
-      month-format="{value} 月"
-      date-format="{value} 日"
-      @confirm="handleStartPickerConfirm">
-    </mt-datetime-picker>
-    <mt-datetime-picker
-      ref="endPicker"
-      type="date"
-      :startDate="startDate"
-      :endDate="endDate"
-      year-format="{value} 年"
-      month-format="{value} 月"
-      date-format="{value} 日"
-      @confirm="handleEndPickerConfirm">
-    </mt-datetime-picker>
   </div>
 </template>
 
 <script>
 /* eslint-disable */
 import dataFormat from '../../util/dataFormat';
-
+import DatetimePicker from '../../components/DatetimePicker/index.vue';
 export default {
   name: 'JobExperience',
   data() {
@@ -142,6 +141,9 @@ export default {
     },
   },
   methods: {
+    datetimeValueTransformer(value) {
+      return dataFormat(value, 'yyyy-MM-dd');
+    },
     packUpKeyBoard() {
       window.scroll(0, 500);
     },
@@ -167,25 +169,27 @@ export default {
         }
       });
     },
-    openStartPicker() {
-      this.$refs.startPicker.open();
+    openStartPicker(event) {
+      if (event.path[0].classList.contains('v-modal')) {
+        return;
+      }
+      this.$refs.startTime.open();
     },
-    openEndPicker() {
-      this.$refs.endPicker.open();
+    openEndPicker(event) {
+      if (event.path[0].classList.contains('v-modal')) {
+        return;
+      }
+      this.$refs.endTime.open();
     },
-    handleStartPickerConfirm(res) {
-      this.$set(this.form, 'startTime', dataFormat(res, 'yyyy-MM-dd'));
-    },
-    handleEndPickerConfirm(res) {
-      this.$set(this.form, 'endTime', dataFormat(res, 'yyyy-MM-dd'));
-    },
-
   },
   created() {
     this.$nextTick(() => {
       this.data = this.$route.query;
     });
   },
+  components: {
+    DatetimePicker,
+  }
 };
 </script>
 

@@ -1,5 +1,8 @@
 <template>
-  <mt-popup position="bottom" v-model="sexSwitch">
+  <mt-popup
+  position="bottom"
+  v-model="sexSwitch"
+  @click.native="event => event.stopPropagation()">
     <mt-picker :slots="sexPicker" :show-toolbar="true" ref="sexPicker" value-key="label">
             <span @click="handleSexCancel"
                   class="mint-datetime-action mint-datetime-cancel">取消</span>
@@ -11,7 +14,7 @@
 
 <script>
 export default {
-  name: 'popup',
+  name: 'SexPopup',
   data() {
     return {
       sexSwitch: false,
