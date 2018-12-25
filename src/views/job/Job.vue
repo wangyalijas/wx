@@ -84,7 +84,7 @@ export default {
           route: 'Job',
         }, {
           name: '我的',
-          route: 'campusProcess',
+          route: 'personalCenter',
         },
       ],
       getJobListParams: {

@@ -10,11 +10,18 @@
         v-validate="'required'"
         name="name"
         :class="{'is-danger': errors.first('name')}"></mt-field>
-        <mt-cell title="性别" @click.native="openPopUp">
+        <mt-cell
+        title="性别"
+        @click.native="openPopUp"
+        :class="{'is-danger': errors.first('genderType')}">
           <span style="font-size: 14px">
             {{handleGenderType(resume.resume.genderType)
               ? handleGenderType(resume.resume.genderType): '请选择'}}
           </span>
+          <popup ref="sexpop"
+                 v-model="resume.resume.genderType"
+                 v-validate="'required'"
+                 name="genderType"></popup>
         </mt-cell>
         <mt-field
         label="电话号码"
@@ -34,10 +41,22 @@
         name="email"
         :class="{'is-danger': errors.first('email')}"
         ></mt-field>
-        <mt-cell title="参加工作年月" @click.native="openPicker">
+        <mt-cell
+        title="参加工作年月"
+        @click.native="openPicker"
+        :class="{'is-danger': errors.first('workYear')}">
           <span style="font-size: 14px">
             {{resume.resume.workYear ? resume.resume.workYear: '请选择'}}
           </span>
+          <DatetimePicker
+          ref="workYear"
+          :pickerName="'picker'"
+          :startDate="startDate"
+          :endDate="endDate"
+          v-model="resume.resume.workYear"
+          v-validate="'required'"
+          name="workYear"
+          :value-transformer="datetimeValueTransformer"></DatetimePicker>
         </mt-cell>
       </div>
       <div class="job-resume__education">
@@ -104,25 +123,25 @@
         <span class="footer-value">提交</span>
       </div>
     </div>
-    <mt-popup position="bottom" v-model="sexSwitch">
-      <mt-picker :slots="sexPicker" :show-toolbar="true" ref="sexPicker" value-key="label">
-            <span @click="handleSexCancel"
-                  class="mint-datetime-action mint-datetime-cancel">取消</span>
-        <span @click="handleSexConfirm"
-              class="mint-datetime-action mint-datetime-confirm">确认</span>
-      </mt-picker>
-    </mt-popup>
+    <!--<mt-popup position="bottom" v-model="sexSwitch">-->
+      <!--<mt-picker :slots="sexPicker" :show-toolbar="true" ref="sexPicker" value-key="label">-->
+            <!--<span @click="handleSexCancel"-->
+                  <!--class="mint-datetime-action mint-datetime-cancel">取消</span>-->
+        <!--<span @click="handleSexConfirm"-->
+              <!--class="mint-datetime-action mint-datetime-confirm">确认</span>-->
+      <!--</mt-picker>-->
+    <!--</mt-popup>-->
 
-    <mt-datetime-picker
-      ref="picker"
-      type="date"
-      :startDate="startDate"
-      :endDate="endDate"
-      year-format="{value} 年"
-      month-format="{value} 月"
-      date-format="{value} 日"
-      @confirm="handleConfirm">
-    </mt-datetime-picker>
+    <!--<mt-datetime-picker-->
+      <!--ref="picker"-->
+      <!--type="date"-->
+      <!--:startDate="startDate"-->
+      <!--:endDate="endDate"-->
+      <!--year-format="{value} 年"-->
+      <!--month-format="{value} 月"-->
+      <!--date-format="{value} 日"-->
+      <!--@confirm="handleConfirm">-->
+    <!--</mt-datetime-picker>-->
   </div>
 </template>
 
@@ -130,33 +149,35 @@
 import { mapGetters } from 'vuex';
 import dataFormat from '../../util/dataFormat';
 import upload from '../../components/upload/index.vue';
+import DatetimePicker from '../../components/DatetimePicker/index.vue';
+import popup from '../../components/popup/index.vue';
 
 export default {
   name: 'JobResume',
   data() {
     return {
-      sexSwitch: false,
-      sexPicker: [
-        {
-          flex: 1,
-          values: [
-            {
-              label: '男',
-              id: 0,
-            },
-            {
-              label: '女',
-              id: 1,
-            },
-            {
-              label: '其他',
-              id: 2,
-            },
-          ],
-          className: 'slot1',
-          textAlign: 'center',
-        },
-      ],
+      // sexSwitch: false,
+      // sexPicker: [
+      //   {
+      //     flex: 1,
+      //     values: [
+      //       {
+      //         label: '男',
+      //         id: 0,
+      //       },
+      //       {
+      //         label: '女',
+      //         id: 1,
+      //       },
+      //       {
+      //         label: '其他',
+      //         id: 2,
+      //       },
+      //     ],
+      //     className: 'slot1',
+      //     textAlign: 'center',
+      //   },
+      // ],
       isGetData: false,
     };
   },
@@ -180,20 +201,25 @@ export default {
       return this.gender.filter(item => item.id === data).shift().description;
     },
     openPicker() {
-      this.$refs.picker.open();
+      console.log(this.$refs);
+      this.$refs.workYear.open();
     },
     openPopUp() {
-      this.sexSwitch = true;
+      // this.sexSwitch = true;
+      this.$refs.sexpop.open();
     },
-    handleSexCancel() {
-      this.sexSwitch = false;
-    },
-    handleSexConfirm() {
-      this.$set(this.resume.resume, 'genderType', this.$refs.sexPicker.getValues()[0].id);
-      this.sexSwitch = false;
-    },
-    handleConfirm(res) {
-      this.$set(this.resume.resume, 'workYear', dataFormat(res, 'yyyy-MM-dd'));
+    // handleSexCancel() {
+    //   this.sexSwitch = false;
+    // },
+    // handleSexConfirm() {
+    //   this.$set(this.resume.resume, 'genderType', this.$refs.sexPicker.getValues()[0].id);
+    //   this.sexSwitch = false;
+    // },
+    // handleConfirm(res) {
+    //   this.$set(this.resume.resume, 'workYear', dataFormat(res, 'yyyy-MM-dd'));
+    // },
+    datetimeValueTransformer(value) {
+      return dataFormat(value, 'yyyy-MM-dd');
     },
     getResume() {
       this.$indicator.open();
@@ -204,7 +230,7 @@ export default {
     postResume() {
       this.$validator.validateAll().then((result) => {
         if (!result) {
-          return this.$toast('格式有误！');
+          return this.$toast('格式有误!');
         }
         this.$indicator.open();
         this.$store.dispatch('resume/postResume', this.resume.resume).then((res) => {
@@ -234,6 +260,8 @@ export default {
   },
   components: {
     upload,
+    DatetimePicker,
+    popup,
   },
 };
 </script>
