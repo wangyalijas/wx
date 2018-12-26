@@ -64,6 +64,7 @@ export default {
     }
     .main-deliver{
       .mint-cell{
+        margin-bottom: 0;
         min-height: 1.12rem;
         .mint-cell-wrapper{
           padding: 0 0.40rem 0 0.48rem;
