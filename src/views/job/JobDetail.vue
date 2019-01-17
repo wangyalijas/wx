@@ -87,7 +87,6 @@ export default {
       this.$store.dispatch('job/getJob', this.$route.query).then((res) => {
         this.data = res;
         this.$indicator.close();
-        this.$toast('投递成功！');
       });
     },
     length(area) {
