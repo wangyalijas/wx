@@ -48,7 +48,12 @@
     <div class="job-detail__tab">
       <div class="job-detail__tab--item"
       @click="handleCollection">
-      <i class="iconfont icon-collect"></i>收藏
+      <i class="iconfont icon-collect" v-if="!data.isCollection"></i>
+      <img
+      class="is-collection"
+      src="../../../public/img/isCollection.svg"
+      v-if="data.isCollection">
+      收藏
       </div>
       <div class="job-detail__tab--item" @click="handleDelivery">投递岗位</div>
     </div>
@@ -82,6 +87,7 @@ export default {
       this.$store.dispatch('job/getJob', this.$route.query).then((res) => {
         this.data = res;
         this.$indicator.close();
+        this.$toast('投递成功！');
       });
     },
     length(area) {
@@ -94,6 +100,7 @@ export default {
       }
       return result;
     },
+    // eslint-disable-next-line
     handleCollection() {
       if (this.data.isCollection) {
         return this.$toast('不能重复收藏！');
@@ -101,16 +108,18 @@ export default {
       this.$store.dispatch('job/postCollection', { jobId: this.$route.query.id }).then(() => {
         this.fetchPageData();
       });
-      return this.$toast('收藏成功！');
     },
+    // eslint-disable-next-line
     handleDelivery() {
       if (this.data.isDelivery) {
         return this.$toast('不能重复投递！');
       }
-      this.$store.dispatch('job/postDelivery', { jobId: this.$route.query.id }).then(() => {
-        this.fetchPageData();
+      this.$store.dispatch('job/postDelivery', { jobId: this.$route.query.id }).then((res) => {
+        if (res.state) {
+          this.fetchPageData();
+          this.$toast(res.tip);
+        }
       });
-      return this.$toast('投递成功！');
     },
     handleRecruitType(data) {
       return this.recruitType.filter(item => item.id === data).shift().description;
@@ -131,6 +140,13 @@ export default {
     &.icon-collect{
       color: #5E90E5;
     }
+  }
+  .is-collection {
+    width: 0.43rem;
+    height: 0.43rem;
+    display: inline-block;
+    position: relative;
+    top: 0.05rem;
   }
   .job-detail {
     background: #FFFFFF;
