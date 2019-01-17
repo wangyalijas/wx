@@ -27,8 +27,7 @@
       <mt-search
         v-model="getJobListParams.name"
         cancel-text="取消"
-        placeholder="搜索职位"
-        @input="handleSearch">
+        placeholder="搜索职位">
       </mt-search>
     </div>
     <div class="home__list"
@@ -96,6 +95,14 @@ export default {
       pageData: [],
     };
   },
+  watch: {
+    'getJobListParams.name': {
+      handler() {
+        this.handleSearch();
+      },
+      deep: true,
+    },
+  },
   computed: {
     ...mapGetters({
       jobType: 'handleJobType',
@@ -123,6 +130,7 @@ export default {
       this.fetchPageDataAsync(false);
     },
     handleSearch() {
+      this.$set(this.pagination, 'currentPage', 1);
       this.fetchPageDataAsync(false);
     },
     status(status) {

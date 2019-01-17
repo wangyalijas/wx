@@ -1,16 +1,18 @@
 <template>
-  <div class="select">
-    <div class="select__header" @click="toggle">
-      <span class="select__header--title" :class="{'green': isOpen}" >{{title}}</span>
-      <span class="select__header--arrow" :class="[{'rotate': isOpen}, {'green': isOpen}]"></span>
+  <div>
+    <div class="select">
+      <div class="select__header" @click="toggle">
+        <span class="select__header--title" :class="{'green': isOpen}" >{{title}}</span>
+        <span class="select__header--arrow" :class="[{'rotate': isOpen}, {'green': isOpen}]"></span>
+      </div>
     </div>
-    <ul class="select__content" :class="{'open': isOpen}">
+    <ul class="content" :class="{'open': isOpen}" :style="{height: whatHeight}">
       <template v-for="(item, index) in options">
         <li
-        :key="index"
-        class="select__content--option"
-        :class="isSelected(index)"
-        @click="handleClick(item, index)">{{item[`${prop.label}`]}}</li>
+          :key="index"
+          class="content--option"
+          :class="isSelected(index)"
+          @click="handleClick(item, index)">{{item[`${prop.label}`]}}</li>
       </template>
     </ul>
   </div>
@@ -42,7 +44,30 @@ export default {
       selectedItemIndex: null,
     };
   },
+  mounted() {
+    const eventType = 'click';
+    const handler = (event) => {
+      if (this.$el.contains(event.target)) {
+        // eslint-disable-next-line
+        console.log('点击在组件内', this);
+      } else {
+        // eslint-disable-next-line
+        console.log('点击在组件外', this);
+        this.isOpen = false;
+      }
+    };
+    document.addEventListener(eventType, handler);
+    this.$once('hook:destroyed', () => {
+      document.removeEventListener(eventType, handler);
+    });
+  },
   computed: {
+    whatHeight() {
+      if (this.options.length <= 3) {
+        return 'height: 2.67rem;';
+      }
+      return 'height: 6.67rem;';
+    },
   },
   watch: {
   },
@@ -88,10 +113,11 @@ export default {
       background: #ffffff;
       text-indent: 0.53rem;
       @include m(title) {
+        font-size: 0.43rem;
         &.green {
-            color: #90D1FC;
-          }
+          color: #90D1FC;
         }
+      }
       @include m(arrow) {
         display: inline-block;
         margin-left: 0.13rem;
@@ -107,32 +133,34 @@ export default {
         }
       }
     }
-    @include e(content) {
-      height: 2.67rem;
-      background: pink;
-      overflow-y: auto;
-      font-size: 0.37rem;
-      color: #606266;
-      transition: .2s;
-      display: none;
-      z-index: 10000;
-      border-radius: 4px;
-      background-color: #fff;
-      box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
-      padding: 10px 0;
-      max-height: 5.33rem;
-      overflow-y: auto;
-      &.open {
-        display: block;
-      }
-      @include m(option) {
-        line-height: 0.7rem;
-        text-indent: 0.53rem;
-        padding: 0.13rem 0;
-        &.selected {
-          color: #90D1FC;
-        }
+  }
+  .content {
+    width: 10rem;
+    position: absolute;
+    left: 0;
+    z-index: 500;
+    overflow-y: auto;
+    font-size: 0.43rem;
+    color: #606266;
+    transition: .2s;
+    display: none;
+    z-index: 10000;
+    border-radius: 4px;
+    background-color: #fff;
+    box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+    padding: 10px 0;
+    max-height: 5.33rem;
+    overflow-y: auto;
+    &.open {
+      display: block;
+    }
+    @include m(option) {
+      line-height: 0.9rem;
+      text-indent: 0.53rem;
+      &.selected {
+        color: #90D1FC;
       }
     }
   }
+
 </style>

@@ -10,7 +10,7 @@
       value-key="description">
           <span @click="handleEducationTypeCancel"
                 class="mint-datetime-action mint-datetime-cancel">取消</span>
-      <span @click="handleEducationTypeConfirm"
+          <span @click="handleEducationTypeConfirm"
             class="mint-datetime-action mint-datetime-confirm">确认</span>
     </mt-picker>
   </mt-popup>
