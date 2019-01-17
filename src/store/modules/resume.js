@@ -3,12 +3,23 @@ import api from '@/services/index';
 
 /* eslint-disable */
 const state = {
-  resume: null,
+  resume: {
+    resume: {
+      name: '',
+      genderType: '其他',
+      phone: '',
+      email: '',
+      workYear: '',
+    },
+    educations: [],
+    works: [],
+    attachments: [],
+  },
 };
 
 const getters = {
   handleResume({resume}) {
-    return resume ? resume : {};
+    return resume;
   },
 };
 

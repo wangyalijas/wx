@@ -157,6 +157,9 @@ export default {
       return data.split('\n');
     },
     handleGenderType(data) {
+      if (!data) {
+        return false;
+      }
       return this.gender.filter(item => item.id === data).shift().description;
     },
     openPicker(event) {
