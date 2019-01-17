@@ -30,7 +30,6 @@
         <mt-search
           v-model="searchValue"
           cancel-text="取消"
-          @keyup.native="changeType"
           placeholder="搜索职位">
         </mt-search>
       </div>
@@ -104,6 +103,11 @@ export default {
       // 校园招聘 招聘类型：实习
       this.$set(this.selectSearch, 'recruitType', this.isSchool ? '1' : '');
       return this.isSchool ? '实习' : '全部';
+    },
+  },
+  watch: {
+    searchValue: function () {
+      this.changeType();
     },
   },
   components: {
