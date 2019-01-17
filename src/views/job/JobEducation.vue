@@ -131,19 +131,19 @@ export default {
       return dataFormat(value, 'yyyy-MM-dd');
     },
     openStartPicker(event) {
-      if (event.path[0].classList.contains('v-modal')) {
+      if (event.target.classList.contains('v-modal')) {
         return;
       }
       this.$refs.startTime.open();
     },
     openEndPicker(event) {
-      if (event.path[0].classList.contains('v-modal')) {
+      if (event.target.classList.contains('v-modal')) {
         return;
       }
       this.$refs.endTime.open();
     },
     openPopUp() {
-      if (event.path[0].classList.contains('v-modal')) {
+      if (event.target.classList.contains('v-modal')) {
         return;
       }
       this.$refs.educationType.open()

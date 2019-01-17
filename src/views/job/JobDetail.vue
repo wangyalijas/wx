@@ -118,6 +118,9 @@ export default {
           this.fetchPageData();
           this.$toast(res.tip);
         }
+        if (!res.state && res.tip === '尚未填写简历！') {
+          this.handleRouter('JobResume');
+        }
       });
     },
     handleRecruitType(data) {
