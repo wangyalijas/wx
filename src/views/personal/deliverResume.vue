@@ -106,7 +106,7 @@ export default {
     },
   },
   watch: {
-    searchValue: function () {
+    searchValue: () => {
       this.changeType();
     },
   },
