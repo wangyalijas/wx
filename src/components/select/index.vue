@@ -88,10 +88,10 @@ export default {
       background: #ffffff;
       text-indent: 0.53rem;
       @include m(title) {
-      &.green {
-        color: #90D1FC;
-      }
-      }
+        &.green {
+            color: #90D1FC;
+          }
+        }
       @include m(arrow) {
         display: inline-block;
         margin-left: 0.13rem;
@@ -128,6 +128,7 @@ export default {
       @include m(option) {
         line-height: 0.7rem;
         text-indent: 0.53rem;
+        padding: 0.13rem 0;
         &.selected {
           color: #90D1FC;
         }

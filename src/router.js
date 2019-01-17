@@ -139,5 +139,13 @@ export default new Router({
       },
       component: loadView('groupActivity/home'),
     },
+    {
+      path: '/group-activity-details',
+      name: 'groupActivityDetails',
+      meta: {
+        title: '文化列表',
+      },
+      component: loadView('groupActivity/details'),
+    },
   ],
 });

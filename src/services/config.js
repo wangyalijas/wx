@@ -116,5 +116,10 @@ export default {
       mockUrl: '',
       method: 'GET',
     },
+    getNews: {
+      url: 'getNews',
+      mockUrl: '',
+      method: 'GET',
+    },
   },
 };

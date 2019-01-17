@@ -31,6 +31,16 @@ const news = {
         });
       });
     },
+    getNews(state, params) {
+      return new Promise((resolve, reject) => {
+        api(setting.urlConfig.getNews, params).then((data) => {
+          console.log('%c%s', 'color:blue', '=======> 获取新闻详情');
+          resolve(data);
+        }).catch((err) => {
+          reject(err);
+        });
+      });
+    },
   },
 };
 export default news;
