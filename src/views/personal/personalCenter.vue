@@ -4,13 +4,10 @@
       <img src="../../../public/img/swipe.jpg"/>
     </div>
     <div class="main-deliver">
-      <mt-cell title="职位收藏" is-link href="/job-collection">
+      <mt-cell title="职位收藏" is-link @click.native="handleRouter('jobCollection')">
         <i class="iconfont icon-collect" slot="icon"></i>
       </mt-cell>
-      <mt-cell title="投递记录" is-link href="/post-records">
-        <i class="iconfont icon-deliver" slot="icon"></i>
-      </mt-cell>
-      <mt-cell title="集团动态（暂时入口）" is-link href="/group-activity">
+      <mt-cell title="投递记录" is-link @click.native="handleRouter('postRecords')">
         <i class="iconfont icon-deliver" slot="icon"></i>
       </mt-cell>
     </div>
@@ -48,6 +45,11 @@ export default {
     Tab,
   },
   filters: {
+  },
+  methods: {
+    handle() {
+      console.log('sdv0');
+    },
   },
 };
 </script>
