@@ -157,16 +157,19 @@ export default {
       return data.split('\n');
     },
     handleGenderType(data) {
+      if (!data) {
+        return false;
+      }
       return this.gender.filter(item => item.id === data).shift().description;
     },
     openPicker(event) {
-      if (event.path[0].classList.contains('v-modal')) {
+      if (event.target.classList.contains('v-modal')) {
         return;
       }
       this.$refs.workYear.open();
     },
     openPopUp(event) {
-      if (event.path[0].classList.contains('v-modal')) {
+      if (event.target.classList.contains('v-modal')) {
         return;
       }
       this.$refs.sexpop.open();
