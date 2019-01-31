@@ -132,11 +132,11 @@ export default {
         background: #FFFFFF;
         box-shadow: 0 0.05rem 0.16rem 0 rgba(223,237,241,0.30);
         .main-list-inner{
-          padding: 0.40rem 0 0.40rem 0.80rem;
+          padding: 0.40rem 0 0.40rem 0.53rem;
           position: relative;
           @include e(sign){
             position: absolute;
-            right: 1rem;
+            right: 0.53rem;
             font-size: 0.32rem;
             border-radius: 0.05rem;
             padding: 0.05rem 0.24rem;

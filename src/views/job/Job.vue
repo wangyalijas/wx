@@ -82,7 +82,7 @@ export default {
           name: '招聘职位',
           route: 'Job',
         }, {
-          name: '我的',
+          name: '个人中心',
           route: 'personalCenter',
         },
       ],
@@ -177,7 +177,7 @@ export default {
 }
 .home {
   .tab .tab-bar__name {
-    padding: 0 1.847rem;
+    padding: 0 1.63rem;
   }
 }
 </style>
@@ -218,7 +218,7 @@ export default {
         @include e(time) {
           position: absolute;
           top: 0.59rem;
-          right: 0.91rem;
+          right: 0.53rem;
           font-size: 0.35rem;
           color: #999999;
         }
