@@ -43,7 +43,7 @@ export default {
     };
   },
   methods: {
-    handleValueChange: function (val) {
+    handleValueChange(val) {
       if (val) {
         // 阻止默认事件
         document.getElementsByTagName('body')[0].addEventListener('touchmove', (e) => {
@@ -63,7 +63,8 @@ export default {
       this.emitInputEvent(this.valueTransformer(date));
     },
     open() {
-      this.defaultDate = this.selectValue ? this.selectValue : this.datetimeValueTransformer(new Date());
+      this.defaultDate = this.selectValue
+        ? this.selectValue : this.datetimeValueTransformer(new Date());
       this.$refs[`${this.pickerName}`].open();
     },
     emitInputEvent(value) {
