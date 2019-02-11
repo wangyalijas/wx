@@ -53,6 +53,7 @@
           :pickerName="'picker'"
           :startDate="startDate"
           :endDate="endDate"
+          :selectValue="resume.resume.workYear"
           v-model="resume.resume.workYear"
           v-validate="'required'"
           name="workYear"
@@ -157,7 +158,7 @@ export default {
       return data.split('\n');
     },
     handleGenderType(data) {
-      if (!data) {
+      if (String(data).length <= 0) {
         return false;
       }
       return this.gender.filter(item => item.id === data).shift().description;

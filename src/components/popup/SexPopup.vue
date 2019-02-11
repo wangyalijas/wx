@@ -1,8 +1,9 @@
 <template>
   <mt-popup
-  position="bottom"
-  v-model="sexSwitch"
-  @click.native="event => event.stopPropagation()">
+    lockScroll="true"
+    position="bottom"
+    v-model="sexSwitch"
+    @click.native="event => event.stopPropagation()">
     <mt-picker :slots="sexPicker" :show-toolbar="true" ref="sexPicker" value-key="label">
             <span @click="handleSexCancel"
                   class="mint-datetime-action mint-datetime-cancel">取消</span>
@@ -41,6 +42,23 @@ export default {
       ],
     };
   },
+  watch: {
+    sexSwitch: {
+      handler(val) {
+        if (val) {
+          // 阻止默认事件
+          document.getElementsByTagName('body')[0].addEventListener('touchmove', (e) => {
+            e.preventDefault();
+          }, { passive: false });
+        } else {
+          // 打开默认事件
+          document.getElementsByTagName('body')[0].addEventListener('touchmove', (e) => {
+            e.returnValue = true;
+          }, { passive: false });
+        }
+      },
+    },
+  },
   methods: {
     handleSexCancel() {
       this.sexSwitch = false;
@@ -48,7 +66,6 @@ export default {
     handleSexConfirm() {
       // this.$set(this.resume.resume, 'genderType', this.$refs.sexPicker.getValues()[0].id);
       this.emitInputEvent(this.$refs.sexPicker.getValues()[0].id);
-      console.log(this.$refs.sexPicker.getValues()[0].id);
       this.sexSwitch = false;
     },
     open() {
