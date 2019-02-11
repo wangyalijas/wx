@@ -175,9 +175,11 @@ export default {
     font-size: 0.37rem;
   }
 }
-.home {
-  .tab .tab-bar__name {
-    padding: 0 1.63rem;
+.tab {
+  .tab-bar{
+    .tab-bar__name {
+      padding: 0 1.63rem;
+    }
   }
 }
 </style>
