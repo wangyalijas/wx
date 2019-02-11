@@ -44,29 +44,22 @@
       </div>
       <span class="loading-more--text" v-if="isLoadingComplete">我是有底线的</span>
     </div>
-    <tab :tabData="tabData"></tab>
+    <tab :tabData="tabDataSchool"></tab>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
 import Tab from '@/components/common/tab';
+import config from '@/config';
 
+const { tabDataSchool } = config;
 export default {
   name: 'campusProcess',
   data() {
     return {
       pageData: [],
-      tabData: [{
-        name: '校园行程',
-        route: 'campusProcess',
-      }, {
-        name: '投递简历',
-        route: 'deliverResume',
-      }, {
-        name: '个人中心',
-        route: 'personalCenter',
-      }],
+      tabDataSchool,
       recommendNews: [],
     };
   },

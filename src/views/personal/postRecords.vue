@@ -38,14 +38,14 @@
     <div class="main-empty" v-if="pageData.length <= 0">
       <span>暂无数据</span>
     </div>
-    <div class="footer" @click="handleRouter('deliverResume')">
+    <div class="footer" @click="searchJob">
       <span class="footer-value">寻找适合我的职位</span>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 
 export default {
   name: 'postRecords',
@@ -59,6 +59,9 @@ export default {
       JobType: 'handleJobType',
       ReviewType: 'handleReviewType',
     }),
+    ...mapState([
+      'isSchool',
+    ]),
   },
   components: {
   },
@@ -82,6 +85,10 @@ export default {
         currentPage: this.pagination.currentPage,
         pageSize: this.pagination.pageSize,
       });
+    },
+    searchJob() {
+      const route = this.isSchool ? 'deliverResume' : 'Job';
+      this.handleRouter(route);
     },
   },
 };

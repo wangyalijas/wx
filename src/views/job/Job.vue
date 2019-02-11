@@ -175,13 +175,6 @@ export default {
     font-size: 0.37rem;
   }
 }
-.tab {
-  .tab-bar{
-    .tab-bar__name {
-      padding: 0 1.63rem;
-    }
-  }
-}
 </style>
 <style lang="scss" scoped>
   @import "../../assets/styles/mixin/loadMore.scss";

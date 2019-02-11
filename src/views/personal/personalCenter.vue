@@ -16,30 +16,30 @@
         <i class="iconfont icon-resume" slot="icon"></i>
       </mt-cell>
     </div>
-    <tab :tabData="tabData"></tab>
+    <tab :tabData="tabDataSchool" v-if="isSchool"></tab>
+    <tab :tabData="tabDataSocial" v-else></tab>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import Tab from '@/components/common/tab';
+import config from '@/config';
+
+const { tabDataSchool, tabDataSocial } = config;
 
 export default {
   name: 'personalCenter',
   data() {
     return {
-      tabData: [{
-        name: '校园行程',
-        route: 'campusProcess',
-      }, {
-        name: '投递简历',
-        route: 'deliverResume',
-      }, {
-        name: '个人中心',
-        route: 'personalCenter',
-      }],
+      tabDataSchool,
+      tabDataSocial,
     };
   },
   computed: {
+    ...mapState([
+      'isSchool',
+    ]),
   },
   components: {
     Tab,
@@ -47,9 +47,6 @@ export default {
   filters: {
   },
   methods: {
-    handle() {
-      console.log('sdv0');
-    },
   },
 };
 </script>
