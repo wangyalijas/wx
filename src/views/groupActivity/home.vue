@@ -63,10 +63,6 @@ export default {
         name: '公司简介',
         index: '1',
       }, {
-        value: 'Welfare',
-        name: '员工福利',
-        index: '2',
-      }, {
         value: 'Activity',
         name: '精彩活动',
         index: '3',
