@@ -206,7 +206,7 @@ export default {
         @include e(title) {
           position: absolute;
           top: 0.40rem;
-          left: 0.93rem;
+          left: 0.67rem;
           font-size: 0.43rem;
           color: #333333;
         }
@@ -219,7 +219,7 @@ export default {
         }
         @include e(label) {
           position: absolute;
-          left: 0.93rem;
+          left: 0.67rem;
           bottom: 0.40rem;
           @include m(item) {
             float: left;
