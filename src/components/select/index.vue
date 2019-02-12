@@ -111,9 +111,9 @@ export default {
       font-size: 0.37rem;
       color: #666666;
       background: #ffffff;
-      text-indent: 0.53rem;
+      text-align: center;
       @include m(title) {
-        font-size: 0.43rem;
+        font-size: 0.37rem;
         &.green {
           color: #90D1FC;
         }
