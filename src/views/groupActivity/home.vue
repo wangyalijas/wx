@@ -43,17 +43,23 @@
       </div>
       <span class="loading-more--text" v-if="isLoadingComplete">我是有底线的</span>
     </div>
+    <fade :qaRoute="routeObj.qaRoute" :recommendRoute="routeObj.recommendRoute"></fade>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
+import Fade from '@/components/common/fadeNav';
 
 export default {
   name: 'groupActivity',
   data() {
     return {
       selectedBar: '0',
+      routeObj: {
+        qaRoute: 'https://mp.weixin.qq.com/s?__biz=MjM5NzI3MDk1OQ==&mid=2652675808&idx=1&sn=5c5e4946d9ec6f9ddd26d16a3163af0a&chksm=bd34ba208a4333360bd773601d84beaa7653e7133a18cbac2decbc6c6ee83f2dd0e78ac36372&token=381018764&lang=zh_CN#rd',
+        recommendRoute: 'https://mp.weixin.qq.com/s?__biz=MjM5NzI3MDk1OQ==&mid=2652675808&idx=1&sn=5c5e4946d9ec6f9ddd26d16a3163af0a&chksm=bd34ba208a4333360bd773601d84beaa7653e7133a18cbac2decbc6c6ee83f2dd0e78ac36372&token=381018764&lang=zh_CN#rd',
+      },
       navBarData: [{
         value: 'Dynamics',
         name: '集团动态',
@@ -85,6 +91,7 @@ export default {
     },
   },
   components: {
+    Fade,
   },
   filters: {
     formatContent(value) {

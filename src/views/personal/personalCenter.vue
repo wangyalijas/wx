@@ -12,7 +12,7 @@
       </mt-cell>
     </div>
     <div class="main-resume">
-      <mt-cell title="我的简历" is-link @click.native="handleRouter('JobResume')">
+      <mt-cell title="我的简历" is-link @click.native="handleRouter('groupActivity')">
         <i class="iconfont icon-resume" slot="icon"></i>
       </mt-cell>
     </div>
