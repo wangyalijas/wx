@@ -45,7 +45,7 @@ export default {
 .nav-link{
   position: fixed;
   right: 15px;
-  bottom: 80px;
+  bottom: 50px;
   div{
     position: relative;
     width: 50px;
