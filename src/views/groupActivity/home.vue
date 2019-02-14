@@ -180,12 +180,12 @@ export default {
           position: relative;
           @include e(left){
             float: left;
-            width: 1.73rem;
-            height: 1.73rem;
+            width: 1.87rem;
+            height: 1.87rem;
             background: #f8f8f8;
             img{
-              width: 1.73rem;
-              height: 1.73rem;
+              width: 1.87rem;
+              height: 1.87rem;
             }
           }
           @include e(right){
