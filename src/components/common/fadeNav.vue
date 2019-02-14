@@ -9,7 +9,7 @@
       内推
     </div>
     <div @click="open = !open" class="menu">
-      菜单
+      <span :class="[open ? 'menu-close' : 'menu-open', 'menu-button']"></span>
     </div>
   </div>
 </template>
@@ -48,25 +48,40 @@ export default {
   bottom: 50px;
   div{
     position: relative;
-    width: 50px;
-    height: 50px;
-    line-height: 50px;
+    width: 46px;
+    height: 46px;
+    line-height: 46px;
     border-radius: 50%;
     text-align: center;
-    background: rgba(0,0,0,.2);
+    background: #2460C6;
     transition: all ease .5s;
     color: #ffffff;
+    font-size: 16px;
     &.qa{
       position: absolute;
       top: -30px;
       right: 45px;
+      background: #F5A623;
     }
     &.recommend{
       position: absolute;
       top: -60px;
+      background: #6CDC96;
     }
-    .icon{
-      color: #ffffff;
+    &.menu{
+      .menu-button{
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        background-size: 24px 24px;
+        vertical-align: middle;
+      }
+      .menu-open{
+        background: url("../../../public/icon/menu.svg") no-repeat center;
+      }
+      .menu-close{
+        background: url("../../../public/icon/close.svg") no-repeat center;
+      }
     }
   }
 }
