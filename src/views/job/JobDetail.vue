@@ -22,7 +22,7 @@
       </li>
       <li class="job-detail__category--item">
         <span>学历要求</span>
-        <span>{{data.education}}</span>
+        <span>{{formatType(data.education, EducationType)}}</span>
       </li>
     </ul>
     <div class="job-detail__main">
@@ -73,6 +73,7 @@ export default {
   computed: {
     ...mapGetters({
       recruitType: 'handleRecruitType',
+      EducationType: 'handleEducationType',
     }),
     duty() {
       return this.data.duty.split('\n');
@@ -82,6 +83,15 @@ export default {
     },
   },
   methods: {
+    formatType(item, valueArr) {
+      let result = '';
+      valueArr.forEach((value) => {
+        if (Number(item) === value.id) {
+          result = value.description;
+        }
+      });
+      return result;
+    },
     fetchPageData() {
       this.$indicator.open();
       this.$store.dispatch('job/getJob', this.$route.query).then((res) => {
@@ -227,7 +237,7 @@ export default {
       }
     }
     @include e(main) {
-      padding: 0.80rem 0.80rem 0;
+      padding: 0.80rem;
       background: #FFFFFF;
       @include m(item) {
         @include e(title) {

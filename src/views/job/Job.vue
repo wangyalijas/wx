@@ -44,12 +44,8 @@
           <ul class="home__list--item__label">
             <li class="home__list--item__label--item blue">{{item.place}}</li>
             <li class="home__list--item__label--item blue">{{item.workLife}}</li>
-            <li class="home__list--item__label--item blue">{{item.education}}</li>
-            <!--<li-->
-            <!--v-for="(label, index2) in item.labels"-->
-            <!--:key="index2"-->
-            <!--class="home__list&#45;&#45;item__label&#45;&#45;item"-->
-            <!--:class="status(label.status)">{{label.name}}</li>-->
+            <li class="home__list--item__label--item blue">
+              {{formatType(item.education, EducationType)}}</li>
           </ul>
         </div>
       </template>
@@ -108,9 +104,19 @@ export default {
       jobType: 'handleJobType',
       workPlace: 'handleWorkPlace',
       recruitType: 'handleRecruitType',
+      EducationType: 'handleEducationType',
     }),
   },
   methods: {
+    formatType(item, valueArr) {
+      let result = '';
+      valueArr.forEach((value) => {
+        if (Number(item) === value.id) {
+          result = value.description;
+        }
+      });
+      return result;
+    },
     fetchPageDataAsync(flag) {
       this.sendAxios(flag, 'job/getJobList', Object.assign(this.getJobListParams, this.pagination));
     },

@@ -45,8 +45,10 @@
             <div class="list--item--inner__time">{{item.createdAt}}</div>
             <ul class="list--item--inner__label clearfix">
               <li class="list--item--inner__label--item">{{item.place}}</li>
-              <li class="list--item--inner__label--item">{{item.education}}</li>
-              <li class="list--item--inner__label--item">{{formatType(item.jobType, JobType)}}</li>
+              <li class="list--item--inner__label--item">
+                {{formatType(item.education, EducationType)}}</li>
+              <li class="list--item--inner__label--item">
+                {{formatType(item.jobType, JobType)}}</li>
             </ul>
           </div>
         </div>
@@ -91,6 +93,7 @@ export default {
       WorkPlace: 'handleWorkPlace',
       RecruitType: 'handleRecruitType',
       isSchool: 'handleIsSchool',
+      EducationType: 'handleEducationType',
     }),
     formatSchool() {
       // 校园招聘 招聘类型：实习
