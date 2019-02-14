@@ -8,6 +8,4 @@ export default {
     'X-OpenId': 'openid123',
   },
   isSchool: false,
-  // 是否是外链跳转
-  isRouterFlag: false,
 };

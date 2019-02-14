@@ -12,7 +12,4 @@ export default {
   handleIsSchool(state, data) {
     state.isSchool = data;
   },
-  handleIsRouter(state, data) {
-    state.isRouterFlag = data;
-  },
 };
