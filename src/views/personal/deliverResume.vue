@@ -121,7 +121,7 @@ export default {
     formatType(item, valueArr) {
       let result = '';
       valueArr.forEach((value) => {
-        if (item === value.id) {
+        if (Number(item) === value.id) {
           result = value.description;
         }
       });

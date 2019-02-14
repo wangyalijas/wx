@@ -162,7 +162,6 @@ export default {
   }
   .job-detail {
     background: #FFFFFF;
-    height: 100vh;
     @include e(title) {
       margin: 0 0.80rem;
       position: relative;
@@ -237,9 +236,10 @@ export default {
       }
     }
     @include e(main) {
-      padding: 0.80rem;
+      padding: 0.80rem 0.80rem 0 0.80rem;
       background: #FFFFFF;
       @include m(item) {
+        margin-bottom: 1.33rem;
         @include e(title) {
           font-size: 0.35rem;
           color: #333333;
