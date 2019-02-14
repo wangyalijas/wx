@@ -34,7 +34,9 @@ export default {
   },
   methods: {
     handleLocation(url) {
-      window.location.href = url;
+      if (url) {
+        window.location.href = url;
+      }
     },
   },
 };

@@ -57,7 +57,7 @@ export default {
     return {
       selectedBar: '0',
       routeObj: {
-        qaRoute: 'https://mp.weixin.qq.com/s?__biz=MjM5NzI3MDk1OQ==&mid=2652675808&idx=1&sn=5c5e4946d9ec6f9ddd26d16a3163af0a&chksm=bd34ba208a4333360bd773601d84beaa7653e7133a18cbac2decbc6c6ee83f2dd0e78ac36372&token=381018764&lang=zh_CN#rd',
+        qaRoute: '',
         recommendRoute: 'https://mp.weixin.qq.com/s?__biz=MjM5NzI3MDk1OQ==&mid=2652675808&idx=1&sn=5c5e4946d9ec6f9ddd26d16a3163af0a&chksm=bd34ba208a4333360bd773601d84beaa7653e7133a18cbac2decbc6c6ee83f2dd0e78ac36372&token=381018764&lang=zh_CN#rd',
       },
       navBarData: [{
