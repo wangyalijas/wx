@@ -120,7 +120,9 @@ export default {
       });
     },
     handleOpenNews(wbUrl) {
-      window.location.href = wbUrl;
+      window.open(wbUrl, '_blank');
+      // window.location.href = wbUrl;
+      this.$store.commit('handleIsRouter', true);
     },
   },
 };
