@@ -44,16 +44,13 @@ export default {
   },
   methods: {
     handleValueChange(val) {
+      const divR = document.getElementById('scroll');
       if (val) {
         // 阻止默认事件
-        document.getElementsByTagName('body')[0].addEventListener('touchmove', (e) => {
-          e.preventDefault();
-        }, { passive: false });
+        divR.style.overflowY = 'hidden';
       } else {
         // 打开默认事件
-        document.getElementsByTagName('body')[0].addEventListener('touchmove', (e) => {
-          e.returnValue = true;
-        }, { passive: false });
+        divR.style.overflowY = '';
       }
     },
     handleConfirm(date) {
