@@ -1,5 +1,5 @@
 export default {
-  baseUrl: 'http://hufe.club:7002/api/',
+  baseUrl: 'http://zhaopin.winning-health.com.cn',
   urlConfig: {
     job: {
       getEnum: {
