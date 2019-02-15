@@ -86,6 +86,9 @@ export default {
     selectedBar(newVal, oldVal) {
       if (newVal !== oldVal) {
         this.$set(this.pagination, 'currentPage', 1);
+        this.isLoading = true;
+        this.isLoadingMore = false;
+        this.isLoadingComplete = false;
         this.fetchPageDataAsync(false);
       }
     },

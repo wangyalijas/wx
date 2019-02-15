@@ -55,7 +55,7 @@
           :startDate="startDate"
           :endDate="endDate"
           v-model="form.endTime"
-          v-validate="'required'"
+          v-validate="'required'"
           name="endTime"
           :value-transformer="datetimeValueTransformer"></DatetimePicker>
       </mt-cell>
