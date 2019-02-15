@@ -1,6 +1,7 @@
 <template>
   <div id="scroll">
     <div class="job-resume" v-if="resume">
+      <div class="job-resume__warning">️请保存简历后再进行职位投递！</div>
       <div class="job-resume__title">个人信息</div>
       <div class="job-resume__info">
         <mt-field
@@ -121,7 +122,7 @@
         </div>
       </div>
       <div class="footer" @click="postResume">
-        <span class="footer-value">提交</span>
+        <span class="footer-value">保存</span>
       </div>
     </div>
   </div>
@@ -191,7 +192,8 @@ export default {
         }
         this.$indicator.open();
         this.$store.dispatch('resume/postResume', this.resume.resume).then((res) => {
-          if (res.code) {
+          if (res.code === 200) {
+            this.$toast(res.tip);
             this.$indicator.close();
             this.getResume();
           }
@@ -229,6 +231,14 @@ export default {
   .job-resume {
     position: relative;
     background: #ffffff;
+    @include e(warning) {
+      height: 0.53rem;
+      line-height: 0.53rem;
+      text-align: center;
+      width: 100%;
+      background: #FDEACC;
+      color: #E89000;
+    }
     @include e(title) {
       font-size: 0.43rem;
       color: #333333;

@@ -62,9 +62,10 @@ export default {
       }
     }
     .main-deliver{
+      margin-top: 0.40rem;
       .mint-cell{
         margin-bottom: 0;
-        min-height: 1.12rem;
+        min-height: 1.15rem;
         .mint-cell-wrapper{
           padding: 0 0.40rem 0 0.48rem;
           border-bottom: 0.03rem solid #F6F6F6;
@@ -90,7 +91,7 @@ export default {
     .main-resume{
       margin-top: 0.40rem;
       .mint-cell{
-        min-height: 1.12rem;
+        min-height: 1.15rem;
         .mint-cell-wrapper{
           padding: 0 0.40rem 0 0.48rem;
           .mint-cell-title{

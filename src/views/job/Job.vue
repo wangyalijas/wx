@@ -218,7 +218,7 @@ export default {
         }
         @include e(time) {
           position: absolute;
-          top: 0.59rem;
+          top: 0.46rem;
           right: 0.53rem;
           font-size: 0.35rem;
           color: #999999;
@@ -229,7 +229,9 @@ export default {
           bottom: 0.40rem;
           @include m(item) {
             float: left;
-            padding: 0.03rem 0.24rem;
+            padding: 0.05rem 0.24rem 0;
+            height: 0.61rem;
+            line-height: 0.61rem;
             border-radius: 2px;
             font-size: 0.35rem;
             margin-right: 0.27rem;

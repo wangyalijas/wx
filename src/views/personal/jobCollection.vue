@@ -9,7 +9,8 @@
         :title="item.name"
         v-for="(item, index) in pageData"
         :key="index"
-        :right="handleSwiperRight(item)">
+        :right="handleSwiperRight(item)"
+        @click.native="handleRouter('JobDetail', {id: item.id})">
         <div class="value-sign"
              :class="{active: item.isEnd == 0}">
           <span class="value-sign__value">

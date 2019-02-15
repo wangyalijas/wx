@@ -2,7 +2,9 @@
   <div>
     <div class="select">
       <div class="select__header" @click="toggle">
-        <span class="select__header--title" :class="{'green': isOpen}" >{{title}}</span>
+        <span class="select__header--title" :class="{'green': isOpen}" >
+        {{selectedItem || title}}
+        </span>
         <span class="select__header--arrow" :class="[{'rotate': isOpen}, {'green': isOpen}]"></span>
       </div>
     </div>
@@ -42,6 +44,7 @@ export default {
     return {
       isOpen: false,
       selectedItemIndex: null,
+      selectedItem: null,
     };
   },
   mounted() {
@@ -82,6 +85,8 @@ export default {
       this.isOpen = !this.isOpen;
     },
     handleClick(item, index) {
+      console.log(item)
+      this.selectedItem = item.description
       this.selectedItemIndex = index;
       this.handleEmit(item);
       this.toggle();
