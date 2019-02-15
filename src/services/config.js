@@ -1,5 +1,5 @@
 export default {
-  baseUrl: 'http://zhaopin.winning-health.com.cn',
+  baseUrl: 'http://zhaopin.winning-health.com.cn/api/',
   urlConfig: {
     job: {
       getEnum: {
