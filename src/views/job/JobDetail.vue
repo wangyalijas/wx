@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 
 export default {
   name: 'JobDetail',
@@ -73,6 +73,9 @@ export default {
     };
   },
   computed: {
+    ...mapState({
+      userId: state => state.header['X-UserId'],
+    }),
     ...mapGetters({
       recruitType: 'handleRecruitType',
       EducationType: 'handleEducationType',
@@ -116,6 +119,9 @@ export default {
       if (this.data.isCollection) {
         return this.$toast('不能重复收藏！');
       }
+      if (this.userId === 8) {
+        return this.$toast('请关注公众号卫宁招聘');
+      }
       this.$store.dispatch('job/postCollection', { jobId: this.$route.query.id }).then(() => {
         this.fetchPageData();
       });
@@ -124,6 +130,9 @@ export default {
     handleDelivery() {
       if (this.data.isDelivery) {
         return this.$toast('不能重复投递！');
+      }
+      if (this.userId === 8) {
+        return this.$toast('请关注公众号卫宁招聘');
       }
       this.$store.dispatch('job/postDelivery', { jobId: this.$route.query.id }).then((res) => {
         if (res.state) {

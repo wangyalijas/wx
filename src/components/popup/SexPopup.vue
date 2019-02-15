@@ -48,9 +48,11 @@ export default {
         if (val) {
           // 阻止默认事件
           divR.style.overflowY = 'hidden';
+          this.forbidBodyScroll();
         } else {
           // 打开默认事件
           divR.style.overflowY = '';
+          this.allowBodyScroll();
         }
       },
     },
@@ -60,7 +62,6 @@ export default {
       this.sexSwitch = false;
     },
     handleSexConfirm() {
-      // this.$set(this.resume.resume, 'genderType', this.$refs.sexPicker.getValues()[0].id);
       this.emitInputEvent(this.$refs.sexPicker.getValues()[0].id);
       this.sexSwitch = false;
     },
