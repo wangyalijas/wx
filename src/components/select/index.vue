@@ -85,7 +85,6 @@ export default {
       this.isOpen = !this.isOpen;
     },
     handleClick(item, index) {
-      console.log(item)
       this.selectedItem = item.description
       this.selectedItemIndex = index;
       this.handleEmit(item);

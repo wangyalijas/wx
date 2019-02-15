@@ -173,5 +173,14 @@ input:valid {
   margin-right: 0.27rem;
 }
 .mint-cell {
-  margin-bottom: 0.27rem;
+  //margin-bottom: 0.27rem;
+}
+.special-cell{
+  .mint-cell-value {
+    margin-right: 0.27rem;
+    color: #666666;
+  }
+}
+.mint-cell .mint-cell-wrapper .mint-cell-value .mint-field-core {
+  color: #666666;
 }

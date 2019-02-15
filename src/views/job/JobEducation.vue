@@ -5,6 +5,7 @@
       <mt-cell
       title="开始时间"
       @click.native="openStartPicker"
+      class="special-cell"
       :class="{'is-danger': errors.first('startTime')}">
           <span style="font-size: 14px">
             {{form.startTime ? form.startTime: '请选择'}}
@@ -22,6 +23,7 @@
       <mt-cell
       title="结束时间"
       @click.native="openEndPicker"
+      class="special-cell"
       :class="{'is-danger': errors.first('endTime')}">
           <span style="font-size: 14px">
             {{form.endTime ? form.endTime: '请选择'}}
@@ -53,6 +55,7 @@
       <mt-cell
       title="学历"
       @click.native="openPopUp"
+      class="special-cell"
       :class="{'is-danger': errors.first('educationType')}">
           <span style="font-size: 14px">
             {{ transformationEducationType(form.educationType) }}

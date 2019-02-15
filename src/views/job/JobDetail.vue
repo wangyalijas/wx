@@ -25,35 +25,37 @@
         <span>{{formatType(data.education, EducationType)}}</span>
       </li>
     </ul>
-    <div class="job-detail__main">
-      <div class="job-detail__main--item">
-        <div class="job-detail__main--item__title">工作职责</div>
-        <div class="job-detail__main--item__content"
-             v-for="(dutyItem, dutyIndex) in duty"
-             :key="dutyIndex">
-          {{dutyItem}}
+    <div class="job-detail__content">
+      <div class="job-detail__content__main">
+        <div class="job-detail__main--item">
+          <div class="job-detail__content__main--item__title">工作职责</div>
+          <div class="job-detail__content__main--item__content"
+               v-for="(dutyItem, dutyIndex) in duty"
+               :key="dutyIndex">
+            {{dutyItem}}
+          </div>
         </div>
       </div>
-    </div>
-    <div class="job-detail__main">
-      <div class="job-detail__main--item">
-        <div class="job-detail__main--item__title">工作要求</div>
-        <div class="job-detail__main--item__content"
-             v-for="(requireItem, requireIndex) in requirement"
-             :key="requireIndex">
-          {{requireItem}}
+      <div class="job-detail__content__main">
+        <div class="job-detail__content__main--item">
+          <div class="job-detail__content__main--item__title">工作要求</div>
+          <div class="job-detail__content__main--item__content"
+               v-for="(requireItem, requireIndex) in requirement"
+               :key="requireIndex">
+            {{requireItem}}
+          </div>
         </div>
       </div>
     </div>
     <div class="job-detail__tab">
       <div class="job-detail__tab--item"
-      @click="handleCollection">
-      <i class="iconfont icon-collect" v-if="!data.isCollection"></i>
-      <img
-      class="is-collection"
-      src="../../../public/img/isCollection.svg"
-      v-if="data.isCollection">
-      收藏
+           @click="handleCollection">
+        <i class="iconfont icon-collect" v-if="!data.isCollection"></i>
+        <img
+          class="is-collection"
+          src="../../../public/img/isCollection.svg"
+          v-if="data.isCollection">
+        收藏
       </div>
       <div class="job-detail__tab--item" @click="handleDelivery">投递岗位</div>
     </div>
@@ -212,6 +214,7 @@ export default {
       background: #FFFFFF;
       border-bottom: 1px solid #F6F6F6;
       position: relative;
+      font-size: 0.38rem;
       @include m(item) {
         position: absolute;
         &:nth-child(1) {
@@ -236,22 +239,27 @@ export default {
         }
       }
     }
-    @include e(main) {
-      padding: 0.80rem 0.80rem 0 0.80rem;
-      background: #FFFFFF;
-      @include m(item) {
-        @include e(title) {
-          font-size: 0.35rem;
-          color: #333333;
-          font-weight: bold;
-          text-align: left;
-          margin-bottom: 0.27rem;
+    @include e(content) {
+      @include e(main) {
+        padding: 0.80rem 0.80rem 0 0.80rem;
+        background: #FFFFFF;
+        &:last-child {
+          margin-bottom: 1.33rem;
         }
-        @include e(content) {
-          font-size: 0.38rem;
-          color: #666666;
-          text-align: left;
-          line-height: 22px;
+        @include m(item) {
+          @include e(title) {
+            font-size: 0.38rem;
+            color: #333333;
+            font-weight: bold;
+            text-align: left;
+            margin-bottom: 0.27rem;
+          }
+          @include e(content) {
+            font-size: 0.38rem;
+            color: #666666;
+            text-align: left;
+            line-height: 22px;
+          }
         }
       }
     }

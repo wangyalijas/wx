@@ -8,7 +8,8 @@
       <div class="main-list"
            v-for="(item, index) in pageData"
            :key="index">
-        <div class="main-list__inner">
+        <div class="main-list__inner"
+             @click="handleRouter('JobDetail', {id: item.id})">
           <div class="main-list__inner--sign"
                :class="{active: item.isEnd == 0}">
           <span>{{item.isEnd == 0 ? '进行中' : '已结束'}}</span>

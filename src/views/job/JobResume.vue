@@ -13,6 +13,7 @@
         :class="{'is-danger': errors.first('name')}"></mt-field>
         <mt-cell
         title="性别"
+        class="special-cell"
         @click.native="openPopUp"
         :class="{'is-danger': errors.first('genderType')}">
           <span style="font-size: 14px">
@@ -43,6 +44,7 @@
         :class="{'is-danger': errors.first('email')}"
         ></mt-field>
         <mt-cell
+        class="special-cell"
         title="参加工作年月"
         @click.native="openPicker"
         :class="{'is-danger': errors.first('workYear')}">
@@ -232,8 +234,8 @@ export default {
     position: relative;
     background: #ffffff;
     @include e(warning) {
-      height: 0.53rem;
-      line-height: 0.53rem;
+      height: 0.8rem;
+      line-height: 0.8rem;
       text-align: center;
       width: 100%;
       background: #FDEACC;
@@ -243,7 +245,7 @@ export default {
       font-size: 0.43rem;
       color: #333333;
       font-weight: bold;
-      padding: 0.53rem 0.53rem;
+      padding: 0.53rem 0.6rem;
     }
     @include e(info){
       position: relative;
