@@ -6,4 +6,5 @@ export default {
     'X-OpenId': 'admin',
   },
   isSchool: false,
+  wechatSignUrl: ''
 };

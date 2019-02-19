@@ -38,7 +38,7 @@
         <div
         :key="index1"
         class="home__list--item"
-        @click="handleRouter('JobDetail', {id: item.id})">
+        @click="handleRouterDetail('JobDetail', {id: item.id})">
           <span class="home__list--item__title">{{item.name}}</span>
           <span class="home__list--item__time">{{item.createdAt}}</span>
           <ul class="home__list--item__label">
@@ -108,6 +108,13 @@ export default {
     }),
   },
   methods: {
+    handleRouterDetail (name, query = {}) {
+      window.entryUrl = window.location.href.split('#')[0]
+      this.$router.push({
+        name,
+        query,
+      });
+    },
     formatType(item, valueArr) {
       let result = '';
       valueArr.forEach((value) => {

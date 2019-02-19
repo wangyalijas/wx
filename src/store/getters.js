@@ -33,4 +33,7 @@ export default {
   handleIsSchool(state) {
     return state.isSchool;
   },
+  getWechatSignUrl(state) {
+    return state.wxSignUrl
+  }
 };

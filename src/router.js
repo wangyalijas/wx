@@ -28,7 +28,15 @@ export default new Router({
       },
     },
     {
-      path: '/',
+      path: '/follow',
+      name: 'follow',
+      component: loadView('config/follow'),
+      meta: {
+        title: '关注卫宁招聘',
+      },
+    },
+    {
+      path: '/job',
       name: 'Job',
       component: loadView('job/Job'),
       meta: {

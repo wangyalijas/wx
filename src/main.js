@@ -32,12 +32,28 @@ Vue.mixin(LoadMoreMixin);
 Vue.mixin(RouterMixin);
 Vue.mixin(ScrollMixin);
 
+let isJumpToFollow = false;
+
 router.beforeEach((to, from, next) => {
   if (to.meta.title) {
     document.title = to.meta.title;
   }
-  const env = process.env.NODE_ENV;
+  // 除了职位详情，其他页面点开没有UserId 不能打开
+
+  if (store.state.header['X-UserId'] === 8) {
+    if (to.path !== '/job-detail' && isJumpToFollow === false) {
+      isJumpToFollow = true;
+      console.log(1, isJumpToFollow)
+      next('follow');
+    } else {
+      isJumpToFollow = false;
+      next();
+    }
+  } else {
+    next();
+  }
   // 生产环境 限制只能在微信端打开
+  const env = process.env.NODE_ENV;
   if (env === 'production') {
     if (wexin.wexin()) {
       next();
