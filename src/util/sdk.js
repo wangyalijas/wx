@@ -5,6 +5,7 @@ import Store from '@/store/index';
 const jsApiList = ['updateAppMessageShareData', 'onMenuShareAppMessage'];
 
 function getJSSDK(url, dataForWeixin) {
+  alert(url)
   axios({
     url: `http://hufe.club:7002/api/getSignature?url=${encodeURIComponent(url)}`,
     method: 'get',

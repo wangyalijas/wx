@@ -149,18 +149,27 @@ export default {
       return this.recruitType.filter(item => item.id === data).shift().description;
     },
   },
-  created() {
-    this.$nextTick(async () => {
-      await this.fetchPageData();
-      const url = window.location.href.split('#')[0];
-      const obj = {
-        title: this.data.name, // 分享标题
-        desc: this.data.createdAt, // 分享内容
-        link: `${url}`, // 分享链接
-        // imgUrl: this.userInfo.Photo, // 分享内容显示的图片
-      };
-      sdk.getJSSDK(url, obj);
-    });
+  async mounted() {
+    // const url = window.location.href.split('#')[0];
+    // const obj = {
+    //   title: '11', // 分享标题
+    //   desc: '22', // 分享内容
+    //   link: `${window.location.href.split('#')[0]}`, // 分享链接
+    //   // imgUrl: this.userInfo.Photo, // 分享内容显示的图片
+    // };
+    // sdk.getJSSDK(url, obj);
+    // this.$nextTick(async () => {
+    await this.fetchPageData();
+    // const url = window.location.href.split('#')[0];
+    const url = 'http://172.17.28.48:8094';
+    const obj = {
+      title: this.data.name, // 分享标题
+      desc: this.data.createdAt, // 分享内容
+      link: `${url}`, // 分享链接
+      // imgUrl: this.userInfo.Photo, // 分享内容显示的图片
+    };
+    sdk.getJSSDK(url, obj);
+    // });
   },
 };
 </script>
