@@ -64,6 +64,7 @@
 
 <script>
 import { mapState, mapGetters } from 'vuex';
+import sdk from '../../util/sdk';
 
 export default {
   name: 'JobDetail',
@@ -97,9 +98,9 @@ export default {
       });
       return result;
     },
-    fetchPageData() {
+    async fetchPageData() {
       this.$indicator.open();
-      this.$store.dispatch('job/getJob', this.$route.query).then((res) => {
+      await this.$store.dispatch('job/getJob', this.$route.query).then((res) => {
         this.data = res;
         this.$indicator.close();
       });
@@ -149,8 +150,16 @@ export default {
     },
   },
   created() {
-    this.$nextTick(() => {
-      this.fetchPageData();
+    this.$nextTick(async () => {
+      await this.fetchPageData();
+      const url = window.location.href.split('#')[0];
+      const obj = {
+        title: this.data.name, // 分享标题
+        desc: this.data.createdAt, // 分享内容
+        link: `${url}`, // 分享链接
+        // imgUrl: this.userInfo.Photo, // 分享内容显示的图片
+      };
+      sdk.getJSSDK(url, obj);
     });
   },
 };
